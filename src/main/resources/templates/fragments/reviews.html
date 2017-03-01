@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="../../static/css/bootstrap.min.css" rel="stylesheet" />
+<link href="../../static/css/mosh.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="container">
+    <div class="row reviews" th:fragment="reviews">
+      <div class="col-md-12">
+        <h2 th:inline="text">Reviews</h2>
+        <div class="review">
+          <p>
+            <span class="rating"></span> Great product!
+          </p>
+          <p>John D.</p>
+          <p>Lorem ipsum dolor sit amet, consetetur sadipscing
+            elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+            dolore magna aliquyam.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
