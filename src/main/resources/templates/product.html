@@ -22,6 +22,12 @@
           src="../static/images/rach-new_packaging-cc_by_2_0.jpg"
           th:src="@{/images/rach-new_packaging-cc_by_2_0.jpg}"
           alt="Generic placeholder image" />
+        <div>
+          <small class="text-muted" th:inline="text">
+            [[#{general.sampleImage}]]: Rach. <span
+            class="text-emphasized">New Packaging.</span> CC BY 2.0
+          </small>
+        </div>
       </div>
       <div class="col-md-8">
         <h2 th:text="${name}">Product Name</h2>
