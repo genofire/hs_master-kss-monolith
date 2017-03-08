@@ -1,4 +1,6 @@
-package de.mstock;
+package de.mstock.monolith;
+
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +12,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class MonolithApplicationTests {
 
   @Test
-  public void contextLoads() {}
+  public void contextLoads() {
+    assertTrue(true);
+  }
 
 }

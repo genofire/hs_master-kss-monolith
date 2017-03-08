@@ -17,8 +17,8 @@
   <div class="container category">
 
     <div class="row">
-      <div class="col-md-3">
-        <a href="#"><img
+      <div class="col-md-3" th:each="product, row : ${products}">
+        <a href="#" th:href="@{/products/__${product.prettyUrlFragment}__.html}"><img
           class="featurette-image img-responsive center-block"
           src="../static/images/rach-new_packaging-cc_by_2_0.jpg"
           th:src="@{/images/rach-new_packaging-cc_by_2_0.jpg}"
@@ -30,114 +30,9 @@
           </small>
         </div>
         <h5>
-          <a href="#">Product</a>
+          <a href="#" th:text="${product.name}" th:href="@{/products/__${product.prettyUrlFragment}__.html}">Product</a>
         </h5>
-        <p>0,00 Euro</p>
-      </div>
-      <div class="col-md-3">
-        <a href="#"><img
-          class="featurette-image img-responsive center-block"
-          src="../static/images/rach-new_packaging-cc_by_2_0.jpg"
-          th:src="@{/images/rach-new_packaging-cc_by_2_0.jpg}"
-          alt="Generic placeholder image" /></a>
-        <div>
-          <small class="text-muted" th:inline="text">
-            [[#{general.sampleImage}]]: Rach. <span
-            class="text-emphasized">New Packaging.</span> CC BY 2.0
-          </small>
-        </div>
-        <h5>
-          <a href="#">Product</a>
-        </h5>
-        <p>0,00 Euro</p>
-      </div>
-      <div class="col-md-3">
-        <a href="#"><img
-          class="featurette-image img-responsive center-block"
-          src="../static/images/rach-new_packaging-cc_by_2_0.jpg"
-          th:src="@{/images/rach-new_packaging-cc_by_2_0.jpg}"
-          alt="Generic placeholder image" /></a>
-        <div>
-          <small class="text-muted" th:inline="text">
-            [[#{general.sampleImage}]]: Rach. <span
-            class="text-emphasized">New Packaging.</span> CC BY 2.0
-          </small>
-        </div>
-        <h5>
-          <a href="#">Product</a>
-        </h5>
-        <p>0,00 Euro</p>
-      </div>
-      <div class="col-md-3">
-        <a href="#"><img
-          class="featurette-image img-responsive center-block"
-          src="../static/images/rach-new_packaging-cc_by_2_0.jpg"
-          th:src="@{/images/rach-new_packaging-cc_by_2_0.jpg}"
-          alt="Generic placeholder image" /></a>
-        <div>
-          <small class="text-muted" th:inline="text">
-            [[#{general.sampleImage}]]: Rach. <span
-            class="text-emphasized">New Packaging.</span> CC BY 2.0
-          </small>
-        </div>
-        <h5>
-          <a href="#">Product</a>
-        </h5>
-        <p>0,00 Euro</p>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-3">
-        <a href="#"><img
-          class="featurette-image img-responsive center-block"
-          src="../static/images/rach-new_packaging-cc_by_2_0.jpg"
-          th:src="@{/images/rach-new_packaging-cc_by_2_0.jpg}"
-          alt="Generic placeholder image" /></a>
-        <div>
-          <small class="text-muted" th:inline="text">
-            [[#{general.sampleImage}]]: Rach. <span
-            class="text-emphasized">New Packaging.</span> CC BY 2.0
-          </small>
-        </div>
-        <h5>
-          <a href="#">Product</a>
-        </h5>
-        <p>0,00 Euro</p>
-      </div>
-      <div class="col-md-3">
-        <a href="#"><img
-          class="featurette-image img-responsive center-block"
-          src="../static/images/rach-new_packaging-cc_by_2_0.jpg"
-          th:src="@{/images/rach-new_packaging-cc_by_2_0.jpg}"
-          alt="Generic placeholder image" /></a>
-        <div>
-          <small class="text-muted" th:inline="text">
-            [[#{general.sampleImage}]]: Rach. <span
-            class="text-emphasized">New Packaging.</span> CC BY 2.0
-          </small>
-        </div>
-        <h5>
-          <a href="#">Product</a>
-        </h5>
-        <p>0,00 Euro</p>
-      </div>
-      <div class="col-md-3">
-        <a href="#"><img
-          class="featurette-image img-responsive center-block"
-          src="../static/images/rach-new_packaging-cc_by_2_0.jpg"
-          th:src="@{/images/rach-new_packaging-cc_by_2_0.jpg}"
-          alt="Generic placeholder image" /></a>
-        <div>
-          <small class="text-muted" th:inline="text">
-            [[#{general.sampleImage}]]: Rach. <span
-            class="text-emphasized">New Packaging.</span> CC BY 2.0
-          </small>
-        </div>
-        <h5>
-          <a href="#">Product</a>
-        </h5>
-        <p>0,00 Euro</p>
+        <p th:text="${product.price}">1,47 Euro</p>
       </div>
     </div>
 

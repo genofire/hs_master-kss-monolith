@@ -36,12 +36,9 @@
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li th:class="${activeCategory == 'fruits'} ? 'active'"><a href="#"
-                th:href="@{/categories/fruits.html}"
-                th:text="#{navigation.fruits}">Fruits</a></li>
-              <li th:class="${activeCategory == 'vegetables'} ? 'active'"><a href="#"
-                th:href="@{/categories/vegetables.html}"
-                th:text="#{navigation.vegetables}">Vegetables</a></li>
+              <li th:each="category : ${categories}" th:class="${category.prettyUrlFragment == prettyUrlFragment} ? 'active'"><a href="#"
+                th:href="@{/categories/__${category.prettyUrlFragment}__.html}"
+                th:text="${category.name}">Category</a></li>
             </ul>
           </div>
         </div>
