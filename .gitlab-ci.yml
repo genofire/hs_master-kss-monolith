@@ -37,7 +37,8 @@ test:
     POSTGRES_DB: monolith
     POSTGRES_USER: monolith
     POSTGRES_PASSWORD: monolith_it
-    LAB_MONOLITH_DB_IP: postgres
+    LAB_MONOLITH_DB_HOST: postgres
+    LAB_MONOLITH_DB_PORT: "5432"
     LAB_MONOLITH_DB_PASSWORD: monolith_it
   script:
     - ./gradlew -g /cache/.gradle check
