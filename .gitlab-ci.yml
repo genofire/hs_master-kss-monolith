@@ -31,5 +31,13 @@ build:
 # Use the generated build output to run the tests.
 test:
   stage: test
+  services:
+    - postgres:9
+  variables:
+    POSTGRES_DB: monolith
+    POSTGRES_USER: monolith
+    POSTGRES_PASSWORD: monolith_it
+    LAB_MONOLITH_DB_IP: postgres
+    LAB_MONOLITH_DB_PASSWORD: monolith_it
   script:
     - ./gradlew -g /cache/.gradle check
