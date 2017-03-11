@@ -10,11 +10,13 @@ import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 
+import de.mstock.monolith.web.i18n.AcceptHeaderLookupLocaleResolver;
+
 @Configuration
 public class I18nConfig extends WebMvcConfigurerAdapter {
 
   private static final List<Locale> SUPPORTED_LOCALES =
-      Arrays.asList(new Locale("de_DE"), new Locale("en_US"));
+      Arrays.asList(new Locale("en", "US"), new Locale("de", "DE"));
 
   /**
    * Creates a Bean, managed by Spring.
@@ -23,9 +25,10 @@ public class I18nConfig extends WebMvcConfigurerAdapter {
    */
   @Bean
   public LocaleResolver localeResolver() {
-    AcceptHeaderLocaleResolver localeResolver = new AcceptHeaderLocaleResolver();
+    Locale defaultLocale = SUPPORTED_LOCALES.get(0);
+    AcceptHeaderLocaleResolver localeResolver = new AcceptHeaderLookupLocaleResolver(defaultLocale);
     localeResolver.setSupportedLocales(SUPPORTED_LOCALES);
-    localeResolver.setDefaultLocale(Locale.US);
+    localeResolver.setDefaultLocale(defaultLocale);
     return localeResolver;
   }
 
