@@ -1,6 +1,9 @@
 
 # Created by https://www.gitignore.io/api/java,gradle,eclipse,intellij,netbeans
 
+## System setttings
+src/main/resources/application.properties
+
 ### Eclipse ###
 
 .metadata
