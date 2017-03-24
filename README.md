@@ -35,17 +35,17 @@ There should be no issue if the distribution uses a recent kernel.
 
 ## 2. Run Monolith
 
-1.  Set up an environment variable `LAB_MONOLITH_DB_IP` and assign the docker host's IP.
+1.  Set up an environment variable `LAB_MONOLITH_DB_HOST` and assign the docker host's IP.
 
     For docker machine type `docker-machine env` and the value of `$DOCKER_HOST`,
     otherwise `localhost` is probably correct.
 
 2.  Set up an environment variable `LAB_MONOLITH_DB_PASSWORD` and assign any password.
-
+3. For Linux/Mac `chmod +x start-db.sh gradlew` 
 3.  `./start-db.sh`
 
     Starts a PostgreSQL database using the password from `LAB_MONOLITH_DB_PASSWORD`.
 
-4.  `gradle bootRun`
+4.  `./gradlew bootRun`
 5.  Open http://localhost:8080
 6. Happy exploring and di-secting
