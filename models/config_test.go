@@ -1,0 +1,16 @@
+package models
+
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
+
+func TestReadConfig(t *testing.T) {
+	assert := assert.New(t)
+
+	config := ReadConfigFile("../config_example.conf")
+	assert.NotNil(config)
+
+	assert.Equal("[::1]:8080", config.WebserverBind)
+}
