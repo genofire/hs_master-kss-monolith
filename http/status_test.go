@@ -14,6 +14,6 @@ func TestStatus(t *testing.T) {
 
 	result, w := session.JSONRequest("GET", "/api/status", nil)
 	assertion.Equal(http.StatusOK, w.StatusCode)
-	assertion.Equal("hello world", result)
+	assertion.Equal("running", result)
 
 }

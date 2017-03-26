@@ -7,5 +7,5 @@ import (
 )
 
 func statusHandler(w http.ResponseWriter, r *http.Request) {
-	lib.Write(w, "hello world")
+	lib.Write(w, "running")
 }
