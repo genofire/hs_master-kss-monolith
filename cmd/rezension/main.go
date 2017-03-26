@@ -4,6 +4,9 @@ import (
 	"flag"
 	"log"
 	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
 
 	goji "goji.io"
 
@@ -34,5 +37,19 @@ func main() {
 	// Startwebsrver
 	router := goji.NewMux()
 	http_api.BindAPI(router)
-	http.ListenAndServe(config.WebserverBind, router)
+	srv := &http.Server{
+		Addr:    config.WebserverBind,
+		Handler: router,
+	}
+	go srv.ListenAndServe()
+
+	// Wait for system signal
+	sigs := make(chan os.Signal, 1)
+	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
+	sig := <-sigs
+
+	// Stop services
+	srv.Close()
+
+	log.Println("received", sig)
 }
