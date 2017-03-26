@@ -37,15 +37,15 @@ There should be no issue if the distribution uses a recent kernel.
 
 1.  Set up an environment variable `LAB_MONOLITH_DB_HOST` and assign the docker host's IP.
 
-    For docker machine type `docker-machine env` and the value of `$DOCKER_HOST`,
+    For *docker machine* type `docker-machine env` and use the value of `DOCKER_HOST`,
     otherwise `localhost` is probably correct.
 
-2.  Set up an environment variable `LAB_MONOLITH_DB_PASSWORD` and assign any password.
-3. For Linux/Mac `chmod +x start-db.sh gradlew` 
-3.  `./start-db.sh`
+2.  Set up an environment variable `LAB_MONOLITH_DB_PORT` and assign any free port you want the PostgreSQL Database to use.
+3.  Set up an environment variable `LAB_MONOLITH_DB_PASSWORD` and assign any password.
+4.  `./start-db.sh`
 
     Starts a PostgreSQL database using the password from `LAB_MONOLITH_DB_PASSWORD`.
 
-4.  `./gradlew bootRun`
-5.  Open http://localhost:8080
-6. Happy exploring and di-secting
+5.  `./gradlew bootRun`
+6.  Open http://localhost:8080
+7. Happy exploring and di-secting
