@@ -13,4 +13,12 @@ func TestReadConfig(t *testing.T) {
 	assert.NotNil(config)
 
 	assert.Equal("[::1]:8080", config.WebserverBind)
+
+	assert.Panics(func() {
+		ReadConfigFile("../config_example.co")
+	}, "wrong file")
+
+	assert.Panics(func() {
+		ReadConfigFile("testdata/config_panic.conf")
+	}, "wrong toml")
 }
