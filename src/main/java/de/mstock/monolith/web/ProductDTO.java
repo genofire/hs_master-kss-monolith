@@ -1,57 +1,73 @@
 package de.mstock.monolith.web;
 
+import java.util.List;
+
 import de.mstock.monolith.domain.ProductWeightUnit;
 
 public class ProductDTO {
 
-  private final String itemNumber;
-  private final ProductWeightUnit unit;
-  private final String name;
-  private final String prettyUrlFragment;
-  private final String price;
-  private final String description;
-
-  /**
-   * A simplified representation of a product.
-   * 
-   * @param itemNumber A product's unique item number.
-   * @param unit The unit of a product that relates to its price.
-   * @param name The localized name.
-   * @param price The product's price per unit.
-   * @param description The description of the product.
-   */
-  public ProductDTO(String itemNumber, ProductWeightUnit unit, String name,
-      String prettyUrlFragment, String price, String description) {
-    this.itemNumber = itemNumber;
-    this.unit = unit;
-    this.name = name;
-    this.prettyUrlFragment = prettyUrlFragment;
-    this.price = price;
-    this.description = description;
-  }
+  private String itemNumber;
+  private ProductWeightUnit unit;
+  private String name;
+  private String prettyUrlFragment;
+  private String price;
+  private String description;
+  private List<ReviewDTO> reviews;
 
   public String getItemNumber() {
     return itemNumber;
+  }
+
+  public void setItemNumber(String itemNumber) {
+    this.itemNumber = itemNumber;
   }
 
   public ProductWeightUnit getUnit() {
     return unit;
   }
 
+  public void setUnit(ProductWeightUnit unit) {
+    this.unit = unit;
+  }
+
   public String getName() {
     return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getPrettyUrlFragment() {
+    return prettyUrlFragment;
+  }
+
+  public void setPrettyUrlFragment(String prettyUrlFragment) {
+    this.prettyUrlFragment = prettyUrlFragment;
   }
 
   public String getPrice() {
     return price;
   }
 
+  public void setPrice(String price) {
+    this.price = price;
+  }
+
   public String getDescription() {
     return description;
   }
 
-  public String getPrettyUrlFragment() {
-    return prettyUrlFragment;
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public List<ReviewDTO> getReviews() {
+    return reviews;
+  }
+
+  public void setReviews(List<ReviewDTO> reviews) {
+    this.reviews = reviews;
   }
 
 }
