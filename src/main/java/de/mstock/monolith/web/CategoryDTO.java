@@ -2,20 +2,23 @@ package de.mstock.monolith.web;
 
 public class CategoryDTO {
 
-  private final String name;
-  private final String prettyUrlFragment;
-
-  public CategoryDTO(String name, String prettyUrlFragment) {
-    this.name = name;
-    this.prettyUrlFragment = prettyUrlFragment;
-  }
+  private String name;
+  private String prettyUrlFragment;
 
   public String getName() {
     return name;
   }
 
+  public void setName(String name) {
+    this.name = name;
+  }
+
   public String getPrettyUrlFragment() {
     return prettyUrlFragment;
+  }
+
+  public void setPrettyUrlFragment(String prettyUrlFragment) {
+    this.prettyUrlFragment = prettyUrlFragment;
   }
 
 }
