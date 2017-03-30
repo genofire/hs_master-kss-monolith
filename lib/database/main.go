@@ -22,11 +22,17 @@ type Config struct {
 func Open(c Config) (err error) {
 	config = &c
 	Write, err = gorm.Open(config.Type, config.Connection)
+	Write.SingularTable(true)
+	Write.Callback().Create().Remove("gorm:update_time_stamp")
+	Write.Callback().Update().Remove("gorm:update_time_stamp")
 	if err != nil {
 		return
 	}
 	if len(config.ReadConnection) > 0 {
 		Read, err = gorm.Open(config.Type, config.ReadConnection)
+		Read.SingularTable(true)
+		Read.Callback().Create().Remove("gorm:update_time_stamp")
+		Read.Callback().Update().Remove("gorm:update_time_stamp")
 	} else {
 		Read = Write
 	}
@@ -36,9 +42,12 @@ func Open(c Config) (err error) {
 
 func Close() {
 	Write.Close()
+	Write = nil
+
 	if len(config.ReadConnection) > 0 {
 		Read.Close()
 	}
+	Read = nil
 }
 
 func AddModel(m interface{}) {
