@@ -12,8 +12,10 @@ func TestStatus(t *testing.T) {
 	BindAPI(router)
 	session := test.NewSession(router)
 
-	result, w := session.JSONRequest("GET", "/api/status", nil)
+	r, w := session.JSONRequest("GET", "/api/status", nil)
+	result := r.(map[string]interface{})
 	assertion.Equal(http.StatusOK, w.StatusCode)
-	assertion.Equal("running", result)
+	assertion.Equal("running", result["status"])
+	assertion.Equal(float64(0), result["review_count"])
 
 }
