@@ -10,6 +10,7 @@ import (
 	goji "goji.io"
 
 	web "github.com/genofire/hs_master-kss-monolith/http"
+	"github.com/genofire/hs_master-kss-monolith/lib/database"
 	"github.com/genofire/hs_master-kss-monolith/lib/log"
 	"github.com/genofire/hs_master-kss-monolith/models"
 )
@@ -28,6 +29,11 @@ func main() {
 
 	log.Log.Info("Starting rezension monolith")
 
+	err := database.Open(config.Database)
+	if err != nil{
+		log.Log.Panic(err)
+	}
+
 	// Startwebsrver
 	router := goji.NewMux()
 	web.BindAPI(router)
@@ -44,6 +50,7 @@ func main() {
 
 	// Stop services
 	srv.Close()
+	database.Close()
 
 	log.Log.Info("received", sig)
 }
