@@ -11,6 +11,7 @@ import (
 	goji "goji.io"
 
 	http_api "github.com/genofire/hs_master-kss-monolith/http"
+	"github.com/genofire/hs_master-kss-monolith/lib"
 	"github.com/genofire/hs_master-kss-monolith/models"
 )
 
@@ -29,10 +30,10 @@ func main() {
 	config = models.ReadConfigFile(configFile)
 
 	if !timestamps {
-		log.SetFlags(0)
+		lib.Log.DisableTimestamp(true)
 	}
 
-	log.Println("Starting rezension monolith")
+	lib.Log.Info("Starting rezension monolith")
 
 	// Startwebsrver
 	router := goji.NewMux()
