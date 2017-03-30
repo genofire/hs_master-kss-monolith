@@ -13,7 +13,7 @@ func init(){
 }
 
 func LogTimestamp(value bool) {
-	Log.SetFormatter(&log.TextFormatter{
+	log.SetFormatter(&log.TextFormatter{
 		DisableTimestamp: value,
 	})
 }
