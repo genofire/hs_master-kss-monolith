@@ -8,7 +8,7 @@ import (
 
 Log := log.New()
 
-func DisableTimestamp(value bool) {
+func LogTimestamp(value bool) {
 	Log.SetFormatter(&log.TextFormatter{
 		DisableTimestamp: value,
 	})
