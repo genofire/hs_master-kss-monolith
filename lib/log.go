@@ -11,7 +11,7 @@ var Log *logger.Logger
 
 func init(){
 	Log = logger.New()
-	log.SetOutput(logger.Writer())
+	log.SetOutput(Log.Writer())
 }
 
 func LogTimestamp(value bool) {
