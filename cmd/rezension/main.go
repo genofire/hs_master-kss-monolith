@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"log"
 	"net/http"
 	"os"
 	"os/signal"
@@ -30,7 +29,7 @@ func main() {
 	config = models.ReadConfigFile(configFile)
 
 	if !timestamps {
-		lib.Log.DisableTimestamp(true)
+		lib.LogTimestamp(true)
 	}
 
 	lib.Log.Info("Starting rezension monolith")
