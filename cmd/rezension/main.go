@@ -11,6 +11,7 @@ import (
 	goji "goji.io"
 
 	http_api "github.com/genofire/hs_master-kss-monolith/http"
+	"github.com/genofire/hs_master-kss-monolith/lib"
 	"github.com/genofire/hs_master-kss-monolith/models"
 )
 
@@ -28,9 +29,7 @@ func main() {
 	// load config
 	config = models.ReadConfigFile(configFile)
 
-	if !timestamps {
-		log.SetFlags(0)
-	}
+	lib.LogTimestamp(timestamps)
 
 	log.Println("Starting rezension monolith")
 
