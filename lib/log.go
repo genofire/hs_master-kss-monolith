@@ -6,7 +6,11 @@ import (
 	log "github.com/Sirupsen/logrus"
 )
 
-Log := log.New()
+var Log *log.Logger
+
+func init(){
+	Log = log.New()
+}
 
 func LogTimestamp(value bool) {
 	Log.SetFormatter(&log.TextFormatter{
