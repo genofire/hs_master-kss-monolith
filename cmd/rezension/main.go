@@ -2,9 +2,9 @@ package main
 
 import (
 	"flag"
+	"log"
 	"net/http"
 	"os"
-	"log"
 	"os/signal"
 	"syscall"
 
