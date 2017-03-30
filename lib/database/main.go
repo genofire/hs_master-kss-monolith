@@ -1,16 +1,14 @@
 package database
 
 import (
-	"errors"
-
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
 var (
-	Write *gorm.Database
-	Read  *gorm.Database
+	Write *gorm.DB
+	Read  *gorm.DB
 	config *Config
 	models []interface{}
 )
@@ -22,7 +20,7 @@ type Config struct {
 	ReadConnection string
 }
 
-func Open(c Config) (err errors.Error) {
+func Open(c Config) (err error) {
 	config = &c
 	Write, err = gorm.Open(config.Type, config.Connection)
 	if err != nil {

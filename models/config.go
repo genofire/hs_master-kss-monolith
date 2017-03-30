@@ -12,11 +12,7 @@ import (
 //Config the config File of this daemon
 type Config struct {
 	WebserverBind string
-	Database struct {
-		Type string
-		Connection string
-		ReadConnection string
-	}
+	Database database.Config
 }
 
 // ReadConfigFile reads a config model from path of a yml file
