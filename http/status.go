@@ -7,5 +7,6 @@ import (
 )
 
 func statusHandler(w http.ResponseWriter, r *http.Request) {
+	lib.LogHTTP(r).Info("show status")
 	lib.Write(w, "running")
 }
