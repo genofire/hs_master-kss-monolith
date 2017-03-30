@@ -16,7 +16,7 @@ func init(){
 
 func LogTimestamp(value bool) {
 	logger.SetFormatter(&logger.TextFormatter{
-		DisableTimestamp: value,
+		DisableTimestamp: !value,
 	})
 }
 // LogHTTP to add information of a httprequest to log

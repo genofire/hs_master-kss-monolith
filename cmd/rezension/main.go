@@ -29,7 +29,10 @@ func main() {
 	// load config
 	config = models.ReadConfigFile(configFile)
 
-	lib.LogTimestamp(timestamps)
+	if !timestamps {
+		log.SetFlags(0)
+		lib.LogTimestamp(false)
+	}
 
 	log.Println("Starting rezension monolith")
 
