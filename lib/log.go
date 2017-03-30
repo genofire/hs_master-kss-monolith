@@ -8,6 +8,11 @@ import (
 
 Log := log.New()
 
+func DisableTimestamp(value bool) {
+	Log.SetFormatter(&log.TextFormatter{
+		DisableTimestamp: value,
+	})
+}
 // LogHTTP to add information of a httprequest to log
 func LogHTTP(r *http.Request) *log.Entry {
 	ip := r.Header.Get("X-Forwarded-For")
@@ -17,6 +22,6 @@ func LogHTTP(r *http.Request) *log.Entry {
 	return Log.WithFields(log.Fields{
 		"remote":  ip,
 		"method": r.Method,
-    "path": r.URL.Path,
+		"path": r.URL.Path,
 	})
 }
