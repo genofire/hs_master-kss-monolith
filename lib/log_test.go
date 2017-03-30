@@ -13,7 +13,7 @@ func TestLog(t *testing.T) {
 	// No values check, just if it crashed or not
 	LogTimestamp(false)
   
-	req, _ := http.NewRequest("GET", "https://google.com/lola/duda?q=wasd")
+	req, _ := http.NewRequest("GET", "https://google.com/lola/duda?q=wasd", nil)
 	log := LogHTTP(req)
 	_, ok := log.Data["remote"]
   
