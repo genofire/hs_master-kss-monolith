@@ -4,7 +4,7 @@ go:
 install:
   - go get -t github.com/genofire/hs_master-kss-monolith/...
   - go get github.com/mattn/goveralls
-  - go get golang.org/x/tools/cmd/cover
+  - go get "golang.org/x/tools/cmd/cover"
 script:
   - ./.test-coverage
   - go install github.com/genofire/hs_master-kss-monolith/cmd/review
