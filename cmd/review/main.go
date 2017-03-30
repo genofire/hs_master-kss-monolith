@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"log"
 	"net/http"
 	"os"
 	"os/signal"
@@ -10,35 +9,28 @@ import (
 
 	goji "goji.io"
 
-	http_api "github.com/genofire/hs_master-kss-monolith/http"
-	"github.com/genofire/hs_master-kss-monolith/lib"
+	web "github.com/genofire/hs_master-kss-monolith/http"
+	"github.com/genofire/hs_master-kss-monolith/lib/log"
 	"github.com/genofire/hs_master-kss-monolith/models"
 )
 
 var (
 	configFile string
 	config     *models.Config
-	timestamps bool
 )
 
 func main() {
-	flag.BoolVar(&timestamps, "timestamps", true, "print timestamps in output")
 	flag.StringVar(&configFile, "config", "config.conf", "path of configuration file (default:config.conf)")
 	flag.Parse()
 
 	// load config
 	config = models.ReadConfigFile(configFile)
 
-	if !timestamps {
-		log.SetFlags(0)
-		lib.LogTimestamp(false)
-	}
-
-	log.Println("Starting rezension monolith")
+	log.Log.Info("Starting rezension monolith")
 
 	// Startwebsrver
 	router := goji.NewMux()
-	http_api.BindAPI(router)
+	web.BindAPI(router)
 	srv := &http.Server{
 		Addr:    config.WebserverBind,
 		Handler: router,
@@ -53,5 +45,5 @@ func main() {
 	// Stop services
 	srv.Close()
 
-	log.Println("received", sig)
+	log.Log.Info("received", sig)
 }

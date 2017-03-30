@@ -1,4 +1,4 @@
-package lib
+package log
 
 import (
 	"net/http"
@@ -10,11 +10,8 @@ import (
 func TestLog(t *testing.T) {
 	assertion := assert.New(t)
   
-	// No values check, just if it crashed or not
-	LogTimestamp(false)
-  
 	req, _ := http.NewRequest("GET", "https://google.com/lola/duda?q=wasd", nil)
-	log := LogHTTP(req)
+	log := HTTP(req)
 	_, ok := log.Data["remote"]
   
  	assertion.NotNil(ok, "remote address not set in logger")

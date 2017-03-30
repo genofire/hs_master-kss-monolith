@@ -3,11 +3,12 @@ package http
 import (
 	"net/http"
 
-	"github.com/genofire/hs_master-kss-monolith/lib"
+	lib "github.com/genofire/hs_master-kss-monolith/lib/http"
+	logger "github.com/genofire/hs_master-kss-monolith/lib/log"
 )
 
 func statusHandler(w http.ResponseWriter, r *http.Request) {
-	log := lib.LogHTTP(r)
+	log := logger.HTTP(r)
 	lib.Write(w, "running")
 	log.Info("show status")
 }

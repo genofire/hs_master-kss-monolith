@@ -1,4 +1,4 @@
-package lib
+package log
 
 import (
 	"log"
@@ -11,16 +11,12 @@ var Log *logger.Logger
 
 func init(){
 	Log = logger.New()
+	// Enable fallback if core logger is used:
 	log.SetOutput(Log.Writer())
 }
 
-func LogTimestamp(value bool) {
-	logger.SetFormatter(&logger.TextFormatter{
-		DisableTimestamp: !value,
-	})
-}
-// LogHTTP to add information of a httprequest to log
-func LogHTTP(r *http.Request) *logger.Entry {
+// HTTP to add information of a httprequest to log
+func HTTP(r *http.Request) *logger.Entry {
 	ip := r.Header.Get("X-Forwarded-For")
 	if len(ip) <= 1 {
 		ip = r.RemoteAddr
