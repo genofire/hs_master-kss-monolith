@@ -30,7 +30,7 @@ func main() {
 	log.Log.Info("Starting rezension monolith")
 
 	err := database.Open(config.Database)
-	if err != nil{
+	if err != nil {
 		log.Log.Panic(err)
 	}
 

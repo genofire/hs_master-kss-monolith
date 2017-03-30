@@ -9,7 +9,7 @@ import (
 
 var Log *logger.Logger
 
-func init(){
+func init() {
 	Log = logger.New()
 	// Enable fallback if core logger is used:
 	log.SetOutput(Log.Writer())
@@ -22,8 +22,8 @@ func HTTP(r *http.Request) *logger.Entry {
 		ip = r.RemoteAddr
 	}
 	return Log.WithFields(logger.Fields{
-		"remote":  ip,
+		"remote": ip,
 		"method": r.Method,
-		"url": r.URL.RequestURI(),
+		"url":    r.URL.RequestURI(),
 	})
 }

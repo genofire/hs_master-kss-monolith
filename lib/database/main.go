@@ -2,21 +2,20 @@ package database
 
 import (
 	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
+	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 
 var (
-	Write *gorm.DB
-	Read  *gorm.DB
+	Write  *gorm.DB
+	Read   *gorm.DB
 	config *Config
 	models []interface{}
 )
 
-
 type Config struct {
-	Type string
-	Connection string
+	Type           string
+	Connection     string
 	ReadConnection string
 }
 

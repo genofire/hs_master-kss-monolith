@@ -5,14 +5,14 @@ import (
 
 	"github.com/influxdata/toml"
 
-	"github.com/genofire/hs_master-kss-monolith/lib/log"
 	"github.com/genofire/hs_master-kss-monolith/lib/database"
+	"github.com/genofire/hs_master-kss-monolith/lib/log"
 )
 
 //Config the config File of this daemon
 type Config struct {
 	WebserverBind string
-	Database database.Config
+	Database      database.Config
 }
 
 // ReadConfigFile reads a config model from path of a yml file
