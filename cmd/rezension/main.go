@@ -4,6 +4,7 @@ import (
 	"flag"
 	"net/http"
 	"os"
+	"log"
 	"os/signal"
 	"syscall"
 
@@ -32,7 +33,7 @@ func main() {
 		lib.LogTimestamp(true)
 	}
 
-	lib.Log.Info("Starting rezension monolith")
+	log.Println("Starting rezension monolith")
 
 	// Startwebsrver
 	router := goji.NewMux()
