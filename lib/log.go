@@ -28,6 +28,6 @@ func LogHTTP(r *http.Request) *logger.Entry {
 	return Log.WithFields(logger.Fields{
 		"remote":  ip,
 		"method": r.Method,
-		"path": r.URL.Path,
+		"url": r.URL.RequestURI(),
 	})
 }
