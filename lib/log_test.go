@@ -1,13 +1,14 @@
 package lib
 
 import (
+	"net/http"
 	"testing"
 	
 	"github.com/stretchr/testify/assert"
 )
 
 func TestLog(t *testing.T) {
-	assertion = assert.New(t)
+	assertion := assert.New(t)
   
 	// No values check, just if it crashed or not
 	LogTimestamp(false)
