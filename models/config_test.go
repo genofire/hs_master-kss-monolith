@@ -12,7 +12,7 @@ func TestReadConfig(t *testing.T) {
 	config := ReadConfigFile("../config_example.conf")
 	assert.NotNil(config)
 
-	assert.Equal("[::1]:8080", config.WebserverBind)
+	assert.Equal(":8080", config.WebserverBind)
 
 	assert.Panics(func() {
 		ReadConfigFile("../config_example.co")
