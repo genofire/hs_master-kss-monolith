@@ -8,6 +8,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"github.com/genofire/hs_master-kss-monolith/lib/database"
 	"github.com/stretchr/testify/assert"
 
 	goji "goji.io"
@@ -16,9 +17,17 @@ import (
 //Init to initialisieren a API
 func Init(t *testing.T) (assertion *assert.Assertions, router *goji.Mux) {
 	assertion = assert.New(t)
-
+	database.Open(database.Config{
+		Type:       "sqlite3",
+		Connection: ":memory:",
+	})
+	database.Write.LogMode(true)
 	router = goji.NewMux()
 	return
+}
+
+func Close() {
+	database.Close()
 }
 
 type Request struct {

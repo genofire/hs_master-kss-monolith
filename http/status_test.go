@@ -9,6 +9,7 @@ import (
 
 func TestStatus(t *testing.T) {
 	assertion, router := test.Init(t)
+
 	BindAPI(router)
 	session := test.NewSession(router)
 
@@ -18,4 +19,5 @@ func TestStatus(t *testing.T) {
 	assertion.Equal("running", result["status"])
 	assertion.Equal(float64(0), result["review_count"])
 
+	test.Close()
 }

@@ -7,5 +7,5 @@ import (
 
 func BindAPI(router *goji.Mux) {
 	router.HandleFunc(pat.Get("/api/status"), status)
-	router.HandleFunc(pat.Get("/api/reviews"), listReview)
+	router.HandleFunc(pat.Get("/api/review/:productid"), listReview)
 }
