@@ -19,9 +19,9 @@ func Init(t *testing.T) (assertion *assert.Assertions, router *goji.Mux) {
 	assertion = assert.New(t)
 	database.Open(database.Config{
 		Type:       "sqlite3",
+		Logging:    true,
 		Connection: ":memory:",
 	})
-	database.Write.LogMode(true)
 	router = goji.NewMux()
 	return
 }

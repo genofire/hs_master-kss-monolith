@@ -25,14 +25,13 @@ func TestOpenOneDB(t *testing.T) {
 
 	c := Config{
 		Type:       "sqlite3",
+		Logging:    true,
 		Connection: "file:database?mode=memory",
 	}
 	var count int64
 
 	err := Open(c)
 	assert.NoError(err, "no error")
-	Write.LogMode(true)
-	Read.LogMode(true)
 
 	Write.Create(&TestModel{Value: "first"})
 	Write.Create(&TestModel{Value: "secound"})
@@ -49,6 +48,7 @@ func TestOpenTwoDB(t *testing.T) {
 
 	c := Config{
 		Type:           "sqlite3",
+		Logging:        true,
 		Connection:     "file:database?mode=memory",
 		ReadConnection: "file:database2?mode=memory",
 	}
@@ -56,8 +56,6 @@ func TestOpenTwoDB(t *testing.T) {
 
 	err := Open(c)
 	assert.NoError(err, "no error")
-	Write.LogMode(true)
-	Read.LogMode(true)
 
 	Write.Create(&TestModel{Value: "first"})
 	Write.Create(&TestModel{Value: "secound"})
