@@ -20,7 +20,7 @@ func listReview(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "wrong productid", http.StatusNotAcceptable)
 		return
 	}
-	log.WithField("productid", id)
+	log = log.WithField("productid", id)
 	var list []*models.Review
 	result := database.Read.Where("product_id = ?", id).Find(&list)
 	if result.RowsAffected == 0 {

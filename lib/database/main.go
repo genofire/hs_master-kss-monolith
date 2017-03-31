@@ -17,12 +17,14 @@ type Config struct {
 	Type           string
 	Connection     string
 	ReadConnection string
+	Logging bool
 }
 
 func Open(c Config) (err error) {
 	config = &c
 	Write, err = gorm.Open(config.Type, config.Connection)
 	Write.SingularTable(true)
+	Write.LogMode(c.Logging)
 	Write.Callback().Create().Remove("gorm:update_time_stamp")
 	Write.Callback().Update().Remove("gorm:update_time_stamp")
 	if err != nil {
@@ -31,6 +33,7 @@ func Open(c Config) (err error) {
 	if len(config.ReadConnection) > 0 {
 		Read, err = gorm.Open(config.Type, config.ReadConnection)
 		Read.SingularTable(true)
+		Read.LogMode(c.Logging)
 		Read.Callback().Create().Remove("gorm:update_time_stamp")
 		Read.Callback().Update().Remove("gorm:update_time_stamp")
 	} else {
