@@ -1,0 +1,25 @@
+\section{Definition der Anforderungen}
+\label{sec: Definition der Anforderungen}
+
+Der Microservice Warenwirtschaft dient der Verwaltung der einzelnen Waren pro Produkt für den Webshop Mosh, sodass zum Beispiel neue Waren erfasst und keine Waren verkauft werden können, die sich nicht mehr im Lagerbestand befinden. Dieser Microservice basiert auf den nachfolgend aufgeführten Anforderungen. Mit dem Begriff Produkt werden im Folgenden die über Mosh angebotenen Früchtearten, zum Beispiel Kiwis bezeichnet, während mit dem Begriff Ware die einzelnen Positionen pro Fruchtart im Lagerbestand bezeichnet werden.
+
+\begin{itemize}
+	\item Speicherung der Waren pro Produkt mit einem Zeitstempel, wann sie erfasst wurden sowie ihrem Lagerort
+	\item Admin-Frontend
+	\begin{itemize}
+		\item Hinzufügen neuer Waren zum Bestand
+		\item Manuelles Entfernen von Waren aus dem Bestand, zum Beispiel wenn der Bestand verdorben ist
+		\item Entfernen von Waren aus dem Bestand, wenn diese an einen Kunden versendet werden
+		\item Blockieren von Waren in dem Bestand, wenn ein Kunde sie in seinen Warenkorb gelegt hat
+		\item Automatische Freigaben von blockierten Waren, wenn diese nach 30 Minuten nicht an den Versand überstellt wurden
+	\end{itemize}
+	\item Kunden-Frontend
+	\begin{itemize}
+		\item Anzeige der Produktverfügbarkeit über ein Ampelsystem, mehr als zehn Waren entsprechen grün, fünf bis zehn Waren entsprechen gelb und weniger als fünf Waren entsprechen rot 
+	\end{itemize}
+	\item Optionale Zusatz-Funktionen
+	\begin{itemize}
+		\item Ausgabe einer Statistik, wie viele Waren im letzten Monat aus dem Bestand versandt und wie viele manuell entfernt wurden im Admin-Fontend
+		\item Ampeldarstellung pro Waren, die Anzeigt ab die Ware bereits überaltert ist, im Admin-Frontend
+	\end{itemize}
+\end{itemize}

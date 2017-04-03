@@ -1,0 +1,71 @@
+\section{Backbox-Testfälle}
+\label{sec: Blackbox-Testfaelle}
+
+Die in den Microservice integrierten Tests, prüfen ob jedes Stück Code auch wirklich ausgeführt wird (Code Coverage) und die Anforderungen funktionell erfüllt werden. Da diese Tests mit der Kenntnis des Codes beschrieben wurden, nennt man sie auch Whitebox-Tests. Neben der Sicht des Entwicklers sollte beim Test aber auch die Sicht des Benutzers nicht außer Acht gelassen und ein sogenannter Blackbox-Test, ohne Kenntnis des Codes durchgeführt werden. Dies ermöglicht die Prüfung, ob die Anforderungen auch aus der Sicht des Benutzers, der weder den Code noch die internen Abläufe innerhalb des Microservice kennt, erfüllt werden. Zu diesem Zweck wurden die folgenden Testfälle anhand der Anforderungen erstellt. Sie definieren zunächst das Vorgehen bei der Testdurchführung und anschließend den erwarteten Soll- sowie den eingetretenen Ist-Zustand. Das Protokoll eines durchgeführten Blackbox-Tests findet sich unter Anhang \ref{sec: Testprotokoll vom XX.06.2017}. 
+
+
+\begin{table}[H]
+\begin{small}
+	\begin{center}
+  	\caption{Blackbox-Testfälle}
+   	\renewcommand{\arraystretch}{1.2}
+    \begin{tabularx}{\textwidth}{|X|X|L{2cm}|}		
+    
+    \hline
+    			
+    \textbf{Vorgehen} & \textbf{Soll} & \textbf{Ist} \\ \hline
+    
+    Aufruf der URL \texttt{XXX} & 
+    Anzeige des Login-Feldes für das Admin-Frontend &
+     \\ \hline
+    
+    Anmeldung mit dem Benutzernamen X und dem Passwort Y & 
+    Erfolgreicher Login, Anzeige des Warenwirtschaft-Frontend &
+     \\ \hline
+    
+    - & 
+    Das Frontend zeigt eine Liste der Waren pro Produkt mit ihrem Zeitstempel &
+     \\ \hline
+     
+     - &
+     Es wird angezeigt, dass keine Kirschen mehr vorhanden sind & 
+    \\ \hline
+    
+    Hinzufügen von 5 Kiwis über den Button \texttt{+} &
+    Es werden 5 Kiwis mit der aktuellen Zeit zu dem Bestand hinzugefügt &
+    \\ \hline
+    
+    Entfernen von 2 Tomaten über den Button \texttt{-} &
+    Es werden die angegeben 2 Tomanten aus dem Bestand entfernt & 
+    \\ \hline
+    
+    Aufruf der URL \texttt{XXX} &
+    Anzeige des Kunden-Frontend für Kirschen,
+    Anzeige der Verfügbarkeit mit einer roten Ampel &
+    \\ \hline
+    
+    Aufruf der URL \texttt{XXX} &
+    Anzeige des Kunden-Frontend für Tomaten,
+    Anzeige der Verfügbarkeit mit einer gelben Ampel &
+	\\ \hline
+    
+    Aufruf der URL \texttt{XXX} &
+    Anzeige des Kunden-Frontend für Kiwis,
+    Anzeige der Verfügbarkeit mit einer grünen Ampel &
+	\\ \hline
+	
+	Bestellen von 2 Kiwis &
+	Im Admin-Frontend werden 2 Kiwis als blockiert angezeigt &
+	\\ \hline
+	
+	Transportbestätigung für die 2 Kiwis &
+	Im Admin-Frontend werden die 2 Kiwis automatisch aus dem Bestand gelöscht & 
+	\\ \hline
+	
+	\end{tabularx}
+	\label{tabl:Backbox-Testfaelle}
+	\end{center}
+\end{small}
+\end{table}
+
+ 
