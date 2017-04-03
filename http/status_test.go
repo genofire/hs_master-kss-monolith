@@ -17,7 +17,8 @@ func TestStatus(t *testing.T) {
 	result := r.(map[string]interface{})
 	assertion.Equal(http.StatusOK, w.StatusCode)
 	assertion.Equal("running", result["status"])
-	assertion.Equal(float64(0), result["review_count"])
+	good := result["good"].(map[string]interface{})
+	assertion.Equal(float64(0), good["count"])
 
 	test.Close()
 }

@@ -7,4 +7,4 @@ install:
   - go get "golang.org/x/tools/cmd/cover"
 script:
   - ./.test-coverage
-  - go install github.com/genofire/hs_master-kss-monolith/cmd/review
+  - go install github.com/genofire/hs_master-kss-monolith/cmd/stock

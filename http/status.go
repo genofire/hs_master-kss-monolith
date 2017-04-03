@@ -11,9 +11,16 @@ import (
 
 func status(w http.ResponseWriter, r *http.Request) {
 	log := logger.HTTP(r)
-	var reviews []*models.Review
+	var good []*models.Good
 	var count int64
-	database.Read.Find(&reviews).Count(&count)
-	lib.Write(w, map[string]interface{}{"status": "running", "review_count": count})
+	var avg int64
+	database.Read.Find(&good).Count(&count) //.Avg(&avg)
+	lib.Write(w, map[string]interface{}{
+		"status": "running",
+		"good": map[string]interface{}{
+			"count": count,
+			"avg":   avg,
+		},
+	})
 	log.Info("done")
 }
