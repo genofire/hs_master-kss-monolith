@@ -17,15 +17,15 @@ func TestStatus(t *testing.T) {
 
 	database.Write.Create(&models.Good{
 		ProductID: 3,
-		Comment:   "regal 1",
+		Position:  "regal 1",
 	})
 	database.Write.Create(&models.Good{
 		ProductID: 3,
-		Comment:   "regal 2",
+		Position:  "regal 2",
 	})
 	database.Write.Create(&models.Good{
 		ProductID: 1,
-		Comment:   "regal 10",
+		Position:  "regal 10",
 	})
 
 	r, w := session.JSONRequest("GET", "/api/status", nil)

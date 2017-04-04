@@ -3,7 +3,7 @@ package models
 import (
 	"io/ioutil"
 
-	"github.com/influxdata/toml"
+	"github.com/BurntSushi/toml"
 
 	"github.com/genofire/hs_master-kss-monolith/lib/database"
 	"github.com/genofire/hs_master-kss-monolith/lib/log"
@@ -11,8 +11,12 @@ import (
 
 //Config the config File of this daemon
 type Config struct {
-	WebserverBind string
-	Database      database.Config
+	WebserverBind string          `toml:"webserver_bind"`
+	Database      database.Config `toml:"database"`
+	GoodRelease   struct {
+		After Duration `toml:"after"`
+		Timer Duration `toml:"timer"`
+	} `toml:"good_release"`
 }
 
 // ReadConfigFile reads a config model from path of a yml file

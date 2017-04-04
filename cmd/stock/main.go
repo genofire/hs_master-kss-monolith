@@ -33,7 +33,8 @@ func main() {
 	if err != nil {
 		log.Log.Panic(err)
 	}
-
+	grw := models.NewGoodReleaseWorker(config.GoodRelease)
+	go grw.Start()
 	// Startwebsrver
 	router := goji.NewMux()
 	web.BindAPI(router)
@@ -50,6 +51,7 @@ func main() {
 
 	// Stop services
 	srv.Close()
+	grw.Close()
 	database.Close()
 
 	log.Log.Info("received", sig)

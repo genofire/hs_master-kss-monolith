@@ -11,11 +11,11 @@ import (
 
 func status(w http.ResponseWriter, r *http.Request) {
 	log := logger.HTTP(r)
-	var good []*models.Good
+	var goods []*models.Good
 	var count int64
 	var avg float64
-	database.Read.Find(&good).Count(&count) //.Avg(&avg)
-	database.Read.Raw("SELECT avg(g.gcount) as avg FROM (select count(*) as gcount FROM good g GROUP BY g.product_id) g").Row().Scan(&avg)
+	database.Read.Find(&goods).Count(&count)
+	database.Read.Raw("SELECT avg(g.gcount) as avg FROM (select count(*) as gcount FROM good g WHERE deleted_at is NULL GROUP BY g.product_id) g").Row().Scan(&avg)
 	lib.Write(w, map[string]interface{}{
 		"status": "running",
 		"database": map[string]interface{}{

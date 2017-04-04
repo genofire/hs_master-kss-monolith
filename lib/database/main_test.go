@@ -45,8 +45,17 @@ func TestOpenOneDB(t *testing.T) {
 func TestOpenTwoDB(t *testing.T) {
 	assert := assert.New(t)
 	AddModel(&TestModel{})
-
 	c := Config{
+		Type:           "sqlite3",
+		Logging:        true,
+		Connection:     "file:database?mode=memory",
+		ReadConnection: "file/",
+	}
+
+	err := Open(c)
+	assert.Error(err, "no error found")
+
+	c = Config{
 		Type:           "sqlite3",
 		Logging:        true,
 		Connection:     "file:database?mode=memory",
@@ -54,7 +63,7 @@ func TestOpenTwoDB(t *testing.T) {
 	}
 	var count int64
 
-	err := Open(c)
+	err = Open(c)
 	assert.NoError(err, "no error")
 
 	Write.Create(&TestModel{Value: "first"})
@@ -67,5 +76,4 @@ func TestOpenTwoDB(t *testing.T) {
 	result := Read.Find(&list)
 	assert.Error(result.Error, "error, because it is the wrong database")
 	Close()
-
 }
