@@ -126,4 +126,5 @@ __pycache__
 
 
 # go project
+config.conf
 cmd/stock/config.conf
