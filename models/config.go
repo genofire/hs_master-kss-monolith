@@ -11,9 +11,10 @@ import (
 
 //Config the config File of this daemon
 type Config struct {
-	WebserverBind string          `toml:"webserver_bind"`
-	Database      database.Config `toml:"database"`
-	GoodRelease   struct {
+	WebserverBind           string          `toml:"webserver_bind"`
+	Database                database.Config `toml:"database"`
+	GoodAvailablityTemplate string          `toml:"good_availablity_template"`
+	GoodRelease             struct {
 		After Duration `toml:"after"`
 		Timer Duration `toml:"timer"`
 	} `toml:"good_release"`

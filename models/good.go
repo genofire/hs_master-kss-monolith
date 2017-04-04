@@ -26,7 +26,7 @@ type Good struct {
 }
 
 func (g *Good) FilterAvailable(db *gorm.DB) *gorm.DB {
-	return db.Where("locked_secret is NULL deleted_at is NULL and send_at is NULL")
+	return db.Model(g).Where("locked_secret == '' OR locked_secret is NULL")
 }
 
 func (g *Good) Lock(secret string) {

@@ -8,4 +8,5 @@ import (
 func BindAPI(router *goji.Mux) {
 	router.HandleFunc(pat.Get("/api/status"), status)
 	router.HandleFunc(pat.Get("/api/good/:productid"), listGoods)
+	router.HandleFunc(pat.Get("/api/good/availablity/:productid"), getGoodAvailablity)
 }

@@ -3,6 +3,7 @@ package models
 import (
 	"testing"
 
+	"github.com/genofire/hs_master-kss-monolith/lib/database"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -21,4 +22,7 @@ func TestGood(t *testing.T) {
 
 	good.Unlock("blub_secret")
 	assert.False(good.IsLock())
+
+	assert.NotNil(good.FilterAvailable(database.Read))
+
 }

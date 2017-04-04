@@ -2,7 +2,9 @@ package http
 
 import (
 	"net/http"
+	"net/http/httptest"
 	"testing"
+	"time"
 
 	"github.com/genofire/hs_master-kss-monolith/lib/database"
 	"github.com/genofire/hs_master-kss-monolith/models"
@@ -10,7 +12,7 @@ import (
 	"github.com/genofire/hs_master-kss-monolith/test"
 )
 
-func TestGood(t *testing.T) {
+func TestListGood(t *testing.T) {
 	assertion, router := test.Init(t)
 
 	BindAPI(router)
@@ -30,6 +32,48 @@ func TestGood(t *testing.T) {
 	result, w = session.JSONRequest("GET", "/api/good/3", nil)
 	assertion.Equal(http.StatusOK, w.StatusCode)
 	assertion.Len(result, 1)
+
+	test.Close()
+}
+
+func TestGetGoodAvailable(t *testing.T) {
+	now := time.Now()
+	assertion, router := test.Init(t)
+
+	BindAPI(router)
+	session := test.NewSession(router)
+
+	result, w := session.JSONRequest("GET", "/api/good/availablity/a", nil)
+	assertion.Equal(http.StatusNotAcceptable, w.StatusCode)
+
+	result, w = session.JSONRequest("GET", "/api/good/availablity/1", nil)
+	assertion.Equal(http.StatusOK, w.StatusCode)
+	assertion.Equal(float64(0), result)
+
+	database.Write.Create(&models.Good{
+		ProductID:    3,
+		Comment:      "blub",
+		LockedAt:     &now,
+		LockedSecret: "hidden",
+	})
+	database.Write.Create(&models.Good{
+		ProductID: 3,
+		Comment:   "blub",
+	})
+	database.Write.Create(&models.Good{
+		ProductID: 3,
+		Comment:   "blub",
+	})
+
+	result, w = session.JSONRequest("GET", "/api/good/availablity/3", nil)
+	assertion.Equal(http.StatusOK, w.StatusCode)
+	assertion.Equal(float64(2), result)
+
+	req, _ := http.NewRequest("GET", "/api/good/availablity/3", nil)
+	req.Header.Set("Content-Type", "image/svg+xml")
+	rec := httptest.NewRecorder()
+	router.ServeHTTP(rec, req)
+	assertion.Equal(http.StatusOK, w.StatusCode)
 
 	test.Close()
 }

@@ -26,6 +26,7 @@ func main() {
 
 	// load config
 	config = models.ReadConfigFile(configFile)
+	web.GoodAvailablityTemplate = config.GoodAvailablityTemplate
 
 	log.Log.Info("Starting rezension monolith")
 

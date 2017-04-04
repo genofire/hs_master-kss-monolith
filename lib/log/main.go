@@ -9,6 +9,8 @@ import (
 
 var Log *logger.Logger
 
+type Logger logger.Entry
+
 func init() {
 	Log = logger.New()
 	// Enable fallback if core logger is used:
