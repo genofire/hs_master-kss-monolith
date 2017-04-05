@@ -24,11 +24,7 @@ func init() {
 
 func (p *Product) Exists() (bool, error) {
 	if cache, ok := productExistCache[p.ID]; ok {
-		// cache for 5min
-		before := time.Now().Add(-time.Minute * 5)
-		if !cache.LastCheck.Before(before) {
-			return cache.Value, nil
-		}
+		return cache.Value, nil
 	}
 
 	url := fmt.Sprintf(ProductURL, p.ID)

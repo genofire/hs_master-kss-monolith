@@ -27,9 +27,8 @@ type permissionMicroServiceCache struct {
 func (c *permissionMicroServiceCache) HasPermission(p Permission) (bool, error) {
 	c.LastCheck = time.Now()
 	if cache, ok := c.permissions[p]; ok {
-		// cache for 5min
-		before := time.Now().Add(-time.Minute * 5)
-		if !cache.LastCheck.Before(before) {
+		before := time.Now().Add(-CacheConfig.After.Duration)
+		if before.After(cache.LastCheck) {
 			return cache.Value, nil
 		}
 	}

@@ -27,6 +27,7 @@ func main() {
 	// load config
 	config = models.ReadConfigFile(configFile)
 	web.GoodAvailablityTemplate = config.GoodAvailablityTemplate
+	models.CacheConfig = config.CacheClean
 
 	log.Log.Info("Starting rezension monolith")
 
@@ -35,7 +36,7 @@ func main() {
 		log.Log.Panic(err)
 	}
 	grw := models.NewGoodReleaseWorker(config.GoodRelease)
-	cw := models.NewCacheWorker(config.CacheClean)
+	cw := models.NewCacheWorker()
 	go grw.Start()
 	go cw.Start()
 	// Startwebsrver

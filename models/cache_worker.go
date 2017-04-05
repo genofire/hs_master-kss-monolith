@@ -1,23 +1,30 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	"github.com/genofire/hs_master-kss-monolith/lib/worker"
+)
+
+var CacheConfig CacheWorkerConfig
 
 type CacheWorkerConfig struct {
 	Every Duration
 	After Duration
 }
 
-func NewCacheWorker(config CacheWorkerConfig) (w *Worker) {
-	return NewWorker(config.Every.Duration, func() {
+func NewCacheWorker() (w *worker.Worker) {
+	return worker.NewWorker(CacheConfig.Every.Duration, func() {
+		before := time.Now().Add(-CacheConfig.After.Duration)
 		// Cache if product exists
 		for index, cache := range productExistCache {
-			if cache.LastCheck.After(time.Now().Add(-config.After.Duration)) {
+			if before.After(cache.LastCheck) {
 				delete(productExistCache, index)
 			}
 		}
 		// Cache for permissions
 		for index, cache := range permissionCache {
-			if cache.LastCheck.After(time.Now().Add(-config.After.Duration)) {
+			if before.After(cache.LastCheck) {
 				delete(permissionCache, index)
 			}
 		}

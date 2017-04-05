@@ -12,4 +12,8 @@ func TestAuth(t *testing.T) {
 	perm, err := HasPermission("session", PermissionCreateGood)
 	assert.NoError(err)
 	assert.True(perm)
+
+	perm, err = HasPermission("session", PermissionCreateGood)
+	assert.NoError(err)
+	assert.True(perm)
 }

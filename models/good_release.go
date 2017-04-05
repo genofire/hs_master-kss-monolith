@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/genofire/hs_master-kss-monolith/lib/database"
+	"github.com/genofire/hs_master-kss-monolith/lib/worker"
 )
 
 type GoodReleaseConfig struct {
@@ -11,8 +12,8 @@ type GoodReleaseConfig struct {
 	Every Duration `toml:"every"`
 }
 
-func NewGoodReleaseWorker(grc GoodReleaseConfig) *Worker {
-	return NewWorker(grc.Every.Duration, func() {
+func NewGoodReleaseWorker(grc GoodReleaseConfig) *worker.Worker {
+	return worker.NewWorker(grc.Every.Duration, func() {
 		goodRelease(grc.After.Duration)
 	})
 }
