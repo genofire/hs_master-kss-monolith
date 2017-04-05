@@ -32,7 +32,7 @@ func TestGoodRelease(t *testing.T) {
 	assert.Equal(int64(1), count, "unlock after timeout")
 
 	grw := NewGoodReleaseWorker(GoodReleaseConfig{
-		Timer: Duration{Duration: time.Duration(3) * time.Millisecond},
+		Every: Duration{Duration: time.Duration(3) * time.Millisecond},
 		After: Duration{Duration: time.Duration(5) * time.Millisecond},
 	})
 	go grw.Start()

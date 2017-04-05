@@ -19,7 +19,7 @@ type Good struct {
 	RecievedAt *time.Time `sql:"default:current_timestamp"`
 	// Make it temporary unusable
 	LockedAt     *time.Time
-	LockedSecret string
+	LockedSecret string `json:"-"`
 	// Make it unusable
 	DeletedAt *time.Time
 	Sended    bool

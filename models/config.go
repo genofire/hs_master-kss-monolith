@@ -11,13 +11,11 @@ import (
 
 //Config the config File of this daemon
 type Config struct {
-	WebserverBind           string          `toml:"webserver_bind"`
-	Database                database.Config `toml:"database"`
-	GoodAvailablityTemplate string          `toml:"good_availablity_template"`
-	GoodRelease             struct {
-		After Duration `toml:"after"`
-		Timer Duration `toml:"timer"`
-	} `toml:"good_release"`
+	WebserverBind           string            `toml:"webserver_bind"`
+	Database                database.Config   `toml:"database"`
+	GoodAvailablityTemplate string            `toml:"good_availablity_template"`
+	GoodRelease             GoodReleaseConfig `toml:"good_release"`
+	CacheClean              CacheWorkerConfig `toml:"cache_clean"`
 }
 
 // ReadConfigFile reads a config model from path of a yml file

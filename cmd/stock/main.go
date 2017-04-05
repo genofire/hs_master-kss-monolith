@@ -35,7 +35,9 @@ func main() {
 		log.Log.Panic(err)
 	}
 	grw := models.NewGoodReleaseWorker(config.GoodRelease)
+	cw := models.NewCacheWorker(config.CacheClean)
 	go grw.Start()
+	go cw.Start()
 	// Startwebsrver
 	router := goji.NewMux()
 	web.BindAPI(router)
@@ -53,6 +55,7 @@ func main() {
 	// Stop services
 	srv.Close()
 	grw.Close()
+	cw.Close()
 	database.Close()
 
 	log.Log.Info("received", sig)
