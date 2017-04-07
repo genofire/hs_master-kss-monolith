@@ -9,7 +9,7 @@ import (
 )
 
 // TODO DRAFT for a rest request to a other microservice
-const PermissionURL = "https://google.com/?q=%sa%d"
+const PermissionURL = "http://localhost:8080/api-test/session/%s/%d/"
 
 type Permission int
 

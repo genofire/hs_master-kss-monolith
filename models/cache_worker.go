@@ -13,20 +13,21 @@ type CacheWorkerConfig struct {
 	After Duration
 }
 
+func CleanCache() {
+	before := time.Now().Add(-CacheConfig.After.Duration)
+	// Cache if product exists
+	for index, cache := range productExistCache {
+		if before.After(cache.LastCheck) {
+			delete(productExistCache, index)
+		}
+	}
+	// Cache for permissions
+	for index, cache := range permissionCache {
+		if before.After(cache.LastCheck) {
+			delete(permissionCache, index)
+		}
+	}
+}
 func NewCacheWorker() (w *worker.Worker) {
-	return worker.NewWorker(CacheConfig.Every.Duration, func() {
-		before := time.Now().Add(-CacheConfig.After.Duration)
-		// Cache if product exists
-		for index, cache := range productExistCache {
-			if before.After(cache.LastCheck) {
-				delete(productExistCache, index)
-			}
-		}
-		// Cache for permissions
-		for index, cache := range permissionCache {
-			if before.After(cache.LastCheck) {
-				delete(permissionCache, index)
-			}
-		}
-	})
+	return worker.NewWorker(CacheConfig.Every.Duration, CleanCache)
 }

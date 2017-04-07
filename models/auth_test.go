@@ -1,6 +1,7 @@
 package models
 
 import (
+	"net/http"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -9,11 +10,20 @@ import (
 func TestAuth(t *testing.T) {
 	assert := assert.New(t)
 
-	perm, err := HasPermission("session", PermissionCreateGood)
+	router := http.FileServer(http.Dir("../webroot"))
+	srv := &http.Server{
+		Addr:    ":8080",
+		Handler: router,
+	}
+	go srv.ListenAndServe()
+
+	perm, err := HasPermission("testsessionkey", PermissionCreateGood)
 	assert.NoError(err)
 	assert.True(perm)
 
-	perm, err = HasPermission("session", PermissionCreateGood)
+	perm, err = HasPermission("testsessionkey", PermissionCreateGood)
 	assert.NoError(err)
 	assert.True(perm)
+
+	srv.Close()
 }

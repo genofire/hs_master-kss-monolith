@@ -7,7 +7,9 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/NYTimes/gziphandler"
 	goji "goji.io"
+	"goji.io/pat"
 
 	web "github.com/genofire/hs_master-kss-monolith/http"
 	"github.com/genofire/hs_master-kss-monolith/lib/database"
@@ -42,11 +44,18 @@ func main() {
 	// Startwebsrver
 	router := goji.NewMux()
 	web.BindAPI(router)
+
+	router.Handle(pat.New("/*"), gziphandler.GzipHandler(http.FileServer(http.Dir(config.Webroot))))
+
 	srv := &http.Server{
 		Addr:    config.WebserverBind,
 		Handler: router,
 	}
-	go srv.ListenAndServe()
+	go func() {
+		if err := srv.ListenAndServe(); err != nil {
+			panic(err)
+		}
+	}()
 
 	// Wait for system signal
 	sigs := make(chan os.Signal, 1)

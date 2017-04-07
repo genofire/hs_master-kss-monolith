@@ -9,7 +9,7 @@ import (
 )
 
 // TODO DRAFT for a rest request to a other microservice
-const ProductURL = "https://google.com/?q=%d"
+const ProductURL = "http://localhost:8080/api-test/product/%d/"
 
 type boolMicroServiceCache struct {
 	LastCheck time.Time
@@ -30,10 +30,11 @@ func (p *Product) Exists() (bool, error) {
 	url := fmt.Sprintf(ProductURL, p.ID)
 	log.Log.WithField("url", url).Info("exists product?")
 	res, err := http.Get(url)
-
-	productExistCache[p.ID] = boolMicroServiceCache{
-		LastCheck: time.Now(),
-		Value:     (res.StatusCode == http.StatusOK),
+	if err == nil {
+		productExistCache[p.ID] = boolMicroServiceCache{
+			LastCheck: time.Now(),
+			Value:     (res.StatusCode == http.StatusOK),
+		}
 	}
 	return productExistCache[p.ID].Value, err
 }

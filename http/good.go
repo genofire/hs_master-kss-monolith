@@ -47,6 +47,7 @@ func getGoodAvailablityCount(w http.ResponseWriter, r *http.Request) (int, *logr
 	if err != nil {
 		log.Warn("product could not verified on other microservice")
 		http.Error(w, "product could not verified on other microservice", http.StatusGatewayTimeout)
+		return -1, log
 	}
 	if !ok {
 		log.Warn("product did not exists anymore")

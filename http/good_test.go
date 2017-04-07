@@ -75,5 +75,23 @@ func TestGetGoodAvailable(t *testing.T) {
 	router.ServeHTTP(rec, req)
 	assertion.Equal(http.StatusOK, w.StatusCode)
 
+	database.Write.Create(&models.Good{
+		ProductID: 4,
+		Comment:   "blub",
+	})
+
+	result, w = session.JSONRequest("GET", "/api/good/availablity/4", nil)
+	assertion.Equal(http.StatusNotFound, w.StatusCode)
+
+	test.CloseServer()
+
+	models.CacheConfig.After = models.Duration{Duration: time.Duration(5) * time.Millisecond}
+	time.Sleep(time.Duration(10) * time.Millisecond)
+	models.CleanCache()
+
+	result, w = session.JSONRequest("GET", "/api/good/availablity/3", nil)
+	assertion.Equal(http.StatusGatewayTimeout, w.StatusCode)
+
 	test.Close()
+
 }

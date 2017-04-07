@@ -14,6 +14,8 @@ import (
 	goji "goji.io"
 )
 
+var srv *http.Server
+
 //Init to initialisieren a API
 func Init(t *testing.T) (assertion *assert.Assertions, router *goji.Mux) {
 	assertion = assert.New(t)
@@ -23,11 +25,23 @@ func Init(t *testing.T) (assertion *assert.Assertions, router *goji.Mux) {
 		Connection: ":memory:",
 	})
 	router = goji.NewMux()
+
+	apirouter := http.FileServer(http.Dir("../webroot"))
+	srv = &http.Server{
+		Addr:    ":8080",
+		Handler: apirouter,
+	}
+	go srv.ListenAndServe()
 	return
+}
+
+func CloseServer() {
+	srv.Close()
 }
 
 func Close() {
 	database.Close()
+	srv.Close()
 }
 
 type Request struct {
