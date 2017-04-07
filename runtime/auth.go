@@ -8,8 +8,7 @@ import (
 	"github.com/genofire/hs_master-kss-monolith/lib/log"
 )
 
-// TODO DRAFT for a rest request to a other microservice
-const PermissionURL = "http://localhost:8080/api-test/session/%s/%d/"
+var PermissionURL string
 
 type Permission int
 

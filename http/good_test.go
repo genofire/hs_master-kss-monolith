@@ -41,6 +41,8 @@ func TestGetGoodAvailable(t *testing.T) {
 	now := time.Now()
 	assertion, router := test.Init(t)
 
+	runtime.ProductURL = "http://localhost:8080/api-test/product/%d/"
+
 	BindAPI(router)
 	session := test.NewSession(router)
 

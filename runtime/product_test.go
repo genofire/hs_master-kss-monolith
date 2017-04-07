@@ -10,6 +10,7 @@ import (
 func TestProductExists(t *testing.T) {
 	assert := assert.New(t)
 
+	ProductURL = "http://localhost:8080/api-test/product/%d/"
 	router := http.FileServer(http.Dir("../webroot"))
 	srv := &http.Server{
 		Addr:    ":8080",
@@ -17,16 +18,20 @@ func TestProductExists(t *testing.T) {
 	}
 	go srv.ListenAndServe()
 
-	ok, err := (&Product{ID: 3}).Exists()
+	ok, err := ProductExists(3)
 	assert.True(ok)
 	assert.NoError(err)
 
 	// test cache
-	ok, err = (&Product{ID: 3}).Exists()
+	ok, err = ProductExists(3)
 	assert.True(ok)
 	assert.NoError(err)
 
-	// WARNING: test cache after 5min skipped
+	productExistCache = make(map[int64]boolMicroServiceCache)
+	ProductURL = "http://localhost:8081/api-test/product/%d/"
+
+	ok, err = ProductExists(3)
+	assert.Error(err)
 
 	srv.Close()
 }

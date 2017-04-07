@@ -43,8 +43,7 @@ func getGoodAvailablityCount(w http.ResponseWriter, r *http.Request) (int, *logr
 		return -1, log
 	}
 	log = log.WithField("productid", id)
-	product := runtime.Product{ID: id}
-	ok, err := product.Exists()
+	ok, err := runtime.ProductExists(id)
 	if err != nil {
 		log.Warn("product could not verified on other microservice")
 		http.Error(w, "product could not verified on other microservice", http.StatusGatewayTimeout)
@@ -56,9 +55,10 @@ func getGoodAvailablityCount(w http.ResponseWriter, r *http.Request) (int, *logr
 		return -1, log
 	}
 	var count float64
-	(&models.Good{}).FilterAvailable(database.Read.Where("product_id = ?", product.ID)).Count(&count)
+	(&models.Good{}).FilterAvailable(database.Read.Where("product_id = ?", id)).Count(&count)
 	return int(count), log
 }
+
 func getGoodAvailablity(w http.ResponseWriter, r *http.Request) {
 	count, log := getGoodAvailablityCount(w, r)
 	if count < 0 {

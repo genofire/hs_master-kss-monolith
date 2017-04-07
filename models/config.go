@@ -11,12 +11,16 @@ import (
 
 //Config the config File of this daemon
 type Config struct {
-	WebserverBind           string            `toml:"webserver_bind"`
-	Webroot                 string            `toml:"webroot"`
-	Database                database.Config   `toml:"database"`
-	GoodAvailablityTemplate string            `toml:"good_availablity_template"`
-	GoodRelease             GoodReleaseConfig `toml:"good_release"`
-	CacheClean              CacheWorkerConfig `toml:"cache_clean"`
+	WebserverBind            string            `toml:"webserver_bind"`
+	Webroot                  string            `toml:"webroot"`
+	Database                 database.Config   `toml:"database"`
+	GoodRelease              GoodReleaseConfig `toml:"good_release"`
+	CacheClean               CacheWorkerConfig `toml:"cache_clean"`
+	GoodAvailablityTemplate  string            `toml:"good_availablity_template"`
+	MicroserviceDependencies struct {
+		Product    string `toml:"product"`
+		Permission string `toml:"permission"`
+	} `toml:"microservice_dependencies"`
 }
 
 type CacheWorkerConfig struct {

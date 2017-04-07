@@ -10,6 +10,7 @@ import (
 func TestAuth(t *testing.T) {
 	assert := assert.New(t)
 
+	PermissionURL = "http://localhost:8080/api-test/session/%s/%d/"
 	router := http.FileServer(http.Dir("../webroot"))
 	srv := &http.Server{
 		Addr:    ":8080",

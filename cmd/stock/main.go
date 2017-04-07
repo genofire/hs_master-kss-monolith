@@ -29,10 +29,14 @@ func main() {
 
 	// load config
 	config = models.ReadConfigFile(configFile)
+
+	// Config packages:
 	web.GoodAvailablityTemplate = config.GoodAvailablityTemplate
 	runtime.CacheConfig = config.CacheClean
+	runtime.ProductURL = config.MicroserviceDependencies.Product
+	runtime.PermissionURL = config.MicroserviceDependencies.Permission
 
-	log.Log.Info("Starting rezension monolith")
+	log.Log.Info("Starting stock microservice")
 
 	err := database.Open(config.Database)
 	if err != nil {
@@ -57,6 +61,8 @@ func main() {
 			panic(err)
 		}
 	}()
+
+	log.Log.Info("Started stock microservice")
 
 	// Wait for system signal
 	sigs := make(chan os.Signal, 1)
