@@ -1,0 +1,18 @@
+<table class="ui very compact table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Productname</th>
+      <th>Anzahl</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in list">
+      <td>{{item.id}}</td>
+      <td><a ui-sref="item({productid: item.id})">{{item.title}}</a></td>
+      <td>
+          <img class="icon" src="/api/good/availablity/{{item.id}}"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
