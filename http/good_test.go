@@ -8,6 +8,7 @@ import (
 
 	"github.com/genofire/hs_master-kss-monolith/lib/database"
 	"github.com/genofire/hs_master-kss-monolith/models"
+	"github.com/genofire/hs_master-kss-monolith/runtime"
 
 	"github.com/genofire/hs_master-kss-monolith/test"
 )
@@ -84,14 +85,12 @@ func TestGetGoodAvailable(t *testing.T) {
 	assertion.Equal(http.StatusNotFound, w.StatusCode)
 
 	test.CloseServer()
-
-	models.CacheConfig.After = models.Duration{Duration: time.Duration(5) * time.Millisecond}
+	runtime.CacheConfig.After = models.Duration{Duration: time.Duration(5) * time.Millisecond}
 	time.Sleep(time.Duration(10) * time.Millisecond)
-	models.CleanCache()
+	runtime.CleanCache()
 
 	result, w = session.JSONRequest("GET", "/api/good/availablity/3", nil)
 	assertion.Equal(http.StatusGatewayTimeout, w.StatusCode)
-
 	test.Close()
 
 }

@@ -12,7 +12,7 @@ var (
 	Write  *gorm.DB
 	Read   *gorm.DB
 	config *Config
-	models []interface{}
+	runtime []interface{}
 )
 
 type Config struct {
@@ -48,7 +48,7 @@ func Open(c Config) (err error) {
 	} else {
 		Read = Write
 	}
-	Write.AutoMigrate(models...)
+	Write.AutoMigrate(runtime...)
 	return
 }
 
@@ -62,5 +62,5 @@ func Close() {
 }
 
 func AddModel(m interface{}) {
-	models = append(models, m)
+	runtime = append(runtime, m)
 }

@@ -19,6 +19,16 @@ type Config struct {
 	CacheClean              CacheWorkerConfig `toml:"cache_clean"`
 }
 
+type CacheWorkerConfig struct {
+	Every Duration
+	After Duration
+}
+
+type GoodReleaseConfig struct {
+	After Duration `toml:"after"`
+	Every Duration `toml:"every"`
+}
+
 // ReadConfigFile reads a config model from path of a yml file
 func ReadConfigFile(path string) *Config {
 	config := &Config{}

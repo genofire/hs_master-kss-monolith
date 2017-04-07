@@ -11,6 +11,7 @@ import (
 	lib "github.com/genofire/hs_master-kss-monolith/lib/http"
 	logger "github.com/genofire/hs_master-kss-monolith/lib/log"
 	"github.com/genofire/hs_master-kss-monolith/models"
+	"github.com/genofire/hs_master-kss-monolith/runtime"
 )
 
 func listGoods(w http.ResponseWriter, r *http.Request) {
@@ -42,7 +43,7 @@ func getGoodAvailablityCount(w http.ResponseWriter, r *http.Request) (int, *logr
 		return -1, log
 	}
 	log = log.WithField("productid", id)
-	product := models.Product{ID: id}
+	product := runtime.Product{ID: id}
 	ok, err := product.Exists()
 	if err != nil {
 		log.Warn("product could not verified on other microservice")

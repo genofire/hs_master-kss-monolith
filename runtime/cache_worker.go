@@ -1,17 +1,13 @@
-package models
+package runtime
 
 import (
 	"time"
 
 	"github.com/genofire/hs_master-kss-monolith/lib/worker"
+	"github.com/genofire/hs_master-kss-monolith/models"
 )
 
-var CacheConfig CacheWorkerConfig
-
-type CacheWorkerConfig struct {
-	Every Duration
-	After Duration
-}
+var CacheConfig models.CacheWorkerConfig
 
 func CleanCache() {
 	before := time.Now().Add(-CacheConfig.After.Duration)

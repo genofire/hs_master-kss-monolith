@@ -15,6 +15,7 @@ import (
 	"github.com/genofire/hs_master-kss-monolith/lib/database"
 	"github.com/genofire/hs_master-kss-monolith/lib/log"
 	"github.com/genofire/hs_master-kss-monolith/models"
+	"github.com/genofire/hs_master-kss-monolith/runtime"
 )
 
 var (
@@ -29,7 +30,7 @@ func main() {
 	// load config
 	config = models.ReadConfigFile(configFile)
 	web.GoodAvailablityTemplate = config.GoodAvailablityTemplate
-	models.CacheConfig = config.CacheClean
+	runtime.CacheConfig = config.CacheClean
 
 	log.Log.Info("Starting rezension monolith")
 
@@ -37,8 +38,8 @@ func main() {
 	if err != nil {
 		log.Log.Panic(err)
 	}
-	grw := models.NewGoodReleaseWorker(config.GoodRelease)
-	cw := models.NewCacheWorker()
+	grw := runtime.NewGoodReleaseWorker(config.GoodRelease)
+	cw := runtime.NewCacheWorker()
 	go grw.Start()
 	go cw.Start()
 	// Startwebsrver

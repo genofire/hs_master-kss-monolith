@@ -1,4 +1,4 @@
-package models
+package runtime
 
 import (
 	"testing"
@@ -7,6 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/genofire/hs_master-kss-monolith/lib/database"
+	"github.com/genofire/hs_master-kss-monolith/models"
 )
 
 func TestGoodRelease(t *testing.T) {
@@ -17,7 +18,7 @@ func TestGoodRelease(t *testing.T) {
 		Connection: ":memory:",
 	})
 	now := time.Now()
-	good := Good{
+	good := models.Good{
 		LockedAt:     &now,
 		LockedSecret: "never used",
 	}
@@ -31,9 +32,9 @@ func TestGoodRelease(t *testing.T) {
 	count = goodRelease(time.Duration(3) * time.Second)
 	assert.Equal(int64(1), count, "unlock after timeout")
 
-	grw := NewGoodReleaseWorker(GoodReleaseConfig{
-		Every: Duration{Duration: time.Duration(3) * time.Millisecond},
-		After: Duration{Duration: time.Duration(5) * time.Millisecond},
+	grw := NewGoodReleaseWorker(models.GoodReleaseConfig{
+		Every: models.Duration{Duration: time.Duration(3) * time.Millisecond},
+		After: models.Duration{Duration: time.Duration(5) * time.Millisecond},
 	})
 	go grw.Start()
 	time.Sleep(time.Duration(15) * time.Millisecond)

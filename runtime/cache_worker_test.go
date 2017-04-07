@@ -1,8 +1,10 @@
-package models
+package runtime
 
 import (
 	"testing"
 	"time"
+
+	"github.com/genofire/hs_master-kss-monolith/models"
 )
 
 func TestCacheWorker(t *testing.T) {
@@ -13,9 +15,9 @@ func TestCacheWorker(t *testing.T) {
 		session:     "blub",
 		permissions: make(map[Permission]boolMicroServiceCache),
 	}
-	CacheConfig = CacheWorkerConfig{
-		Every: Duration{Duration: time.Duration(3) * time.Millisecond},
-		After: Duration{Duration: time.Duration(5) * time.Millisecond},
+	CacheConfig = models.CacheWorkerConfig{
+		Every: models.Duration{Duration: time.Duration(3) * time.Millisecond},
+		After: models.Duration{Duration: time.Duration(5) * time.Millisecond},
 	}
 	cw := NewCacheWorker()
 	go cw.Start()

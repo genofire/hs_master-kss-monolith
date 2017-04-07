@@ -10,6 +10,12 @@ import (
 func TestGood(t *testing.T) {
 	assert := assert.New(t)
 
+	database.Open(database.Config{
+		Type:       "sqlite3",
+		Logging:    true,
+		Connection: ":memory:",
+	})
+
 	good := &Good{}
 	assert.False(good.IsLock())
 
