@@ -1,6 +1,6 @@
 package test
 
-// Request a easy manager to test REST-API
+// Request an easy manager to test REST-API
 import (
 	"bytes"
 	"encoding/json"
@@ -16,7 +16,7 @@ import (
 
 var srv *http.Server
 
-//Init to initialisieren a API
+//Init to initialisieren an API
 func Init(t *testing.T) (assertion *assert.Assertions, router *goji.Mux) {
 	assertion = assert.New(t)
 	database.Open(database.Config{
