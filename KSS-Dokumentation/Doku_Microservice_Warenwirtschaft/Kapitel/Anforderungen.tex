@@ -6,7 +6,7 @@ Der Microservice Warenwirtschaft dient der Verwaltung der Warenbestände für de
 \begin{small}
 	\begin{center}
   	\caption{Begriffsdefinition}
-   	\renewcommand{\arraystretch}{1.2}
+   	\renewcommand{\arraystretch}{1.0}
     \begin{tabularx}{\textwidth}{|X|X|X|}		
     
     \hline
@@ -23,11 +23,13 @@ Der Microservice Warenwirtschaft dient der Verwaltung der Warenbestände für de
 \end{small}
 \end{table}
 
+\textit{\textit{Dieser Microservice ist Teil der Prüfungsleistung in den Modul KSS im Masterstudiengang komplexe Softwaresysteme des Sommersemesters 2017 an der Hochschule Bremen. Zu der gestellten Aufgabenstellung gehört nicht, den Microservice zusammen mit den Microservices der anderen Gruppen in einen gemeinsamen, lauffähigen Webshop zu integrieren.}}
+
 \newpage
 Die übergeordnete Aufgabe dieses Microservice ist die Speicherung der Waren mit ihrem Lagerort sowie einem Zeitstempel, wann sie erfasst wurden. Nachfolgend werden die weiteren, detaillierten Anforderungen an diesen Microservice zusammengefasst. 
 
 \begin{itemize}
-	\item Funktionen des Admin-Frontends
+	\item \textbf{Funktionen des Admin-Frontends}
 	\begin{itemize}
 		\item Hinzufügen neuer Waren zum Warenbestand
 		\item Manuelles Entfernen von Waren aus dem Warenbestand, zum Beispiel wenn diese verdorben sind
@@ -35,14 +37,14 @@ Die übergeordnete Aufgabe dieses Microservice ist die Speicherung der Waren mit
 		\item Blockieren von Waren in dem Warenbestand, wenn ein Kunde sie in seinen Warenkorb gelegt hat
 		\item Automatische Freigaben von blockierten Waren, wenn diese nach 30 Minuten nicht an den Versand überstellt wurden
 	\end{itemize}
-	\item Funktionen des Kunden-Frontends
+	\item \textbf{Funktionen des Kunden-Frontends}
 	\begin{itemize}
 		\item Anzeige des Warenbestands über ein Ampelsystem 
 		\item Ein Warenbestand größer sieben entspricht der Farbe grün (ausreichende Anzahl vorhanden)
 		\item Ein Warenbestand zwischen vier und sieben entspricht der Farbe orange (moderate Anzahl vorhanden)		
 		\item Ein Warenbestand zwischen null und drei entspricht der Farbe rot (geringe Anzahl vorhanden)
 	\end{itemize}
-	\item Optionale Zusatzfunktionen
+	\item \textbf{Optionale Zusatzfunktionen}
 	\begin{itemize}
 		\item Ausgabe einer Statistik, wie viele Waren im letzten Monat aus dem Warenbestand versandt und wie viele manuell entfernt wurden im Admin-Fontend
 		\item Ampeldarstellung pro Ware, die Anzeigt ob diese bereits überaltert ist, im Admin-Frontend (ein Alter von mehr als X Tagen wird als überaltert angesehen)

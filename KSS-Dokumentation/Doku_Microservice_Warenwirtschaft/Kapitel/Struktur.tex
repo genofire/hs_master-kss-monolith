@@ -3,20 +3,20 @@
 Der Microservice Warenwirtschaft wurde in der Programmiersprache Go\footnote{https:\//golang.org\/doc\/} entwickelt. Go-An-wendungen bestehen aus Packages, in denen die einzelnen Go-Files organisiert sind, Klassen im Sinne der Objektorientierung gibt es nicht. Der Microservice Warenwirtschaft sett sich aus den neun Packages zusammen, die in der Abbildung X dargestellt werden. In den beiden nachfolgenden Unterkapiteln werden die Packages und die darin enthaltenen Go-Files des Presentation  sowie des Application Layers kurz vorgestellt. Go-Files mit der Bezeichnung \texttt{<<Name>>\_test.go} beinhalten Whitebox-Testfälle um die Funktionen der benannten Go-Files zu prüfen. Aus Gründen der Übersichtlichkeit werden diese File hier nicht explizit aufgeführt. 
 Der Microservice nutzt anstelle einer klassischen Datenbank eine In-Memory-Datenbank im Cache. Aus diesem Grund verschwimmen klassischen Grenzen des Application und Persitant Layers und auf die dezidierte Aufführung des letzteren wird verzichtet.
 
-
 \begin{figure}[H]
 	\begin{center}
-	\includegraphics[width=0.65 \textwidth]{./Bilder/dummy.png}
+	\includegraphics[width=0.65 \textwidth]{./Bilder/struktur.png}
 	\end{center}
 	\caption{Struktur des Microservice}
 	\label{pic:Struktur des Microservice}
 \end{figure}
 
+
 \subsection{Schnittstellen zu anderen Microservices}
 \label{subsec: Schnittstellen zu anderen Microservices}
 Der Microservice Warenwirtschaft weißt drei Schnittstellen\footnote{Da es nicht Teil der übergeordneten Aufgabenstellung war, die Microservices der einzelnen Projektgruppen zu einem lauffähigen Webshop zusammenzufügen, greift der Microservice Warenwirtschaft an diesen Stellen auf Testdaten zurück} zu anderen Microservices auf. Zum einen sollten für die Authentifizierung der Benutzer des Admin-Frontends auf den Microservice Benutzerauthentifizierung zurückgegriffen werden. Außerdem benötigt der Microservice Informationen darüber, ob ein Benutzer eine Ware in den Warenkorb gelegt hat und ob eine Ware versandt wurde. Somit entstehen ebenfalls Schnittstellen zu den Microservices Bestellung und Versandt.
 
-
+\newpage
 \subsection{Presentation Layer}
 \label{subsec: Presentation Layer}
 Der Presentation Layer umfasst alle  Packages, die sich mit der eigentlichen Darstellung der Warenwirtschaft aus der Sicht des Endbenutzers befassen. Im Detail ist dies das Package \texttt{webroot}, welches den statischen Inhalt der Frontends, wie zum Beispiel die HTML-Files und Bilder enthält.
