@@ -4,6 +4,13 @@ node_modules/*
 !node_modules/semantic-ui-css/
 node_modules/semantic-ui-css/*
 !node_modules/semantic-ui-css/semantic.min.css
+!node_modules/semantic-ui-css/themes/
+node_modules/semantic-ui-css/themes/*
+!node_modules/semantic-ui-css/themes/default/
+node_modules/semantic-ui-css/themes/default/*
+!node_modules/semantic-ui-css/themes/default/assets/
+node_modules/semantic-ui-css/themes/default/assets/*
+!node_modules/semantic-ui-css/themes/default/assets/fonts/
 
 !node_modules/angular/
 node_modules/angular/*
