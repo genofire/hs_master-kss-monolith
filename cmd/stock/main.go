@@ -1,3 +1,4 @@
+// The cmd binary of the microservice to run
 package main
 
 import (

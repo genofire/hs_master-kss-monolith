@@ -8,6 +8,7 @@ import (
 	"github.com/genofire/hs_master-kss-monolith/models"
 )
 
+// create a worker to unlock goods which are locked by clients
 func NewGoodReleaseWorker(grc models.GoodReleaseConfig) *worker.Worker {
 	return worker.NewWorker(grc.Every.Duration, func() {
 		goodRelease(grc.After.Duration)

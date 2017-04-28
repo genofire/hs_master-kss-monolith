@@ -8,6 +8,7 @@ import (
 	"github.com/genofire/hs_master-kss-monolith/lib/log"
 )
 
+// url to the microservice which manage the products
 var ProductURL string
 
 type boolMicroServiceCache struct {
@@ -21,6 +22,7 @@ func init() {
 	productExistCache = make(map[int64]boolMicroServiceCache)
 }
 
+// check on the other microservice if the product exists
 func ProductExists(id int64) (bool, error) {
 	if cache, ok := productExistCache[id]; ok {
 		return cache.Value, nil

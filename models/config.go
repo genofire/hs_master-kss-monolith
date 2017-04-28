@@ -9,31 +9,45 @@ import (
 	"github.com/genofire/hs_master-kss-monolith/lib/log"
 )
 
-//Config the config File of this daemon
+//config file of this daemon (for more the config_example.conf in git repository)
 type Config struct {
-	WebserverBind            string            `toml:"webserver_bind"`
-	Webroot                  string            `toml:"webroot"`
-	Database                 database.Config   `toml:"database"`
-	GoodRelease              GoodReleaseConfig `toml:"good_release"`
-	CacheClean               CacheWorkerConfig `toml:"cache_clean"`
-	GoodAvailablityTemplate  string            `toml:"good_availablity_template"`
+	// address on which the api and static content webserver runs
+	WebserverBind string `toml:"webserver_bind"`
+
+	// path to deliver static content
+	Webroot string `toml:"webroot"`
+
+	Database    database.Config   `toml:"database"`
+	GoodRelease GoodReleaseConfig `toml:"good_release"`
+	CacheClean  CacheWorkerConfig `toml:"cache_clean"`
+
+	// path to the svg image templaes to show availablity of a given good
+	GoodAvailablityTemplate string `toml:"good_availablity_template"`
+
+	// URLs to other microservices
 	MicroserviceDependencies struct {
 		Product    string `toml:"product"`
 		Permission string `toml:"permission"`
 	} `toml:"microservice_dependencies"`
 }
 
+//config of worker to clean caches from values of other microservice
 type CacheWorkerConfig struct {
+	// run worker every ...
 	Every Duration
+	// remove cache which is not used since ..
 	After Duration
 }
 
+//config of worker to release looked goods after a time
 type GoodReleaseConfig struct {
-	After Duration `toml:"after"`
+	// run worker every ...
 	Every Duration `toml:"every"`
+	// unlock which is not used since ..
+	After Duration `toml:"after"`
 }
 
-// ReadConfigFile reads a config model from path of a yml file
+//reads a config model from path of a yml file
 func ReadConfigFile(path string) *Config {
 	config := &Config{}
 	file, err := ioutil.ReadFile(path)

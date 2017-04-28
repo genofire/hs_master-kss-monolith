@@ -8,12 +8,19 @@ import (
 	"github.com/genofire/hs_master-kss-monolith/lib/log"
 )
 
+// url to the microservice which manage the permissions
 var PermissionURL string
 
+// type of permission
 type Permission int
 
+// some permission (see Permission)
 const (
+	// has the user the permission to create need goods of a product
+	// e.g. if a good received and now availablity to sell
 	PermissionCreateGood = 1
+	// has the user the permission to delete need goods of a product
+	// e.g. if a good become rancid and has to remove from stock
 	PermissionDeleteGood = 2
 )
 
@@ -49,6 +56,7 @@ func init() {
 	permissionCache = make(map[string]*permissionMicroServiceCache)
 }
 
+// check if the client with the session string has a permissions (see Permission)
 func HasPermission(session string, p Permission) (bool, error) {
 	_, ok := permissionCache[session]
 	if !ok {

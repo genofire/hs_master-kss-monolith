@@ -10,18 +10,28 @@ import (
 	"github.com/genofire/hs_master-kss-monolith/lib/log"
 )
 
+// Database connection for writing
+var Write *gorm.DB
+
+// Database connection for reading
+var Read *gorm.DB
+
 var (
-	Write  *gorm.DB
-	Read   *gorm.DB
-	config *Config
+	config  *Config
 	runtime []interface{}
 )
 
+// configuration for the database connection
 type Config struct {
-	Type           string
-	Connection     string
+	// type of database: current support sqlite and postgres
+	// (by request other could be enabled)
+	Type string
+	// connection configuration
+	Connection string
+	// maybe create another connection just for reading
 	ReadConnection string
-	Logging        bool
+	// enable logging the generated sql string
+	Logging bool
 }
 
 // Function to open a database and set the given configuration
@@ -56,7 +66,7 @@ func Open(c Config) (err error) {
 	return
 }
 
-//Function to safely close the database
+// Function to safely close the database
 func Close() {
 	Write.Close()
 	Write = nil

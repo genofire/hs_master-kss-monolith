@@ -1,3 +1,4 @@
+// A little lib to easy create everything for running virtual api
 package test
 
 // Request an easy manager to test REST-API
@@ -16,7 +17,7 @@ import (
 
 var srv *http.Server
 
-//Init to initialisieren an API
+//initialisieren an API test api
 func Init(t *testing.T) (assertion *assert.Assertions, router *goji.Mux) {
 	assertion = assert.New(t)
 	database.Open(database.Config{
@@ -35,15 +36,18 @@ func Init(t *testing.T) (assertion *assert.Assertions, router *goji.Mux) {
 	return
 }
 
+// close just the static webserver (with test files of other microservice)
 func CloseServer() {
 	srv.Close()
 }
 
+// close everything
 func Close() {
 	database.Close()
 	srv.Close()
 }
 
+// handle a test client session with cookies
 type Request struct {
 	req     *http.Request
 	cookies []*http.Cookie
@@ -55,7 +59,7 @@ func NewSession(router *goji.Mux) *Request {
 	return &Request{router: router}
 }
 
-// JSONRequest send request to router
+// send request to router and recieve the api answer
 func (r *Request) JSONRequest(method string, url string, body interface{}) (jsonResult interface{}, res *http.Response) {
 	jsonObj, _ := json.Marshal(body)
 	req, _ := http.NewRequest(method, url, bytes.NewReader(jsonObj))
@@ -75,7 +79,7 @@ func (r *Request) JSONRequest(method string, url string, body interface{}) (json
 	return
 }
 
-// Clean to clean the current session
+// clean the current session
 func (r *Request) Clean() {
 	r.cookies = nil
 }

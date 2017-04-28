@@ -4,9 +4,10 @@ package http
 
 import "net/http"
 
+// format of a function to bind it for the middleware handler
 type HasPermission func(string, int) (bool, error)
 
-//Function to evaluate the permission and implent an error handling
+// Function to evaluate the permission and implent an error handling
 // Input: http response writer w, pointer to htto request r, bool variable HasPermission perm, int variable permission (form)
 func PermissionHandler(h func(w http.ResponseWriter, r *http.Request), perm HasPermission, permission int) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {

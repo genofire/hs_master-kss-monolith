@@ -9,9 +9,8 @@ import (
 	logger "github.com/Sirupsen/logrus"
 )
 
+// current logger with configuration
 var Log *logger.Logger
-
-type Logger logger.Entry
 
 // Function to initiate a new logger
 func init() {

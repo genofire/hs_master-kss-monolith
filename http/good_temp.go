@@ -8,6 +8,7 @@ import (
 	"text/template"
 )
 
+// path to the svg image templaes to show availablity of a given good
 var GoodAvailablityTemplate string
 
 func tempProcent(value, max int) int {
