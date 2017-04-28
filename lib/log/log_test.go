@@ -1,3 +1,5 @@
+// Package log provides the
+// functionality to start und initialize to logger
 package log
 
 import (
@@ -7,6 +9,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+// Function to test the logging
+// Input: pointer to teh testing object
 func TestLog(t *testing.T) {
 	assertion := assert.New(t)
 

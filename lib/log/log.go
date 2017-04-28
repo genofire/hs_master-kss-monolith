@@ -1,3 +1,5 @@
+// Package log provides the
+// functionality to start und initialize to logger
 package log
 
 import (
@@ -11,13 +13,14 @@ var Log *logger.Logger
 
 type Logger logger.Entry
 
+// Function to initiate a new logger
 func init() {
 	Log = logger.New()
-	// Enable fallback if core logger is used:
-	log.SetOutput(Log.Writer())
+	log.SetOutput(Log.Writer()) // Enable fallback if core logger
 }
 
-// HTTP to add information of a httprequest to log
+// Function to add the information of a http request to the log
+// Input: pointer to the http request r
 func HTTP(r *http.Request) *logger.Entry {
 	ip := r.Header.Get("X-Forwarded-For")
 	if len(ip) <= 1 {

@@ -12,7 +12,7 @@ import (
 )
 
 // Function to the the permission and it's error handling
-// Input: pointer to testing object T
+// Input: pointer to testing object
 func TestPermission(t *testing.T) {
 	assert := assert.New(t)
 

@@ -13,7 +13,7 @@ import (
 )
 
 // Function to test the writing into a http response
-// Input: pointer to testing object T
+// Input: pointer to testing object
 func TestWrite(t *testing.T) {
 	assert := assert.New(t)
 
@@ -38,7 +38,7 @@ func TestWrite(t *testing.T) {
 }
 
 // Function to test the reading from a http response
-// Input: pointer to testing object T
+// Input: pointer to testing object
 func TestRead(t *testing.T) {
 	assert := assert.New(t)
 
