@@ -19,7 +19,7 @@ Der Microservice Warenwirtschaft weißt drei Schnittstellen\footnote{Da es nicht
 \newpage
 \subsection{Presentation Layer}
 \label{subsec: Presentation Layer}
-Der Presentation Layer umfasst alle  Packages, die sich mit der eigentlichen Darstellung der Warenwirtschaft aus der Sicht des Endbenutzers befassen. Im Detail ist dies das Package \texttt{webroot}, welches den statischen Inhalt der Frontends, wie zum Beispiel die HTML-Files und Bilder enthält.
+Der Presentation Layer umfasst alle  Packages, die sich mit der eigentlichen Darstellung der Warenwirtschaft aus der Sicht des Endbenutzers befassen. Im Detail ist dies das Package \textbf{\texttt{webroot}}, welches den statischen Inhalt der Frontends, wie zum Beispiel die HTML-Files und Bilder enthält.
 
 
 \subsection{Application Layer}
@@ -34,7 +34,7 @@ Der Presentation Layer umfasst alle  Packages, die sich mit der eigentlichen Dar
 	\begin{itemize}
 	\item \texttt{good.go}: Funktionen für die Auflistung und Zählung der vorhandenen Waren sowie die Feststellung ihrer Verfügbarkeit zusammen
 	\item \texttt{good\_temp.go}: Hilfsfunktionen, die für die Darstellung des Warenbestandes als Ampel im Kunden-Frontend benötigt werden
-	\item \texttt{main.go}: Funktionen, die für das Binden der URL-Pfade notwendig sind
+	\item \texttt{bindapi.go}: Funktionen, die für das Binden der URL-Pfade notwendig sind
 	\item \texttt{status.go}: Funktion, die den Status des Microservice abfragt 
 	\end{itemize}
 
@@ -60,19 +60,19 @@ Der Presentation Layer umfasst alle  Packages, die sich mit der eigentlichen Dar
 \paragraph{lib:} fasst die vier Packages \texttt{database}, \texttt{http}, \texttt{log} und \texttt{worker} zusammen
 
 	\begin{itemize}
-	\item \texttt{database}: Go-File \texttt{main.go} mit Funktionen für das Öffnen und Schließen der Datenbank
+	\item \texttt{database}: Go-File \texttt{database.go} mit Funktionen für das Öffnen und Schließen der Datenbank
 	\item \texttt{http}: Go-Files, die die Webserverlogik umgesetzten
 		\begin{itemize}
 		\item \texttt{io.go}: Funktionen zum Lesen und Schreiben von JSON aus beziehungsweise in HTTP-PAckete
 		\item \texttt{permission.go}: Funktionen zur Prüfung der Berechtigung für den Zugriff
 		\end{itemize}	
-	\item \texttt{log}: Go-File \texttt{main.go}, das den Logger startet und initiiert
+	\item \texttt{log}: Go-File \texttt{log.go}, das den Logger startet und initiiert
 	\item \texttt{worker}: Go-File \texttt{worker.go}, dass Funktionen für die Nutzung des Caches als Datenbank (Worker) bereitstellt 
 	\end{itemize}
 
 \subsection{Integrierte Tests}
 \label{subsec: Integrierte Test}
-Neben den Go-Files die bereits Whitebox-Tests enthalten, ist in dem Package \texttt{test} ein weiteres Go-File entgalten. Dieses setzt einen Test des Webservers um. Mit Hilfe der integrierten Test kann in der hier beschriebenen Version eine Code-Coverage von 100\% erreicht werden, das heißt jedes Stück Code wird mindestens einmal zur Ausführung gebracht.
+Neben den Go-Files die bereits Whitebox-Tests enthalten, ist in dem Package \textbf{\texttt{test}} ein weiteres Go-File (\texttt{testrest.go}) entgalten. Dieses setzt einen Test des Webservers um. Mit Hilfe der integrierten Test kann in der hier beschriebenen Version eine Code-Coverage von 100\% erreicht werden, das heißt jedes Stück Code wird mindestens einmal zur Ausführung gebracht.
 
 \subsection{Admin-Frontend}
 \label{subsec: Admin-Frontend}
