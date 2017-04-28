@@ -1,3 +1,5 @@
+// Package http provides the
+// logic of the webserver
 package http
 
 import (
@@ -9,6 +11,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+// Function to the the permission and it's error handling
+// Input: pointer to testing object T
 func TestPermission(t *testing.T) {
 	assert := assert.New(t)
 
