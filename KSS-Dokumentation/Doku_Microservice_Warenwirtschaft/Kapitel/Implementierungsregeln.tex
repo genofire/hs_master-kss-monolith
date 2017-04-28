@@ -6,11 +6,12 @@ Die folgende Aufzählung gibt einige Regeln für die Implementierung des Microse
 	\item Packages werden eindeutig und sprechend benannt
 	\item Go-Files werden eindeutig und sprechend benannt
 	\item Wenn ein Package nur ein Go-File enthält, erhält dieses den Namen seines Packages
-	\item Vor jedem Package steht ein einzeiliger, beschreibender Kommentar, der die Hauptfunktionalitäten wiedergibt
-	\item Vor jeder Funktion steht ein zweizeiliger, beschreibender Kommentar, dieser enthält
+	\item Vor jedem Package steht ein ein- bis zweizeiliger, beschreibender Kommentar, der die Hauptfunktionalitäten wiedergibt
+	\item Vor jeder Funktion steht ein zwei- bis dreizeiliger, beschreibender Kommentar, dieser enthält
 	\begin{enumerate}
-		\item eine einzeilige Beschreibung der Funktionalität
-		\item eine einzeilige Beschreibung der Eingabe- und Rückgabewerte
+		\item eine ein- bis zweizeilige Beschreibung der Funktionalität
+		\item eine einzeilige Beschreibung der Eingabe- und Rückgabewerte (entfällt, wenn diese nicht vorhanden sind)
 	\end{enumerate}
+	\item Aus Gründen der Übersichtlichkeit werden Variablen und Structs werden nur mit vorangestellten Kommentaren versehen, wenn sie nicht selbsterklärend sind
 \end{enumerate}
 

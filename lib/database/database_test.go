@@ -1,3 +1,5 @@
+// Package database provides the
+// functionality to open, close and use a database
 package database
 
 import (
@@ -11,6 +13,8 @@ type TestModel struct {
 	Value string `gorm:"type:varchar(255);column:value" json:"value"`
 }
 
+// Function to test the error handling for the database opening
+// Input: pointer to testobject t
 func TestOpenNoDB(t *testing.T) {
 	assert := assert.New(t)
 
@@ -19,6 +23,9 @@ func TestOpenNoDB(t *testing.T) {
 	err := Open(c)
 	assert.Error(err, "error")
 }
+
+// Function to test the opening of one database
+// Input: pointer to testobject t
 func TestOpenOneDB(t *testing.T) {
 	assert := assert.New(t)
 	AddModel(&TestModel{})
@@ -42,6 +49,8 @@ func TestOpenOneDB(t *testing.T) {
 	Close()
 }
 
+// Function to test the opening of a second database
+// Input: pointer to testobject t
 func TestOpenTwoDB(t *testing.T) {
 	assert := assert.New(t)
 	AddModel(&TestModel{})

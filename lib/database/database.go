@@ -1,3 +1,5 @@
+// Package database provides the
+// functionality to open, close and use a database
 package database
 
 import (
@@ -22,6 +24,8 @@ type Config struct {
 	Logging        bool
 }
 
+// Function to open a database and set the given configuration
+// Input: the configuration data c
 func Open(c Config) (err error) {
 	writeLog := log.Log.WithField("db", "write")
 	config = &c
@@ -52,6 +56,7 @@ func Open(c Config) (err error) {
 	return
 }
 
+//Function to safely close the database
 func Close() {
 	Write.Close()
 	Write = nil
@@ -61,6 +66,8 @@ func Close() {
 	Read = nil
 }
 
+// Function to add a model to the runtime
+// Input: interface m
 func AddModel(m interface{}) {
 	runtime = append(runtime, m)
 }
