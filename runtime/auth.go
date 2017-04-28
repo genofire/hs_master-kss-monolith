@@ -57,7 +57,7 @@ func init() {
 }
 
 // check if the client with the session string has a permissions (see Permission)
-func HasPermission(session string, p Permission) (bool, error) {
+func HasPermission(session string, p int) (bool, error) {
 	_, ok := permissionCache[session]
 	if !ok {
 		permissionCache[session] = &permissionMicroServiceCache{
@@ -66,5 +66,5 @@ func HasPermission(session string, p Permission) (bool, error) {
 			permissions: make(map[Permission]boolMicroServiceCache),
 		}
 	}
-	return permissionCache[session].HasPermission(p)
+	return permissionCache[session].HasPermission(Permission(p))
 }
