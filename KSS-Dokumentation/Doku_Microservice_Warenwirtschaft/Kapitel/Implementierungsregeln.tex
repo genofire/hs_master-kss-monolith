@@ -1,2 +1,16 @@
 \section{Implementierungsregeln}
 \label{sec: Implementierungsregeln}
+Die folgende Aufzählung gibt einige Regeln für die Implementierung des Microservice Warenwirtschaft vor. Diese sollten im Rahmen einer Weiterentwicklung eingehalten werden, um die Konsistenz des Codes aufrecht zu erhalten. 
+
+\begin{enumerate}
+	\item Packages werden eindeutig und sprechend benannt
+	\item Go-Files werden eindeutig und sprechend benannt
+	\item Wenn ein Package nur ein Go-File enthält, erhält dieses den Namen seines Packages
+	\item Vor jedem Package steht ein einzeiliger, beschreibender Kommentar, der die Hauptfunktionalitäten wiedergibt
+	\item Vor jeder Funktion steht ein zweizeiliger, beschreibender Kommentar, dieser enthält
+	\begin{enumerate}
+		\item eine einzeilige Beschreibung der Funktionalität
+		\item eine einzeilige Beschreibung der Eingabe- und Rückgabewerte
+	\end{enumerate}
+\end{enumerate}
+
