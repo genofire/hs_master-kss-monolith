@@ -41,11 +41,17 @@ func (c *permissionMicroServiceCache) HasPermission(p Permission) (bool, error) 
 
 	url := fmt.Sprintf(PermissionURL, c.session, p)
 	log.Log.WithField("url", url).Info("has permission?")
+
 	res, err := http.Get(url)
+
+	value := false
+	if err == nil {
+		value = (res.StatusCode == http.StatusOK)
+	}
 
 	c.permissions[p] = boolMicroServiceCache{
 		LastCheck: c.LastCheck,
-		Value:     (res.StatusCode == http.StatusOK),
+		Value:     value,
 	}
 	return c.permissions[p].Value, err
 }

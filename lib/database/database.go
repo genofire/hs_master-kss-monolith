@@ -69,11 +69,9 @@ func Open(c Config) (err error) {
 // Function to safely close the database
 func Close() {
 	Write.Close()
-	Write = nil
 	if len(config.ReadConnection) > 0 {
 		Read.Close()
 	}
-	Read = nil
 }
 
 // Function to add a model to the runtime

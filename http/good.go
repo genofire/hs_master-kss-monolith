@@ -10,6 +10,7 @@ import (
 	lib "github.com/genofire/hs_master-kss-monolith/lib/http"
 	logger "github.com/genofire/hs_master-kss-monolith/lib/log"
 	"github.com/genofire/hs_master-kss-monolith/models"
+	"github.com/genofire/hs_master-kss-monolith/runtime"
 )
 
 func addGood(w http.ResponseWriter, r *http.Request) {
@@ -21,17 +22,29 @@ func addGood(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	log = log.WithField("productid", id)
-	var obj *models.Good
-	lib.Read(r, obj)
+	ok, err := runtime.ProductExists(id)
+	if err != nil {
+		log.Warn(err.Error())
+		http.Error(w, err.Error(), http.StatusGatewayTimeout)
+		return
+	}
+	if !ok {
+		log.Warn("wrong product not found")
+		http.Error(w, "wrong product not found", http.StatusNotFound)
+		return
+	}
+
+	var obj models.Good
+	lib.Read(r, &obj)
 
 	obj.ProductID = id
 
-	db := database.Write.Create(obj)
+	db := database.Write.Create(&obj)
 	if db.Error != nil {
 		log.Error("database could not write", db.Error)
 		http.Error(w, "was not possible to write", http.StatusInternalServerError)
 	}
-	lib.Write(w, obj)
+	lib.Write(w, &obj)
 
 	log.Info("done")
 }

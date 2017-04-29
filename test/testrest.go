@@ -79,6 +79,18 @@ func (r *Request) JSONRequest(method string, url string, body interface{}) (json
 	return
 }
 
+// login the current session
+func (r *Request) Login() {
+	r.cookies = nil
+	r.cookies = append(r.cookies, &http.Cookie{Name: "session", Value: "testsessionkey"})
+}
+
+// logout the current session
+func (r *Request) Logout() {
+	r.cookies = nil
+	r.cookies = append(r.cookies, &http.Cookie{Name: "session", Value: "trashkey"})
+}
+
 // clean the current session
 func (r *Request) Clean() {
 	r.cookies = nil
