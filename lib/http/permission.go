@@ -1,14 +1,12 @@
-// Package http provides the
-// logic of the webserver
+// Package that provides the logic of the webserver
 package http
 
 import "net/http"
 
-// format of a function to bind it for the middleware handler
+// Format of a function to bind it to the middleware handler
 type HasPermission func(string, int) (bool, error)
 
-// Function to evaluate the permission and implent an error handling
-// Input: http response writer w, pointer to htto request r, bool variable HasPermission perm, int variable permission (form)
+// Function to evaluate the permission and implement an error handling
 func PermissionHandler(h func(w http.ResponseWriter, r *http.Request), perm HasPermission, permission int) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		session, err := r.Cookie("session")

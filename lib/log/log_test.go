@@ -1,5 +1,4 @@
-// Package log provides the
-// functionality to start und initialize to logger
+// Package that provides the functionality to start und initialize the logger
 package log
 
 import (
@@ -10,7 +9,6 @@ import (
 )
 
 // Function to test the logging
-// Input: pointer to teh testing object
 func TestLog(t *testing.T) {
 	assertion := assert.New(t)
 

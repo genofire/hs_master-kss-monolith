@@ -1,3 +1,4 @@
+// Package with a lib for cronjobs to run in background
 package worker
 
 import (
@@ -7,6 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+// Function to test the Worker
 func TestWorker(t *testing.T) {
 	assert := assert.New(t)
 

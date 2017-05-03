@@ -1,5 +1,4 @@
-// Package log provides the
-// functionality to start und initialize to logger
+// Package that provides the functionality to start und initialize the logger
 package log
 
 import (
@@ -9,7 +8,7 @@ import (
 	logger "github.com/Sirupsen/logrus"
 )
 
-// current logger with configuration
+// Crrrent logger with it's configuration
 var Log *logger.Logger
 
 // Function to initiate a new logger
@@ -19,7 +18,6 @@ func init() {
 }
 
 // Function to add the information of a http request to the log
-// Input: pointer to the http request r
 func HTTP(r *http.Request) *logger.Entry {
 	ip := r.Header.Get("X-Forwarded-For")
 	if len(ip) <= 1 {

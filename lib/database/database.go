@@ -1,5 +1,4 @@
-// Package database provides the
-// functionality to open, close and use a database
+// Package that provides the functionality to open, close and use a database
 package database
 
 import (
@@ -10,32 +9,31 @@ import (
 	"github.com/genofire/hs_master-kss-monolith/lib/log"
 )
 
-// Database connection for writing
+// Database connection for writing purposes
 var Write *gorm.DB
 
-// Database connection for reading
+// Database connection for reading purposes
 var Read *gorm.DB
 
+// Configuration files
 var (
 	config  *Config
 	runtime []interface{}
 )
 
-// configuration for the database connection
+// Configuration of the database connection
 type Config struct {
-	// type of database: current support sqlite and postgres
-	// (by request other could be enabled)
+	// type of the database, currently supports sqlite and postgres
 	Type string
 	// connection configuration
 	Connection string
-	// maybe create another connection just for reading
+	// create another connection for reading only
 	ReadConnection string
-	// enable logging the generated sql string
+	// enable logging of the generated sql string
 	Logging bool
 }
 
 // Function to open a database and set the given configuration
-// Input: the configuration data c
 func Open(c Config) (err error) {
 	writeLog := log.Log.WithField("db", "write")
 	config = &c
@@ -75,7 +73,6 @@ func Close() {
 }
 
 // Function to add a model to the runtime
-// Input: interface m
 func AddModel(m interface{}) {
 	runtime = append(runtime, m)
 }

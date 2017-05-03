@@ -1,5 +1,4 @@
-// Package http provides the
-// logic of the webserver
+// Package that provides the logic of the webserver
 package http
 
 import (
@@ -12,7 +11,6 @@ import (
 )
 
 // Function to the the permission and it's error handling
-// Input: pointer to testing object
 func TestPermission(t *testing.T) {
 	assert := assert.New(t)
 
@@ -30,7 +28,7 @@ func TestPermission(t *testing.T) {
 
 	r.AddCookie(&http.Cookie{Name: "session"})
 
-	// HasPermission respond a true
+	// HasPermission responds true
 	reached = false
 	PermissionHandler(func(w http.ResponseWriter, r *http.Request) {
 		reached = true
@@ -39,7 +37,7 @@ func TestPermission(t *testing.T) {
 	}, 1)(w, r)
 	assert.True(reached)
 
-	// HasPermission respond a false
+	// HasPermission responds false
 	reached = false
 	PermissionHandler(func(w http.ResponseWriter, r *http.Request) {
 		reached = true
@@ -48,7 +46,7 @@ func TestPermission(t *testing.T) {
 	}, 1)(w, r)
 	assert.False(reached)
 
-	// HasPermission respond a error
+	// HasPermission responds error
 	reached = false
 	PermissionHandler(func(w http.ResponseWriter, r *http.Request) {
 		reached = true

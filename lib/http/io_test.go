@@ -1,5 +1,4 @@
-// Package http provides the
-// logic of the webserver
+// Package that provides the logic of the webserver
 package http
 
 import (
@@ -12,8 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-// Function to test the writing into a http response
-// Input: pointer to testing object
+// Function to test write()
 func TestWrite(t *testing.T) {
 	assert := assert.New(t)
 
@@ -37,8 +35,7 @@ func TestWrite(t *testing.T) {
 
 }
 
-// Function to test the reading from a http response
-// Input: pointer to testing object
+// Function to test read()
 func TestRead(t *testing.T) {
 	assert := assert.New(t)
 
