@@ -1,3 +1,4 @@
+// Package with supporting functionality to run the microservice
 package runtime
 
 import (
@@ -10,6 +11,7 @@ import (
 	"github.com/genofire/hs_master-kss-monolith/models"
 )
 
+// Function to test the unlocking of goods
 func TestGoodRelease(t *testing.T) {
 	assert := assert.New(t)
 	database.Open(database.Config{

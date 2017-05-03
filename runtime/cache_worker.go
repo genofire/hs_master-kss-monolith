@@ -1,3 +1,4 @@
+// Package with supporting functionality to run the microservice
 package runtime
 
 import (
@@ -7,13 +8,13 @@ import (
 	"github.com/genofire/hs_master-kss-monolith/models"
 )
 
-// config of the cache worker
+// Configuration of the cache Worker
 var CacheConfig models.CacheWorkerConfig
 
-// command which is runned in the cache worker
+// Function to run the cache Worker
 func CleanCache() {
 	before := time.Now().Add(-CacheConfig.After.Duration)
-	// Cache if product exists
+	// Cache, if product exists
 	for index, cache := range productExistCache {
 		if before.After(cache.LastCheck) {
 			delete(productExistCache, index)
@@ -27,7 +28,7 @@ func CleanCache() {
 	}
 }
 
-// create a worker to clean the caches which stored from other microservice
+// Function to create a Worker and to clean the caches from other microservice
 func NewCacheWorker() (w *worker.Worker) {
 	return worker.NewWorker(CacheConfig.Every.Duration, CleanCache)
 }

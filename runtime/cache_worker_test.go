@@ -1,3 +1,4 @@
+// Package with supporting functionality to run the microservice
 package runtime
 
 import (
@@ -7,6 +8,7 @@ import (
 	"github.com/genofire/hs_master-kss-monolith/models"
 )
 
+// Function to test the cache Worker
 func TestCacheWorker(t *testing.T) {
 
 	productExistCache[2] = boolMicroServiceCache{LastCheck: time.Now(), Value: true}

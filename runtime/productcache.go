@@ -1,3 +1,4 @@
+// Package with supporting functionality to run the microservice
 package runtime
 
 import (
@@ -8,21 +9,24 @@ import (
 	"github.com/genofire/hs_master-kss-monolith/lib/log"
 )
 
-// url to the microservice which manage the products
+// URL to the microservice which manages the products (product catalogue)
 var ProductURL string
 
+// Struct tht holds the information on the microservice cache
 type boolMicroServiceCache struct {
 	LastCheck time.Time
 	Value     bool
 }
 
+// Cache for existing products
 var productExistCache map[int64]boolMicroServiceCache
 
+// Function to initialize the cache for existing products
 func init() {
 	productExistCache = make(map[int64]boolMicroServiceCache)
 }
 
-// check on the other microservice if the product exists
+// Function to check on the other microservice (product catalogue) if the product exists
 func ProductExists(id int64) (bool, error) {
 	if cache, ok := productExistCache[id]; ok {
 		return cache.Value, nil

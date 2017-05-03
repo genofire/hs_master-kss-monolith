@@ -1,3 +1,4 @@
+// Package with supporting functionality to run the microservice
 package runtime
 
 import (
@@ -8,28 +9,32 @@ import (
 	"github.com/genofire/hs_master-kss-monolith/lib/log"
 )
 
-// url to the microservice which manage the permissions
+// URL to the microservice which manages permissions
 var PermissionURL string
 
-// type of permission
+// Type of permission
 type Permission int
 
-// some permission (see Permission)
+// Some permissions (the real permissions need to come from the permission microservice)
 const (
-	// has the user the permission to create need goods of a product
-	// e.g. if a good received and now availablity to sell
+	// permission to add goods to the stock
+	// e.g. if a good is received and now available to sell
 	PermissionCreateGood = 1
-	// has the user the permission to delete need goods of a product
-	// e.g. if a good become rancid and has to remove from stock
+
+	// permission to delete goods from the stock
+	// e.g. if a good become rancid and has to be removed
 	PermissionDeleteGood = 2
 )
 
+// Struct that holds the information for a permission cache
 type permissionMicroServiceCache struct {
 	LastCheck   time.Time
 	session     string
 	permissions map[Permission]boolMicroServiceCache
 }
 
+
+// Function to check, if a user has a permission
 func (c *permissionMicroServiceCache) HasPermission(p Permission) (bool, error) {
 	c.LastCheck = time.Now()
 	if cache, ok := c.permissions[p]; ok {
@@ -56,13 +61,15 @@ func (c *permissionMicroServiceCache) HasPermission(p Permission) (bool, error) 
 	return c.permissions[p].Value, err
 }
 
+// Cache for permissions
 var permissionCache map[string]*permissionMicroServiceCache
 
+// Function to initialize the permission cache
 func init() {
 	permissionCache = make(map[string]*permissionMicroServiceCache)
 }
 
-// check if the client with the session string has a permissions (see Permission)
+// Function to check, if the current session has any permissions
 func HasPermission(session string, p int) (bool, error) {
 	_, ok := permissionCache[session]
 	if !ok {

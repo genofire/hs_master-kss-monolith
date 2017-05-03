@@ -1,3 +1,4 @@
+// Package with supporting functionality to run the microservice
 package runtime
 
 import (
@@ -7,6 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+// Function to test the permission handling
 func TestAuth(t *testing.T) {
 	assert := assert.New(t)
 

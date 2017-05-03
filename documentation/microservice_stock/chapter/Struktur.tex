@@ -27,20 +27,22 @@ Der Presentation Layer umfasst alle  Packages, die sich mit der eigentlichen Dar
 
 \paragraph{cmd:} Go-File main.go, welches alle Angaben zu den Config-Files der Applikation enthält
 
-\paragraph{http:} Go-Files, die die Anwendungslogik (Funktionen) beinhalten.
+\paragraph{http:} Go-Files, die die Anwendungslogik (Funktionen) und die API-Rounten beinhalten.
 	\begin{itemize}
-	\item \texttt{good.go}: Funktionen für die Auflistung und Zählung der vorhandenen Waren sowie die Feststellung ihrer Verfügbarkeit zusammen
-	\item \texttt{good\_temp.go}: Hilfsfunktionen, die für die Darstellung des Warenbestandes als Ampel im Kunden-Frontend benötigt werden
 	\item \texttt{bindapi.go}: Funktionen, die für das Binden der URL-Pfade notwendig sind
+	\item \texttt{good.go}: Funktionen fpr das Hinzufügen von Waren zum Warenbestand
+	\item \texttt{good_show.go}: Funktionen für die Auflistung und Zählung der vorhandenen Waren sowie die Feststellung ihrer Verfügbarkeit zusammen
+	\item \texttt{good\_temp.go}: Hilfsfunktionen, die für die Darstellung des Warenbestandes als Ampel im Kunden-Frontend benötigt werden
 	\item \texttt{status.go}: Funktion, die den Status des Microservice abfragt 
 	\end{itemize}
 
 
-\paragraph{models:} Go-Files, die Structs und zugehörige Hilfsfunktionen beinhalten
+\paragraph{models:} Go-Files, die Structs und zugehörige Hilfsfunktionen (hauptsächlich statischen Inhalt des Microservice) beinhalten 
 	\begin{itemize}
 	\item \texttt{config.go}: Structs mit den Informationen zur Konfiguration des Webservers, der Datenbank und dem Cache-Management sowie Hilfsfunktionen zum Lesen von Config-Files
 	\item \texttt{duration.go}: Structs und Hilfsfunktionen zur Definition eines Typs für Zeitangaben
 	\item \texttt{good.go}: Structs und Hilfsfunktionen zur Darstellung von Waren, hier werden auch die beschriebenen Funktionalitäten wie das Blockieren von Waren beschrieben
+	\item \texttt{structstorage}: 
 	\end{itemize}
 
 
@@ -49,8 +51,10 @@ Der Presentation Layer umfasst alle  Packages, die sich mit der eigentlichen Dar
 	\item \texttt{auth.go}: Hilfsfunktionen zur Prüfung, ob eine Berechtigung für den Zugriff vorliegt
 	\item \texttt{cache\_worker.go}: Hilfsfunktionen für das Löschen und Anlegen von Cache-Workers
 	\item \texttt{good\_release.go}: Hilfsfunktionen zum Entsperren von blockierten Waren
-	\item \texttt{product.go}: Hilfsfunktionen zum Anlegen eines Caches für Produkte und zur Prüfung
+	\item \texttt{productcache.go}: Hilfsfunktionen zum Anlegen eines Caches für Produkte und zur Prüfung
+	\item \texttt{runtime.go}: Übergreifende Hintergrundfunktionalitäten	
 	\end{itemize}
+	
 
 
 \newpage

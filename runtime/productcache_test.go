@@ -1,3 +1,4 @@
+// Package with supporting functionality to run the microservice
 package runtime
 
 import (
@@ -7,6 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+// Function to test, if and which products exist (get information from the products catalogue)
 func TestProductExists(t *testing.T) {
 	assert := assert.New(t)
 
