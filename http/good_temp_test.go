@@ -1,3 +1,4 @@
+// Package that contains all api routes of this microservice
 package http
 
 import (
@@ -6,9 +7,10 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+// Function to test tempPercent() and tempProcessRadius()
 func TestTempFuncs(t *testing.T) {
 	assert := assert.New(t)
-	resultInt := tempProcent(3, 9)
+	resultInt := tempPercent(3, 9)
 	assert.Equal(33, resultInt)
 
 	// TODO is there a other way to calc this?

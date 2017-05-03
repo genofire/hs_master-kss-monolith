@@ -1,3 +1,4 @@
+// Package that contains all api routes of this microservice
 package http
 
 import (
@@ -8,21 +9,25 @@ import (
 	"text/template"
 )
 
-// path to the svg image templaes to show availablity of a given good
+// Path to the svg image template, that shows the availablity  of a given good
+// with a traffic light food labeling system
 var GoodAvailablityTemplate string
 
-func tempProcent(value, max int) int {
+// Function to calculate a percent value from a given value and an maximum value
+func tempPercent(value, max int) int {
 	return value * 100 / max
 }
 
+// Function to calculate a partial radius, depending on a percentage value
 func tempProcessRadius(value, max, radius int) float64 {
 	return (1 - float64(value)/float64(max)) * float64(radius) * 2 * 3.14
 }
 
+// Function to get the SVG, that shows the traffic light food labeling system for a given good
 func getGoodAvailablitySVG(w http.ResponseWriter, count int) {
 
 	t := template.New("some")
-	t = t.Funcs(template.FuncMap{"procent": tempProcent,
+	t = t.Funcs(template.FuncMap{"procent": tempPercent,
 		"process_radius": tempProcessRadius,
 	})
 	buf := bytes.NewBuffer(nil)

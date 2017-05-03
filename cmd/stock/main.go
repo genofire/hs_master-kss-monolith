@@ -1,4 +1,4 @@
-// The cmd binary of the microservice to run
+// Package that containts the cmd binary of the microservice to run it
 package main
 
 import (
@@ -19,11 +19,13 @@ import (
 	"github.com/genofire/hs_master-kss-monolith/runtime"
 )
 
+// Configuration File
 var (
 	configFile string
 	config     *models.Config
 )
 
+// Function to run this go program
 func main() {
 	flag.StringVar(&configFile, "config", "config.conf", "path of configuration file (default:config.conf)")
 	flag.Parse()

@@ -1,3 +1,4 @@
+// Package that contains all api routes of this microservice
 package http
 
 import (
@@ -13,6 +14,7 @@ import (
 	"github.com/genofire/hs_master-kss-monolith/test"
 )
 
+// Function to test listGoods()
 func TestListGood(t *testing.T) {
 	assertion, router := test.Init(t)
 
@@ -37,6 +39,7 @@ func TestListGood(t *testing.T) {
 	test.Close()
 }
 
+// Function to getGoodAvailability() and getGoodAvailabilityCount()
 func TestGetGoodAvailable(t *testing.T) {
 	now := time.Now()
 	assertion, router := test.Init(t)

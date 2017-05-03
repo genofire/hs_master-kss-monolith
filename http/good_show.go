@@ -1,3 +1,4 @@
+// Package that contains all api routes of this microservice
 package http
 
 import (
@@ -14,12 +15,13 @@ import (
 	"github.com/genofire/hs_master-kss-monolith/runtime"
 )
 
+// Function to list all goods
 func listGoods(w http.ResponseWriter, r *http.Request) {
 	log := logger.HTTP(r)
 	id, err := strconv.ParseInt(pat.Param(r, "productid"), 10, 64)
 	if err != nil {
 		log.Warn("wrong productid format")
-		http.Error(w, "wrong productid", http.StatusNotAcceptable)
+		http.Error(w, "the productid is false", http.StatusNotAcceptable)
 		return
 	}
 	log = log.WithField("productid", id)
@@ -27,31 +29,32 @@ func listGoods(w http.ResponseWriter, r *http.Request) {
 	result := database.Read.Where("product_id = ?", id).Find(&list)
 	if result.RowsAffected == 0 {
 		log.Warn("no goods found")
-		http.Error(w, "no goods found", http.StatusNotFound)
+		http.Error(w, "no goods found for this product", http.StatusNotFound)
 		return
 	}
 	lib.Write(w, list)
 	log.Info("done")
 }
 
+// Function that counts als available goods for one product
 func getGoodAvailablityCount(w http.ResponseWriter, r *http.Request) (int, *logrus.Entry) {
 	log := logger.HTTP(r)
 	id, err := strconv.ParseInt(pat.Param(r, "productid"), 10, 64)
 	if err != nil {
 		log.Warn("wrong productid format")
-		http.Error(w, "wrong productid", http.StatusNotAcceptable)
+		http.Error(w, "the product id has a false format", http.StatusNotAcceptable)
 		return -1, log
 	}
 	log = log.WithField("productid", id)
 	ok, err := runtime.ProductExists(id)
 	if err != nil {
-		log.Warn("product could not verified on other microservice")
-		http.Error(w, "product could not verified on other microservice", http.StatusGatewayTimeout)
+		log.Warn("product could not verified on the microservice")
+		http.Error(w, "the product could not be verified", http.StatusGatewayTimeout)
 		return -1, log
 	}
 	if !ok {
-		log.Warn("product did not exists anymore")
-		http.Error(w, "product did not exists anymore", http.StatusNotFound)
+		log.Warn("product does not exists anymore")
+		http.Error(w, "the product does not exists anymore", http.StatusNotFound)
 		return -1, log
 	}
 	var count float64
@@ -59,6 +62,7 @@ func getGoodAvailablityCount(w http.ResponseWriter, r *http.Request) (int, *logr
 	return int(count), log
 }
 
+// Function that returns the availability of a good
 func getGoodAvailablity(w http.ResponseWriter, r *http.Request) {
 	count, log := getGoodAvailablityCount(w, r)
 	if count < 0 {

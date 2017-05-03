@@ -1,3 +1,4 @@
+// Package that contains all api routes of this microservice
 package http
 
 import (
@@ -9,6 +10,7 @@ import (
 	"github.com/genofire/hs_master-kss-monolith/test"
 )
 
+// Function to test status()
 func TestStatus(t *testing.T) {
 	assertion, router := test.Init(t)
 

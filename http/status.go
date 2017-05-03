@@ -1,3 +1,4 @@
+// Package that contains all api routes of this microservice
 package http
 
 import (
@@ -9,6 +10,7 @@ import (
 	"github.com/genofire/hs_master-kss-monolith/models"
 )
 
+// Function to get the status of the microservice, the database and the goods
 func status(w http.ResponseWriter, r *http.Request) {
 	log := logger.HTTP(r)
 	var goods []*models.Good
