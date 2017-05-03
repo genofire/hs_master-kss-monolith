@@ -1,0 +1,52 @@
+\section{Definition der Anforderungen}
+\label{sec: Definition der Anforderungen}
+
+Der Microservice Warenwirtschaft dient der Verwaltung der Warenbestände für den Webshop Mosh. Er ermöglicht es zum Beispiel, dass neue Waren erfasst werden können und keine Waren verkauft werden, die sich nicht mehr im Warnbestand befinden.  Die nachfolgende Tabelle \ref{tabl:Begriffe} definiert die hier verwendeten Begriffe, so wie sie in dem Code und innerhalb dieser Dokumentation verwendet werden.
+\begin{table}[H]
+\begin{small}
+	\begin{center}
+  	\caption{Begriffsdefinition}
+   	\renewcommand{\arraystretch}{1.0}
+    \begin{tabularx}{\textwidth}{|L{2.2cm}|L{4cm}|X|}		
+    
+    \hline
+    			
+    \textbf{Begriff} & \textbf{Englische Übersetzung} &\textbf{Bedeutung}\\ \hline
+    
+    Produkt & Product & Über den Webshop angebotene Früchte- oder Gemüseart, zum Beispiel Kiwis\\ \hline
+	Ware & Good & Einzelne Frucht oder einzelnes Gemüse pro Produkt (zum Beispiel eine Kiwi)\\ \hline
+	Warenbestand & Stock & Anzahl der einzelnen Waren pro Produkt, die sich im Lager befinden\\ \hline
+    
+	\end{tabularx}
+	\label{tabl:Begriffe}
+	\end{center}
+\end{small}
+\end{table}
+
+\textit{\textit{Dieser Microservice ist Teil der Prüfungsleistung in den Modul KSS im Masterstudiengang komplexe Softwaresysteme des Sommersemesters 2017 an der Hochschule Bremen. Zu der gestellten Aufgabenstellung gehört nicht, den Microservice zusammen mit den Microservices der anderen Gruppen in einen gemeinsamen, lauffähigen Webshop zu integrieren.}}
+
+\newpage
+Die übergeordnete Aufgabe dieses Microservice ist die Speicherung der Waren mit ihrem Lagerort sowie einem Zeitstempel, wann sie erfasst wurden. Nachfolgend werden die weiteren, detaillierten Anforderungen an diesen Microservice zusammengefasst. 
+
+\begin{itemize}
+	\item \textbf{Funktionen des Admin-Frontends}
+	\begin{itemize}
+		\item Hinzufügen neuer Waren zum Warenbestand
+		\item Manuelles Entfernen von Waren aus dem Warenbestand, zum Beispiel wenn diese verdorben sind
+		\item Entfernen von einzelnen Waren aus dem Warenbestand, wenn diese an einen Kunden versendet werden
+		\item Blockieren von Waren in dem Warenbestand, wenn ein Kunde sie in seinen Warenkorb gelegt hat
+		\item Automatische Freigaben von blockierten Waren, wenn diese nach 30 Minuten nicht an den Versand überstellt wurden
+	\end{itemize}
+	\item \textbf{Funktionen des Kunden-Frontends}
+	\begin{itemize}
+		\item Anzeige des Warenbestands über ein Ampelsystem 
+		\item Ein Warenbestand größer sieben entspricht der Farbe grün (ausreichende Anzahl vorhanden)
+		\item Ein Warenbestand zwischen vier und sieben entspricht der Farbe orange (moderate Anzahl vorhanden)		
+		\item Ein Warenbestand zwischen null und drei entspricht der Farbe rot (geringe Anzahl vorhanden)
+	\end{itemize}
+	\item \textbf{Optionale Zusatzfunktionen}
+	\begin{itemize}
+		\item Ausgabe einer Statistik, wie viele Waren im letzten Monat aus dem Warenbestand versandt und wie viele manuell entfernt wurden im Admin-Fontend
+		\item Ampeldarstellung pro Ware, die Anzeigt ob diese bereits überaltert ist, im Admin-Frontend (ein Alter von mehr als X Tagen wird als überaltert angesehen)
+	\end{itemize}
+\end{itemize}

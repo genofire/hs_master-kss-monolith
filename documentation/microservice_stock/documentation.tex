@@ -1,0 +1,43 @@
+%------------------------------------------------------------------------------------------------------------
+%------------------------------------------------------------------------------------------------------------           
+% ----    Komplexe Softwaresysteme (M.Sc.) 
+% ----    Hochschule Bremen - City University of Applied Sciences      
+%------------------------------------------------------------------------------------------------------------
+%------------------------------------------------------------------------------------------------------------
+
+
+\input{./chapter/Header}
+
+
+\begin{document}
+\pagenumbering{gobble}
+\pagenumbering{Roman}
+
+\input{./chapter/Titelseite}\clearpage \newpage
+\input{./chapter/Steckbrief} \newpage
+
+{
+\setlength{\parskip}{0pt}
+\linespread{1.2} 
+\tableofcontents 				
+}
+\newpage
+
+\pagenumbering{arabic}
+
+\input{./chapter/DokStruktur} \newpage
+\input{./chapter/Anforderungen} \newpage
+\input{./chapter/Struktur} \newpage
+\input{./chapter/Implementierungsregeln}\newpage
+\input{./chapter/Testfalle} \newpage
+
+
+\clearpage
+\appendix
+\phantomsection
+\addcontentsline{toc}{section}{\appendixname}
+\input{./chapter/GettingStarted} \newpage 
+\input{./chapter/Handout} \newpage
+\input{./chapter/Testprotokoll} 
+
+\end{document}
