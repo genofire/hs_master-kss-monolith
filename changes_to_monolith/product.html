@@ -32,8 +32,11 @@
       <div class="col-md-8">
         <h2 th:text="${product.name}">Product Name</h2>
         <p class="text-info text-uppercase" th:text="${product.price}">0,00 Euro</p>
+
+        <<!-- Traffic light food labeling system -->
         <img class="icon" src="/api/good/availablity/{{item.id}}"/>
-        <p class="lead" th:text="${product.description}">Description.</p>
+        
+          <p class="lead" th:text="${product.description}">Description.</p>
         <div th:replace="fragments/reviews :: reviews"></div>
       </div>
     </div>
