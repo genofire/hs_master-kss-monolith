@@ -1,3 +1,4 @@
+// Package with the mostly static content (models) of this microservice
 package models
 
 import (
@@ -7,6 +8,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+
+// Function to test UnmarshalTOML()
 func TestDuration(t *testing.T) {
 	assert := assert.New(t)
 

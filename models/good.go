@@ -1,3 +1,4 @@
+// Package with the mostly static content (models) of this microservice
 package models
 
 import (
@@ -9,7 +10,7 @@ import (
 	"github.com/genofire/hs_master-kss-monolith/lib/database"
 )
 
-// this stock microservice manage goods
+// Goods managemd in this stock microservice
 type Good struct {
 	ID        int64
 	ProductID int64
@@ -26,24 +27,24 @@ type Good struct {
 	Sended    bool
 }
 
-// generate database select which filtered locked goods
+// Function to enerate a database and select locked goods with a filter
 func (g *Good) FilterAvailable(db *gorm.DB) *gorm.DB {
 	return db.Model(g).Where("locked_secret == '' OR locked_secret is NULL")
 }
 
-// lock the good, on a way, that it could not be used by other users
+// Function to lock a good, so that it cannot be locked or bought by other users
 func (g *Good) Lock(secret string) {
 	now := time.Now()
 	g.LockedSecret = secret
 	g.LockedAt = &now
 }
 
-// is this good locked?
+// Function to check if a good is locked
 func (g *Good) IsLock() bool {
 	return len(g.LockedSecret) > 0
 }
 
-// unlock the good, that it could be usered again
+// Function to unlock a good
 func (g *Good) Unlock(secret string) error {
 	if g.LockedSecret == secret {
 		g.LockedSecret = ""
@@ -53,6 +54,7 @@ func (g *Good) Unlock(secret string) error {
 	return errors.New("wrong secret")
 }
 
+// Function to initialize the database
 func init() {
 	database.AddModel(&Good{})
 }

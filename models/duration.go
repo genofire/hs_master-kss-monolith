@@ -1,3 +1,4 @@
+// Package with the mostly static content (models) of this microservice
 package models
 
 import (
@@ -7,15 +8,13 @@ import (
 )
 
 // Duration is a TOML datatype
-// A duration string is a possibly signed sequence of
-// decimal numbers  and a unit suffix,
-// such as "300s", "1.5h" or "5d".
-// Valid time units are "s", "m", "h", "d", "w".
+// A duration string is a possibly signed sequence of decimal numbers  and a unit suffix,
+// such as "300s", "1.5h" or "5d". Valid time units are "s", "m", "h", "d", "w".
 type Duration struct {
 	time.Duration
 }
 
-// UnmarshalTOML parses a duration string.
+// Function UnmarshalTOML parses a duration string
 func (d *Duration) UnmarshalTOML(dataInterface interface{}) error {
 	var data string
 	switch dataInterface.(type) {

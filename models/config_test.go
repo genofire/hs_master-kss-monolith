@@ -1,3 +1,4 @@
+// Package with the mostly static content (models) of this microservice
 package models
 
 import (
@@ -6,6 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+// Function to test the configuration of the microservice
 func TestReadConfig(t *testing.T) {
 	assert := assert.New(t)
 

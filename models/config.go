@@ -1,3 +1,4 @@
+// Package with the mostly static content (models) of this microservice
 package models
 
 import (
@@ -9,9 +10,9 @@ import (
 	"github.com/genofire/hs_master-kss-monolith/lib/log"
 )
 
-//config file of this daemon (for more the config_example.conf in git repository)
+// Config file for this daemon (mor information at the config_example.conf in this git repository)
 type Config struct {
-	// address on which the api and static content webserver runs
+	// address under which the api and static content of the webserver runs
 	WebserverBind string `toml:"webserver_bind"`
 
 	// path to deliver static content
@@ -21,33 +22,33 @@ type Config struct {
 	GoodRelease GoodReleaseConfig `toml:"good_release"`
 	CacheClean  CacheWorkerConfig `toml:"cache_clean"`
 
-	// path to the svg image templaes to show availablity of a given good
+	// path to the svg image templaes to show availablity of a given good with a traffic light food labeling system
 	GoodAvailablityTemplate string `toml:"good_availablity_template"`
 
-	// URLs to other microservices
+	// URLs to other microservices that this services uses
 	MicroserviceDependencies struct {
 		Product    string `toml:"product"`
 		Permission string `toml:"permission"`
 	} `toml:"microservice_dependencies"`
 }
 
-//config of worker to clean caches from values of other microservice
+// Configuration of the Worker to clean the cache from values of other microservice
 type CacheWorkerConfig struct {
-	// run worker every ...
+	// Run Worker every Duration
 	Every Duration
-	// remove cache which is not used since ..
+	// Remove cache, which is not used since Duration
 	After Duration
 }
 
-//config of worker to release looked goods after a time
+// Configuration of the Worker to release locked goods after a time period
 type GoodReleaseConfig struct {
-	// run worker every ...
+	// Run worker every Duration
 	Every Duration `toml:"every"`
-	// unlock which is not used since ..
+	// unlock which is not used since Duration
 	After Duration `toml:"after"`
 }
 
-//reads a config model from path of a yml file
+// Function that reads a config model from a given path of a yml file
 func ReadConfigFile(path string) *Config {
 	config := &Config{}
 	file, err := ioutil.ReadFile(path)
