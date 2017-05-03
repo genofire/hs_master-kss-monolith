@@ -1,7 +1,7 @@
-// A little lib to easy create everything for running virtual api
+// Package that contains a lib to easily create everything for running a virtual api
 package test
 
-// Request an easy manager to test REST-API
+// Import an easy manager to test the REST-API
 import (
 	"bytes"
 	"encoding/json"
@@ -15,9 +15,10 @@ import (
 	goji "goji.io"
 )
 
+// Pointer to the server
 var srv *http.Server
 
-//initialisieren an API test api
+// Function to initialize a test api (with test files of depending microservice)
 func Init(t *testing.T) (assertion *assert.Assertions, router *goji.Mux) {
 	assertion = assert.New(t)
 	database.Open(database.Config{
@@ -36,30 +37,30 @@ func Init(t *testing.T) (assertion *assert.Assertions, router *goji.Mux) {
 	return
 }
 
-// close just the static webserver (with test files of other microservice)
+// Function to close the static webserver
 func CloseServer() {
 	srv.Close()
 }
 
-// close everything
+// Function to close and stop the whole microservice
 func Close() {
 	database.Close()
 	srv.Close()
 }
 
-// handle a test client session with cookies
+// Handle a test session with cookies
 type Request struct {
 	req     *http.Request
 	cookies []*http.Cookie
 	router  *goji.Mux
 }
 
-// NewSession to get a new easy manager
+// Function tot create a NewSession with the easy manager
 func NewSession(router *goji.Mux) *Request {
 	return &Request{router: router}
 }
 
-// send request to router and recieve the api answer
+// Function to send a request to the router and recieve the api's answer
 func (r *Request) JSONRequest(method string, url string, body interface{}) (jsonResult interface{}, res *http.Response) {
 	jsonObj, _ := json.Marshal(body)
 	req, _ := http.NewRequest(method, url, bytes.NewReader(jsonObj))
@@ -79,19 +80,19 @@ func (r *Request) JSONRequest(method string, url string, body interface{}) (json
 	return
 }
 
-// login the current session
+// Function to log the current session
 func (r *Request) Login() {
 	r.cookies = nil
 	r.cookies = append(r.cookies, &http.Cookie{Name: "session", Value: "testsessionkey"})
 }
 
-// logout the current session
+// Function to logout/quit the current session
 func (r *Request) Logout() {
 	r.cookies = nil
 	r.cookies = append(r.cookies, &http.Cookie{Name: "session", Value: "trashkey"})
 }
 
-// clean the current session
+// Function to clean the current session
 func (r *Request) Clean() {
 	r.cookies = nil
 }
