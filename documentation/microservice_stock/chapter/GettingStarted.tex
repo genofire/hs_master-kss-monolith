@@ -1,7 +1,17 @@
 \section{Getting Started}
 \label{sec: Getting Started}
-Um den Microservice zu starten, muss die folgende Befehlszeile in dem Hauptverzeichnis des Microservice aufgerufen werden.
 
-\begin{lstlisting}[caption=Getting Started]
+\subsection{Installation von Go}
+In Abhängigkeit von dem Betriebssystem, gibt es verschiedene Ansätze, die Programmiersprache Go auf einem System zu installieren. Eine Anleitung für die Installation unter Linux, Windows und Mac ist unter dem Link \texttt{https://golang.org/doc/install} zu finden. Damit alle Abhängigkeiten des Microservices Warenwirtschaft auch auf dem System bereitstehen, sind diese -- über die Ausführung der folgenden Befehlszeile im Root-Verzeichnis des Microservices -- zu laden.
+\begin{lstlisting}[caption=Laden der Abhängigkeiten]
+go get ./...
+\end{lstlisting}
+
+\subsection{Start des Microservice}
+Um den Microservice Warenwirtschaft zu starten, muss die folgende Befehlszeile unter dem Root-Verzeichnis des Microservice ausgeführt werden. Anschließend wird der Microservice unter \texttt{http://localhost:65000/} bereitgestellt. 
+\begin{lstlisting}[caption=Start des Go-Microservice]
 go run main.go
 \end{lstlisting}
+
+\subsection{Start des Microservice}
+Der angepasste Monolith wird entsprechend der Anleitung unter \texttt{https://gitlab.com/matthiasstock/monolith} gestartet.

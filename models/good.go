@@ -10,7 +10,7 @@ import (
 	"github.com/genofire/hs_master-kss-monolith/lib/database"
 )
 
-// Goods managemd in this stock microservice
+// Goods managed in this stock microservice
 type Good struct {
 	ID        int64
 	ProductID int64
