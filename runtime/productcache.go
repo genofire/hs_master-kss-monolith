@@ -33,7 +33,7 @@ func ProductExists(id int64) (bool, error) {
 	}
 
 	url := fmt.Sprintf(ProductURL, id)
-	log.Log.WithField("url", url).Info("exists product?")
+	log.Log.WithField("url", url).Info("does the product exist?")
 	res, err := http.Get(url)
 	if err != nil {
 		return false, err
