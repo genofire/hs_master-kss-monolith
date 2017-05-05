@@ -20,19 +20,19 @@ func TestProductExists(t *testing.T) {
 	}
 	go srv.ListenAndServe()
 
-	ok, err := ProductExists(6)
+	ok, err := ProductExists(3)
 	assert.True(ok)
 	assert.NoError(err)
 
 	// test cache
-	ok, err = ProductExists(6)
+	ok, err = ProductExists(3)
 	assert.True(ok)
 	assert.NoError(err)
 
 	productExistCache = make(map[int64]boolMicroServiceCache)
 	ProductURL = "http://localhost:8081/api-test/product/%d/"
 
-	ok, err = ProductExists(6)
+	ok, err = ProductExists(3)
 	assert.Error(err)
 
 	srv.Close()
