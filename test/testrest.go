@@ -60,7 +60,7 @@ func NewSession(router *goji.Mux) *Request {
 	return &Request{router: router}
 }
 
-// Function to send a request to the router and recieve the api's answer
+// Function to send a request to the router and receive the api's answer
 func (r *Request) JSONRequest(method string, url string, body interface{}) (jsonResult interface{}, res *http.Response) {
 	jsonObj, _ := json.Marshal(body)
 	req, _ := http.NewRequest(method, url, bytes.NewReader(jsonObj))
