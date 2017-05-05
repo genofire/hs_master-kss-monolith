@@ -5,16 +5,41 @@ Der Microservice nutzt anstelle einer klassischen Datenbank eine In-Memory-Daten
 
 \begin{figure}[H]
 	\begin{center}
-	\includegraphics[width=0.65 \textwidth]{./pics/struktur.png}
+	\includegraphics[width=0.95 \textwidth]{./pics/struktur.png}
 	\end{center}
 	\caption{Struktur des Microservice}
 	\label{pic:Struktur des Microservice}
 \end{figure}
 
-
+\newpage
 \subsection{Schnittstellen zu anderen Microservices}
 \label{subsec: Schnittstellen zu anderen Microservices}
-Der Microservice Warenwirtschaft weißt vier Schnittstellen\footnote{Da es nicht Teil der übergeordneten Aufgabenstellung war, die Microservices der einzelnen Projektgruppen zu einem lauffähigen Webshop zusammenzufügen, greift der Microservice Warenwirtschaft an diesen Stellen auf Testdaten zurück} zu anderen Microservices auf. Zum einen sollte für die Authentifizierung der Benutzer des Admin-Frontends auf den Microservice Benutzerauthentifizierung zurückgegriffen werden. Außerdem benötigt der Microservice Informationen darüber, ob ein Benutzer eine Ware in den Warenkorb gelegt hat und ob eine Ware versandt wurde. Somit entstehen ebenfalls Schnittstellen zu den Microservices Bestellung und Versandt. Abschließend weißt dieser Microservice eine Schnittstelle zu dem Microservice Produktkatalog auf, von welchem die angebotenen Produkte -- die sich dementsprechend im Lager befinden können -- abgefragt werden.
+Der Microservice Warenwirtschaft weißt vier Schnittstellen\footnote{Da es nicht Teil der übergeordneten Aufgabenstellung war, die Microservices der einzelnen Projektgruppen zu einem lauffähigen Webshop zusammenzufügen, greift der Microservice Warenwirtschaft an diesen Stellen auf Testdaten zurück} zu anderen Microservices auf. Zum einen sollte für die Authentifizierung der Benutzer des Admin-Frontends auf den Microservice Benutzerauthentifizierung zurückgegriffen werden. Außerdem benötigt der Microservice Informationen darüber, ob ein Benutzer eine Ware in den Warenkorb gelegt hat und ob eine Bestellung abgeschlossen wurde, sodass ie darin enthaltenen Waren aus dem Warenbestand gelöscht werden müssen. Somit entstehen ebenfalls Schnittstellen zu den Microservices Bestellung und Versandt. Abschließend weißt dieser Microservice eine Schnittstelle zu dem Microservice Produktkatalog auf, von welchem die angebotenen Produkte -- die sich dementsprechend im Lager befinden können -- abgefragt werden. Die drei nachfolgenden Listings zeigen die Daten, die von den Schnittstellen im JSON-Format erwartet, beziehungsweise an diese ausgegeben werden. 
+
+\begin{lstlisting}[caption=Datenabfrage aus dem Produktkatalog]
+{
+  "id": <<Int>>,
+  "title": "<<Produktname>>"
+}
+\end{lstlisting}
+
+
+\begin{lstlisting}[caption=Datenabfrage von der Bestellung (Waren im Warenkorb abgelegt)]
+{
+  "id": <<Int>>,
+  "amount": <<Int>>
+}
+\end{lstlisting}
+
+
+
+\begin{lstlisting}[caption=Datenabfrage von der Bestellung (Waren wurden bestellt)]
+{
+  "id": <<Int>>,
+  "amount": <<Int>>
+}
+\end{lstlisting}
+
 
 \newpage
 \subsection{Presentation Layer}
@@ -73,12 +98,35 @@ Der Presentation Layer umfasst alle  Packages, die sich mit der eigentlichen Dar
 
 \subsection{Integrierte Tests}
 \label{subsec: Integrierte Test}
-Neben den Go-Files die bereits Whitebox-Tests enthalten, ist in dem Package \textbf{\texttt{test}} ein weiteres Go-File (\texttt{testrest.go}) enthalten. Dieses setzt einen Test des Webservers um, bei dem auf Testdaten eines Produktkataloges zurückgegriffen wird. Mit Hilfe der integrierten Test kann in der hier beschriebenen Version eine Code-Coverage von 100\% erreicht werden, das heißt jedes Stück Code wird mindestens einmal zur Ausführung gebracht.
+Neben den Go-Files die bereits Whitebox-Tests enthalten, ist in dem Package \textbf{\texttt{test}} ein weiteres Go-File (\texttt{testRest.go}) enthalten. Dieses setzt einen Test des Webservers um, bei dem auf Testdaten eines Produktkataloges zurückgegriffen wird. Mit Hilfe der integrierten Test kann in der hier beschriebenen Version eine Code-Coverage von 100\% erreicht werden, das heißt jedes Stück Code wird mindestens einmal zur Ausführung gebracht.
 
 \subsection{Admin-Frontend}
 \label{subsec: Admin-Frontend}
 
 
-
+\newpage
 \subsection{Anpassung des Monolithen}
 \label{subsec: Anpassung des Monolithen}
+Damit der Microservice Warenwirtschaft durch den bestehenden Monolithen des Webshops Mosh genutzt werden kann, wurden hier eingei Änderungen vorgenommen. Zunächst wurde für den Aufruf des Admin-Frontends über die URL des Monolithen \texttt{/admin} das nachfolgende Mapping in der Java-Datei \texttt{HomepageController.java} ergänzt.
+
+\begin{lstlisting}[caption=Datenabfrage von der Bestellung (Waren wurden bestellt), language=Java]
+@RequestMapping(value = "/admin", method = RequestMethod.GET)
+public String redirect(Model model) {
+	return this.STOCKADMINFRONTENDTEMPLATE;
+}
+\end{lstlisting}
+
+Weiter wurde eine HTML-Datei \texttt{admin.html} zu den statischen Webseiteninhalten des Monolithen hinzugefügt. Diese leitet, wie nachfolgend dargestellt, durch einen Meta-Eintrag direkt auf die Webseite des Microservice Warenwirtschaft weiter. Für den Fall, dass die Umleitung durch den verwendeten Browser nicht unterstützt wird, wurde zudem ein Link auf die Webseite des Microservice integriert.
+
+\begin{lstlisting}[caption=Datenabfrage von der Bestellung (Waren wurden bestellt), language=HTML]
+<head th:replace="fragments/skeleton :: head">
+	<meta charset="utf-8" />
+    <meta http-equiv="refresh" content="5; URL=http://localhost:65000/"/>
+    [...]
+</head>
+\end{lstlisting}
+
+
+
+
+
