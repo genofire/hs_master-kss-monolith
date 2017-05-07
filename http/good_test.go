@@ -33,7 +33,7 @@ func TestAddGood(t *testing.T) {
 	_, w = session.JSONRequest("POST", "/api/good/a", good)
 	assertion.Equal(http.StatusNotAcceptable, w.StatusCode)
 
-	_, w = session.JSONRequest("POST", "/api/good/4", good)
+	_, w = session.JSONRequest("POST", "/api/good/7", good)
 	assertion.Equal(http.StatusNotFound, w.StatusCode)
 
 	_, w = session.JSONRequest("POST", "/api/good/1", good)

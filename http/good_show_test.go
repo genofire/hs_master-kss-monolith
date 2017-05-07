@@ -86,7 +86,7 @@ func TestGetGoodAvailable(t *testing.T) {
 		Comment:   "blub",
 	})
 
-	result, w = session.JSONRequest("GET", "/api/good/availablity/4", nil)
+	result, w = session.JSONRequest("GET", "/api/good/availablity/7", nil)
 	assertion.Equal(http.StatusNotFound, w.StatusCode)
 
 	test.CloseServer()
