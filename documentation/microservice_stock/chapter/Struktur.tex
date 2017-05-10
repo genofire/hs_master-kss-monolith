@@ -1,12 +1,10 @@
 \section{Architektur des Microservice}
 \label{sec: Architektur des Microservice}
 Der Microservice Warenwirtschaft wurde in der Programmiersprache Go\footnote{https:\//golang.org\/doc\/} entwickelt. Go-An-wendungen bestehen aus Packages, in denen die einzelnen Go-Files organisiert sind, Klassen im Sinne der Objektorientierung gibt es nicht. Der Microservice Warenwirtschaft sett sich aus den neun Packages zusammen, die in der Abbildung X dargestellt werden. In den beiden nachfolgenden Unterkapiteln werden die Packages und die darin enthaltenen Go-Files des Presentation  sowie des Application Layers kurz vorgestellt. Go-Files mit der Bezeichnung \texttt{<<Name>>\_test.go} beinhalten Whitebox-Testfälle um die Funktionen der benannten Go-Files zu prüfen. Aus Gründen der Übersichtlichkeit werden diese File hier nicht explizit aufgeführt. 
-Der Microservice nutzt anstelle einer klassischen Datenbank eine In-Memory-Datenbank im Cache. Aus diesem Grund verschwimmen klassischen Grenzen des Application und Persitant Layers und auf die dezidierte Aufführung des letzteren wird verzichtet.
 
 \begin{figure}[H]
-	\begin{center}
+	\centering
 	\includegraphics[width=0.95 \textwidth]{./pics/struktur.png}
-	\end{center}
 	\caption{Struktur des Microservice}
 	\label{pic:Struktur des Microservice}
 \end{figure}
@@ -99,10 +97,17 @@ Der Presentation Layer umfasst alle  Packages, die sich mit der eigentlichen Dar
 \subsection{Integrierte Tests}
 \label{subsec: Integrierte Test}
 Neben den Go-Files die bereits Whitebox-Tests enthalten, ist in dem Package \textbf{\texttt{test}} ein weiteres Go-File (\texttt{testRest.go}) enthalten. Dieses setzt einen Test des Webservers um, bei dem auf Testdaten eines Produktkataloges zurückgegriffen wird. Mit Hilfe der integrierten Test kann in der hier beschriebenen Version eine Code-Coverage von 100\% erreicht werden, das heißt jedes Stück Code wird mindestens einmal zur Ausführung gebracht.
+\newpage
 
-\subsection{Admin-Frontend}
-\label{subsec: Admin-Frontend}
+\subsection{Persistant Layer}
+Der Persitant Layer umfasst eine SQL-Lite-Datenbank, die im Cache gehalten wird. Die nachfolgende Abbildung \ref{pic:Datenbankmodell des Microservice} zeigt den grundsätzlichen Aufbau der Datenbank. Sie speichert den Warenbestand (stock) in Produkten (product). Jedes Produkt wird mit seiner ID und seinem Namen gehalten, die aus dem Produktkatalog bezogen und in einem Cache zwischengespeichert werden. Zu jedem Produkt gehören wiederum mehrere Waren (good), die ein Lieferdatum und eine Anzahl haben.  Dabei kann eine Ware nur zu einem Produkt gehören.
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5 \textwidth]{./pics/db.pdf}
+	\caption{Datenbankmodell des Microservice}
+	\label{pic:Datenbankmodell des Microservice}
+\end{figure}
 
 \newpage
 \subsection{Anpassung des Monolithen}
@@ -125,8 +130,3 @@ Weiter wurde eine HTML-Datei \texttt{admin.html} zu den statischen Webseiteninha
     [...]
 </head>
 \end{lstlisting}
-
-
-
-
-
