@@ -1,0 +1,20 @@
+<h1>{{product.title}}</h1>
+<form class="ui form" ng-submit="submit()">
+  <div class="field">
+    <label>Fouled at</label>
+    <input type="date" name="fouled_at" placeholder="Fouled at date" ng-model="obj.fouled_at">
+  </div>
+  <div class="field">
+    <label>Position</label>
+    <input type="text" name="position" placeholder="Location in Store", ng-model="obj.position">
+  </div>
+  <div class="field">
+    <label>Comment</label>
+    <input type="text" name="comment" placeholder="Comment to this good", ng-model="obj.comment">
+  </div>
+  <div class="field">
+    <label>Count</label>
+    <input type="number" name="count" ng-model="count" min="1">
+  </div>
+  <button class="ui button" type="submit">Submit</button>
+</form>
