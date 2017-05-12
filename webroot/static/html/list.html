@@ -2,9 +2,10 @@
 <table class="ui very compact table">
   <thead>
     <tr>
-      <th>#</th>
-      <th>Productname</th>
-      <th>Amount</th>
+      <th class="two wide">#</th>
+      <th class="twelve wide">Productname</th>
+      <th class="one wide">Amount</th>
+      <th class="one wide"></th>
     </tr>
   </thead>
   <tbody>
@@ -12,7 +13,10 @@
       <td>{{item.id}}</td>
       <td><a ui-sref="item({productid: item.id})">{{item.title}}</a></td>
       <td>
-          <img class="icon" src="/api/good/availablity/{{item.id}}"/>
+          <img class="icon" ng-src="/api/good/availablity/{{item.id}}"/>
+      </td>
+      <td>
+        <a class="ui icon button" ui-sref="item-add({productid: item.id})"><i class="icon plus"></i></a>
       </td>
     </tr>
   </tbody>

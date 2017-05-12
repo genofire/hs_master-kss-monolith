@@ -11,4 +11,9 @@ angular.module('microStock')
     $http.get(config.store.goods.productById.replace("%d",$stateParams.productid)).then(function(res) {
       $scope.list = res.data
     });
+    $scope.delete = function(){
+      $http.delete(config.store.goods.productById.replace("%d",$stateParams.productid)).then(function(res) {
+        $scope.list = res.data
+      });
+    }
   }]);

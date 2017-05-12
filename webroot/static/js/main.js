@@ -19,6 +19,11 @@ angular.module('microStock', [
         templateUrl: '/static/html/item.html',
         controller:  'ItemCtrl'
       })
+      .state('item-add', {
+        url: '/product/:productid/add',
+        templateUrl: '/static/html/item-add.html',
+        controller:  'ItemAddCtrl'
+      })
       .state('statistics', {
         url: '/statistics',
         templateUrl: '/static/html/statistics.html',

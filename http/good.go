@@ -37,7 +37,12 @@ func addGood(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var obj models.Good
-	lib.Read(r, &obj)
+	err = lib.Read(r, &obj)
+	if err != nil {
+		log.Warn(err.Error())
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
 
 	obj.ProductID = id
 

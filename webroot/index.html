@@ -9,11 +9,16 @@
   <title>Stock Admin</title>
 </head>
 <body ng-app="microStock">
-  <nav class="ui stackable inverted menu">
+  <nav class="ui stackable inverted menu" ng-controller="GlobalCtrl">
     <div class="ui container">
       <div class="header item">Stock Admin</div>
       <a class="item" ui-sref="list" ui-active="active">List</a>
-      <a class="item" ui-sref="statistics">Statistics</a><
+      <a class="item" ui-sref="statistics" ui-active="active">Statistics</a><
+      <div class="right menu">
+        <a class="ui item" ng-click="login()">
+          <i class="icon" ng-class="{'unlock':loggedIn,'lock':!loggedIn}"></i>
+        </a>
+      </div>
     </div>
   </nav>
 
@@ -30,6 +35,8 @@
   <script src="/node_modules/angular-loading-bar/build/loading-bar.min.js"></script>
   <script src="/static/js/main.js"></script>
   <script src="/static/js/item.controller.js"></script>
+  <script src="/static/js/item-add.controller.js"></script>
+  <script src="/static/js/global.js"></script>
   <script src="/static/js/list.controller.js"></script>
   <script src="/static/js/statistics.controller.js"></script>
 </body>

@@ -5,12 +5,13 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
+	"strings"
 )
 
 // Function to read data from a http request via json format (input)
 func Read(r *http.Request, to interface{}) (err error) {
-	if r.Header.Get("Content-Type") != "application/json" {
-		err = errors.New("no json data recived")
+	if !strings.Contains(r.Header.Get("Content-Type"), "application/json") {
+		err = errors.New("no json request recieved")
 		return
 	}
 	err = json.NewDecoder(r.Body).Decode(to)

@@ -12,19 +12,19 @@ import (
 
 // Goods managed in this stock microservice
 type Good struct {
-	ID        int64
-	ProductID int64
-	Position  string
-	Comment   string
-	FouledAt  *time.Time
+	ID        int64      `json:"id"`
+	ProductID int64      `json:"product_id"`
+	Position  string     `json:"position"`
+	Comment   string     `json:"comment"`
+	FouledAt  *time.Time `json:"fouled_at"`
 
-	RecievedAt *time.Time `sql:"default:current_timestamp"`
+	RecievedAt *time.Time `sql:"default:current_timestamp" json:"recieved_at"`
 	// Make it temporary unusable
-	LockedAt     *time.Time
-	LockedSecret string `json:"-"`
+	LockedAt     *time.Time `json:"-"`
+	LockedSecret string     `json:"-"`
 	// Make it unusable
-	DeletedAt *time.Time
-	Sended    bool
+	DeletedAt *time.Time `json:"-"`
+	Sended    bool       `json:"-"`
 }
 
 // Function to enerate a database and select locked goods with a filter

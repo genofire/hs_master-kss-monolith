@@ -1,32 +1,41 @@
-<h1>{{obj.title}} <img class="icon" src="/api/good/availablity/{{obj.id}}"/></h1>
+<h1>
+  {{obj.title}}
+  <img class="icon" src="/api/good/availablity/{{obj.id}}"/>
+  <a class="ui icon button mini right floated" ui-sref="item-add({productid: obj.id})"><i class="icon plus"></i></a>
+</h1>
 <table class="ui table very basic">
-<tr>
-  <td>Count</td>
-  <td>Time of Delevery</td>
-  <td>Status of Freshness</td>
-  <td>< /td>
-
-</tr>
-
-
   <tr>
+    <td>Product ID</td>
+    <td>{{obj.id}}</td>
+  </tr>
+  <tr>
+    <td>Count</td>
     <td>{{list.length}}</td>
-    <td>#</td>
-    <td><img class="icon" src="/api/good/freshness"/></td>
-    <td><i class="trash icon"></i></td>
-
-
   </tr>
 </table>
+<h2>Goods of this product</h2>
 <table class="ui table list" ng-if="list.length > 0">
   <thead>
     <tr>
       <th>#</th>
+      <th>Location</th>
+      <th>Comment</th>
+      <th>Time of Delivery</th>
+      <th>Status of Freshness</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="item in list">
       <td>{{item.id}}</td>
+      <td>{{item.position}}</td>
+      <td>{{item.comment}}</td>
+      <td></td>
+      <td>
+        <img class="icon" ng-src="/api/good/freshness/{{item.id}}"/>
+        {{item.fouled_at|date:"shortDate"}}
+      </td>
+      <td><i class="trash icon" ng-click="delete(item.id)"></i></td>
     </tr>
   </tbody>
 </table>
