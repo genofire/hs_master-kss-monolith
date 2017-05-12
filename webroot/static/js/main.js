@@ -29,7 +29,13 @@ angular.module('microStock', [
         templateUrl: '/static/html/statistics.html',
         controller:  'StatisticsCtrl'
       });
-  }]);
+  }])
+  .filter('reloadSrc', function () {
+    return function (input) {
+      if (input)
+          return input + '?v=' + new Date().getTime();
+      }
+  });
 
 
 var config = {

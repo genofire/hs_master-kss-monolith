@@ -13,7 +13,7 @@
       <td>{{item.id}}</td>
       <td><a ui-sref="item({productid: item.id})">{{item.title}}</a></td>
       <td>
-          <img class="icon" ng-src="/api/good/availablity/{{item.id}}"/>
+          <img class="icon" ng-src="{{'/api/good/availablity/'+item.id| reloadSrc}}"/>
       </td>
       <td>
         <a class="ui icon button" ui-sref="item-add({productid: item.id})"><i class="icon plus"></i></a>
