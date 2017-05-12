@@ -1,7 +1,7 @@
 <!-- SVG to show the current freshness of goods with a traffic light food labeling system -->
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
     <g class="arcs">
-        {{if gt .Count 4}}
+        {{if eq .Fresh false}}
         <circle cx="50" cy="50" r="40" fill="#b02" stroke="#aaa" stroke-width="5"/>
         {{else}}
         <circle cx="50" cy="50" r="40" fill="#fff" stroke="#6a4" stroke-width="5"/>

@@ -13,6 +13,7 @@ import (
 func BindAPI(router *goji.Mux) {
 	router.HandleFunc(pat.Get("/api/status"), status)
 	router.HandleFunc(pat.Get("/api/good/:productid"), listGoods)
-	router.HandleFunc(pat.Get("/api/good/availablity/:productid"), getGoodAvailablity)
+	router.HandleFunc(pat.Get("/api/good/availablity/:productid"), getGoodAvailability)
+	router.HandleFunc(pat.Get("/api/good/freshness/:goodid"), getGoodFreshness)
 	router.HandleFunc(pat.Post("/api/good/:productid"), http.PermissionHandler(addGood, runtime.HasPermission, runtime.PermissionCreateGood))
 }

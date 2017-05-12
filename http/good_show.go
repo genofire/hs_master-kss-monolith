@@ -13,6 +13,7 @@ import (
 	logger "github.com/genofire/hs_master-kss-monolith/lib/log"
 	"github.com/genofire/hs_master-kss-monolith/models"
 	"github.com/genofire/hs_master-kss-monolith/runtime"
+	"time"
 )
 
 // Function to list all goods
@@ -63,7 +64,7 @@ func getGoodAvailablityCount(w http.ResponseWriter, r *http.Request) (int, *logr
 }
 
 // Function that returns the availability of a good
-func getGoodAvailablity(w http.ResponseWriter, r *http.Request) {
+func getGoodAvailability(w http.ResponseWriter, r *http.Request) {
 	count, log := getGoodAvailablityCount(w, r)
 	if count < 0 {
 		return
@@ -74,6 +75,39 @@ func getGoodAvailablity(w http.ResponseWriter, r *http.Request) {
 		lib.Write(w, count)
 	default:
 		getGoodAvailablitySVG(w, count)
+	}
+	log.Info("done")
+}
+
+
+
+// Function that returns the freshness of a good
+func getGoodFreshness(w http.ResponseWriter, r *http.Request){
+	log := logger.HTTP(r)
+	id, err := strconv.ParseInt(pat.Param(r, "goodid"), 10, 64)
+	if err != nil {
+		log.Warn("wrong goodid format")
+		http.Error(w, "the good id has a false format", http.StatusNotAcceptable)
+		return
+	}
+	log = log.WithField("goodid", id)
+
+	var good models.Good
+	database.Read.Where("id = ?", id).First(&good)
+	if good.ProductID == 0 {
+		log.Warn("good not found")
+		http.Error(w, "the good was not found in database", http.StatusNotFound)
+		return
+	}
+
+	fresh := good.FouledAt.Before(time.Now().Add(-time.Duration(3) * time.Hour * 24))
+
+	log = log.WithField("type", r.Header.Get("Content-Type"))
+	switch r.Header.Get("Content-Type") {
+	case "application/json":
+		lib.Write(w, fresh)
+	default:
+		getGoodFreshnessSVG(w, fresh)
 	}
 	log.Info("done")
 }

@@ -35,6 +35,7 @@ func main() {
 
 	// Config packages:
 	web.GoodAvailablityTemplate = config.GoodAvailablityTemplate
+	web.GoodFreshnessTemplate = config.GoodFreshnessTemplate
 	runtime.CacheConfig = config.CacheClean
 	runtime.ProductURL = config.MicroserviceDependencies.Product
 	runtime.PermissionURL = config.MicroserviceDependencies.Permission

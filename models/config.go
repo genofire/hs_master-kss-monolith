@@ -24,6 +24,7 @@ type Config struct {
 
 	// path to the svg image templaes to show availablity of a given good with a traffic light food labeling system
 	GoodAvailablityTemplate string `toml:"good_availablity_template"`
+	GoodFreshnessTemplate string `toml:"good_freshness_template"`
 
 	// URLs to other microservices that this services uses
 	MicroserviceDependencies struct {
