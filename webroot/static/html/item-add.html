@@ -1,5 +1,11 @@
-<h1>{{product.title}}</h1>
-<form class="ui form" ng-submit="submit()">
+<h1>
+  {{product.title}}
+  <a ui-sref="item({productid:product.id})">
+    <i class="icon linkify"></i>
+  </a>
+</h1>
+
+<form class="ui form segment" ng-submit="submit()" ng-class="{'top attached':msg.type}">
   <div class="field">
     <label>Fouled at</label>
     <input type="date" name="fouled_at" placeholder="Fouled at date" ng-model="obj.fouled_at">
@@ -18,3 +24,6 @@
   </div>
   <button class="ui button" type="submit">Submit</button>
 </form>
+<div class="ui bottom attached message {{msg.type}}" ng-show="msg.type">
+  {{msg.text}}
+</div>
