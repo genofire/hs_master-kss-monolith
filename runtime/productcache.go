@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/genofire/hs_master-kss-monolith/lib/log"
+	"sync"
 )
 
 // URL to the microservice which manages the products (product catalogue)
@@ -20,6 +21,7 @@ type boolMicroServiceCache struct {
 
 // Cache for existing products
 var productExistCache map[int64]boolMicroServiceCache
+var productMutex sync.Mutex
 
 // Function to initialize the cache for existing products
 func init() {
@@ -28,6 +30,8 @@ func init() {
 
 // Function to check on the other microservice (product catalogue) if the product exists
 func ProductExists(id int64) (bool, error) {
+	productMutex.Lock()
+	defer productMutex.Unlock()
 	if cache, ok := productExistCache[id]; ok {
 		return cache.Value, nil
 	}

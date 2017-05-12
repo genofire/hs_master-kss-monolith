@@ -101,7 +101,7 @@ func getGoodFreshness(w http.ResponseWriter, r *http.Request){
 	}
 	fresh := false
 	if good.FouledAt != nil {
-		fresh = time.Now().Add(-time.Duration(3) * time.Hour * 24).Before(*good.FouledAt)
+		fresh = time.Now().Before(*good.FouledAt)
 	}
 
 	log = log.WithField("type", r.Header.Get("Content-Type"))
