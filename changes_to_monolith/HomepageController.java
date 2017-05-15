@@ -27,7 +27,7 @@ public class HomepageController {
      * @param model  Template model
      * @return The constant template name fpr the stock admin frontend.
      */
-    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    @RequestMapping(value = "/stockadmin", method = RequestMethod.GET)
     public String redirect(Model model) {
         return this.STOCKADMINFRONTENDTEMPLATE;
     }
