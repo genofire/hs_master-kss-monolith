@@ -7,8 +7,8 @@
 
 <form class="ui form segment" ng-submit="submit()" ng-class="{'top attached':msg.type}">
   <div class="field">
-    <label>Fouled at</label>
-    <input type="date" name="fouled_at" placeholder="Fouled at date" ng-model="obj.fouled_at">
+    <label>Expiration Date</label>
+    <input type="date" name="fouled_at" placeholder="Fouled at date (e.g. 2017-06-30)" ng-model="obj.fouled_at">
   </div>
   <div class="field">
     <label>Position</label>
@@ -16,7 +16,7 @@
   </div>
   <div class="field">
     <label>Comment</label>
-    <input type="text" name="comment" placeholder="Comment to this good", ng-model="obj.comment">
+    <input type="text" name="comment" placeholder="Comment for this good", ng-model="obj.comment">
   </div>
   <div class="field">
     <label>Count</label>

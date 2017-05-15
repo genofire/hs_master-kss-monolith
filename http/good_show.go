@@ -37,7 +37,7 @@ func listGoods(w http.ResponseWriter, r *http.Request) {
 	log.Info("done")
 }
 
-// Function that counts als available goods for one product
+// Function that counts all available goods for one product
 func getGoodAvailablityCount(w http.ResponseWriter, r *http.Request) (int, *logrus.Entry) {
 	log := logger.HTTP(r)
 	id, err := strconv.ParseInt(pat.Param(r, "productid"), 10, 64)

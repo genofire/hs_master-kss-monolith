@@ -8,13 +8,14 @@ import (
 	logger "github.com/Sirupsen/logrus"
 )
 
-// Crrrent logger with it's configuration
+// Current logger with it's configuration
 var Log *logger.Logger
 
 // Function to initiate a new logger
 func init() {
 	Log = logger.New()
-	log.SetOutput(Log.Writer()) // Enable fallback if core logger
+	// Enable fallback, if core logger
+	log.SetOutput(Log.Writer())
 }
 
 // Function to add the information of a http request to the log

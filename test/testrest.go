@@ -1,4 +1,4 @@
-// Package that contains a lib to easily create everything for running a virtual api
+// Package that contains a lib to easily create everything for running a virtual api and test the microservice
 package test
 
 // Import an easy manager to test the REST-API
@@ -55,7 +55,7 @@ type Request struct {
 	router  *goji.Mux
 }
 
-// Function tot create a NewSession with the easy manager
+// Function to create a NewSession with the easy manager
 func NewSession(router *goji.Mux) *Request {
 	return &Request{router: router}
 }

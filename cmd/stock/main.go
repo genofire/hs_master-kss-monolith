@@ -34,7 +34,7 @@ func main() {
 	config = models.ReadConfigFile(configFile)
 
 	// Config packages:
-	web.GoodAvailablityTemplate = config.GoodAvailablityTemplate
+	web.GoodAvailabilityTemplate = config.GoodAvailabilityTemplate
 	web.GoodFreshnessTemplate = config.GoodFreshnessTemplate
 	runtime.CacheConfig = config.CacheClean
 	runtime.ProductURL = config.MicroserviceDependencies.Product

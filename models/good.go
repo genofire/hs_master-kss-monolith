@@ -27,12 +27,12 @@ type Good struct {
 	Sended    bool       `json:"-"`
 }
 
-// Function to enerate a database and select locked goods with a filter
+// Function to generate a database and select locked goods with a filter
 func (g *Good) FilterAvailable(db *gorm.DB) *gorm.DB {
 	return db.Model(g).Where("locked_secret == '' OR locked_secret is NULL")
 }
 
-// Function to lock a good, so that it cannot be locked or bought by other users
+// Function to lock a good, so that it cannot be locked (bought) by other users
 func (g *Good) Lock(secret string) {
 	now := time.Now()
 	g.LockedSecret = secret

@@ -1,7 +1,7 @@
 \section{Definition der Anforderungen}
 \label{sec: Definition der Anforderungen}
 
-Der Microservice Warenwirtschaft dient der Verwaltung der Warenbestände für den Webshop Mosh. Er ermöglicht es zum Beispiel, dass neue Waren erfasst werden können und keine Waren verkauft werden, die sich nicht mehr im Warnbestand befinden.  Die nachfolgende Tabelle \ref{tabl:Begriffe} definiert die hier verwendeten Begriffe, so wie sie in dem Code und innerhalb dieser Dokumentation verwendet werden.
+Der Microservice Warenwirtschaft dient der Verwaltung der Warenbestände für den Webshop Mosh. Er ermöglicht es zum Beispiel, dass neue Waren erfasst werden können und keine Waren verkauft werden, die sich nicht mehr im Warnbestand befinden. Die nachfolgende Tabelle \ref{tabl:Begriffe} definiert die hier verwendeten Begriffe, so wie sie in dem Code und innerhalb dieser Dokumentation genutzt werden.
 \begin{table}[H]
 \begin{small}
 	\begin{center}
@@ -26,12 +26,12 @@ Der Microservice Warenwirtschaft dient der Verwaltung der Warenbestände für de
 \textit{\textit{Dieser Microservice ist Teil der Prüfungsleistung in den Modul KSS im Masterstudiengang komplexe Softwaresysteme des Sommersemesters 2017 an der Hochschule Bremen. Zu der gestellten Aufgabenstellung gehört nicht, den Microservice zusammen mit den Microservices der anderen Gruppen in einen gemeinsamen, lauffähigen Webshop zu integrieren.}}
 
 \newpage
-Die übergeordnete Aufgabe dieses Microservice ist die Speicherung der Waren mit ihrem Lagerort sowie einem Zeitstempel, wann sie erfasst wurden. Nachfolgend werden die weiteren, detaillierten Anforderungen an diesen Microservice zusammengefasst. 
+Die übergeordnete Aufgabe dieses Microservice ist die Speicherung der Waren mit ihrem Lagerort sowie einem Zeitstempel, wann sie ablaufen. Nachfolgend werden die weiteren, detaillierten Anforderungen an diesen Microservice zusammengefasst. 
 
 \begin{itemize}
 	\item \textbf{Funktionen des Admin-Frontends}
 	\begin{itemize}
-		\item Hinzufügen neuer Waren zum Warenbestand
+		\item Hinzufügen neuer Waren (maximal 100 Stück auf einmal) zum Warenbestand
 		\item Manuelles Entfernen von Waren aus dem Warenbestand, zum Beispiel wenn diese verdorben sind
 		\item Entfernen von einzelnen Waren aus dem Warenbestand, wenn diese an einen Kunden versendet werden
 		\item Blockieren von Waren in dem Warenbestand, wenn ein Kunde sie in seinen Warenkorb gelegt hat
@@ -39,14 +39,11 @@ Die übergeordnete Aufgabe dieses Microservice ist die Speicherung der Waren mit
 	\end{itemize}
 	\item \textbf{Funktionen des Kunden-Frontends}
 	\begin{itemize}
-		\item Anzeige des Warenbestands über ein Ampelsystem 
-		\item Ein Warenbestand größer sieben entspricht der Farbe grün (ausreichende Anzahl vorhanden)
-		\item Ein Warenbestand zwischen vier und sieben entspricht der Farbe orange (moderate Anzahl vorhanden)		
-		\item Ein Warenbestand zwischen null und drei entspricht der Farbe rot (geringe Anzahl vorhanden)
+		\item Anzeige des Warenbestands über ein Ampelsystem
 	\end{itemize}
 	\item \textbf{Optionale Zusatzfunktionen}
 	\begin{itemize}
 		\item Ausgabe einer Statistik, wie viele Waren sich gesamt und durchschnittlich im Warenbestand befinden im Admin-Fontend
-		\item Ampeldarstellung pro Ware, die Anzeigt ob diese bereits überaltert ist, im Admin-Frontend (ein Alter von mehr als X Tagen wird als überaltert angesehen)
+		\item Ampeldarstellung pro Ware, die Anzeigt ob diese bereits ihr angegebenes Ablaufdatum erreicht hat, im Admin-Frontend
 	\end{itemize}
 \end{itemize}

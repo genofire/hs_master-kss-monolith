@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-// Function to the the permission and it's error handling
+// Function to test the permission and it's error handling
 func TestPermission(t *testing.T) {
 	assert := assert.New(t)
 

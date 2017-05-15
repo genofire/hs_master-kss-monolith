@@ -23,7 +23,7 @@ const (
 	PermissionCreateGood = 1
 
 	// permission to delete goods from the stock
-	// e.g. if a good become rancid and has to be removed
+	// e.g. if a good becomes fouled and has to be removed
 	PermissionDeleteGood = 2
 )
 
@@ -34,7 +34,6 @@ type permissionMicroServiceCache struct {
 	permissions map[Permission]boolMicroServiceCache
 	sync.Mutex
 }
-
 
 // Function to check, if a user has a permission
 func (c *permissionMicroServiceCache) HasPermission(p Permission) (bool, error) {
@@ -68,6 +67,7 @@ func (c *permissionMicroServiceCache) HasPermission(p Permission) (bool, error) 
 // Cache for permissions
 var permissionCache map[string]*permissionMicroServiceCache
 var permissionMutex sync.Mutex
+
 // Function to initialize the permission cache
 func init() {
 	permissionCache = make(map[string]*permissionMicroServiceCache)

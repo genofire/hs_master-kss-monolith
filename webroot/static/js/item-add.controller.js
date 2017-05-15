@@ -23,9 +23,9 @@ angular.module('microStock')
       }
       last.then(function(){
         $scope.obj = {};
-        $scope.msg = {type:'success',text:'There was '+count+' goods saved from '+$scope.product.title+'.'};
+        $scope.msg = {type:'success',text:'Saved '+count+' good(s) from product '+$scope.product.title+'.'};
       },function(){
-        $scope.msg = {type:'error',text:'There was '+count+' goods saved from '+$scope.product.title+'.'};
+        $scope.msg = {type:'error',text:'Saved '+count+' good(s) from product '+$scope.product.title+'.'};
       })
     };
   }]);

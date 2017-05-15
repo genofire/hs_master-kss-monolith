@@ -13,7 +13,7 @@ import (
 // URL to the microservice which manages the products (product catalogue)
 var ProductURL string
 
-// Struct tht holds the information on the microservice cache
+// Struct that holds the information on the microservice cache
 type boolMicroServiceCache struct {
 	LastCheck time.Time
 	Value     bool

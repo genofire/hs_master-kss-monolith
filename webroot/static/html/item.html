@@ -23,7 +23,6 @@
       <th>#</th>
       <th>Location</th>
       <th>Comment</th>
-      <th>Time of Delivery</th>
       <th>Status of Freshness</th>
       <th></th>
     </tr>
@@ -33,7 +32,6 @@
       <td>{{item.id}}</td>
       <td>{{item.position}}</td>
       <td>{{item.comment}}</td>
-      <td></td>
       <td valign="middle"><img class="icon" ng-src="{{'/api/good/freshness/'+item.id| reloadSrc}}"/></td>
       <td><i class="trash icon" ng-click="delete(item.id)"></i></td>
     </tr>
