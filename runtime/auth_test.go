@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"testing"
 
+	"github.com/genofire/hs_master-kss-monolith/test"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -14,11 +15,10 @@ func TestAuth(t *testing.T) {
 
 	PermissionURL = "http://localhost:8080/api-test/session/%s/%d/"
 	router := http.FileServer(http.Dir("../webroot"))
-	srv := &http.Server{
-		Addr:    ":8080",
-		Handler: router,
-	}
-	go srv.ListenAndServe()
+
+	mock := test.MockTransport{Handler: router}
+	http.DefaultClient.Transport = &mock
+	mock.Start()
 
 	perm, err := HasPermission("testsessionkey", PermissionCreateGood)
 	assert.NoError(err)
@@ -28,5 +28,5 @@ func TestAuth(t *testing.T) {
 	assert.NoError(err)
 	assert.True(perm)
 
-	srv.Close()
+	mock.Close()
 }

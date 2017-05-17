@@ -26,4 +26,4 @@ deployment:
   staging:
     branch: master
     commands:
-      - ./deploy.sh STAGING
+      - ./deploy.sh $HOST_FOR_STAGING $PORT_FOR_STAGING
