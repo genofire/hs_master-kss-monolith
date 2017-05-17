@@ -33,7 +33,11 @@ func Init(t *testing.T) (assertion *assert.Assertions, router *goji.Mux) {
 		Addr:    ":8080",
 		Handler: apirouter,
 	}
-	go srv.ListenAndServe()
+	go func() {
+		if err := srv.ListenAndServe(); err != nil {
+			panic(err)
+		}
+	}()
 	return
 }
 

@@ -11,7 +11,7 @@ import (
 
 // Path to the svg image template, that shows the availablity or freshness of a given good
 // with a traffic light food labeling system
-var GoodAvailablityTemplate string
+var GoodAvailabilityTemplate string
 var GoodFreshnessTemplate string
 
 // Function to calculate a percent value from a given value and an maximum value
@@ -32,8 +32,8 @@ func getGoodAvailablitySVG(w http.ResponseWriter, count int) {
 		"process_radius": tempProcessRadius,
 	})
 	buf := bytes.NewBuffer(nil)
-	f, _ := os.Open(GoodAvailablityTemplate) // Error handling elided for brevity.
-	io.Copy(buf, f)                          // Error handling elided for brevity.
+	f, _ := os.Open(GoodAvailabilityTemplate) // Error handling elided for brevity.
+	io.Copy(buf, f)                           // Error handling elided for brevity.
 	f.Close()
 
 	s := string(buf.Bytes())
@@ -43,14 +43,13 @@ func getGoodAvailablitySVG(w http.ResponseWriter, count int) {
 	t.Execute(w, map[string]interface{}{"Count": count})
 }
 
-
 // Function to get the SVG, that shows the freshness with a traffic light food labeling system for a given good
 func getGoodFreshnessSVG(w http.ResponseWriter, fresh bool) {
 
 	t := template.New("some")
 	buf := bytes.NewBuffer(nil)
 	f, _ := os.Open(GoodFreshnessTemplate) // Error handling elided for brevity.
-	io.Copy(buf, f)                          // Error handling elided for brevity.
+	io.Copy(buf, f)                        // Error handling elided for brevity.
 	f.Close()
 
 	s := string(buf.Bytes())

@@ -8,12 +8,13 @@ import (
 	logrus "github.com/Sirupsen/logrus"
 	"goji.io/pat"
 
+	"time"
+
 	"github.com/genofire/hs_master-kss-monolith/lib/database"
 	lib "github.com/genofire/hs_master-kss-monolith/lib/http"
 	logger "github.com/genofire/hs_master-kss-monolith/lib/log"
 	"github.com/genofire/hs_master-kss-monolith/models"
 	"github.com/genofire/hs_master-kss-monolith/runtime"
-	"time"
 )
 
 // Function to list all goods
@@ -79,10 +80,8 @@ func getGoodAvailability(w http.ResponseWriter, r *http.Request) {
 	log.Info("done")
 }
 
-
-
 // Function that returns the freshness of a good
-func getGoodFreshness(w http.ResponseWriter, r *http.Request){
+func getGoodFreshness(w http.ResponseWriter, r *http.Request) {
 	log := logger.HTTP(r)
 	id, err := strconv.ParseInt(pat.Param(r, "goodid"), 10, 64)
 	if err != nil {
