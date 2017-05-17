@@ -5,6 +5,7 @@ package test
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -16,7 +17,20 @@ import (
 )
 
 // Pointer to the server
-var srv *http.Server
+var srv bool
+
+type mockTransport struct {
+	handler http.Handler
+}
+
+func (t *mockTransport) RoundTrip(req *http.Request) (*http.Response, error) {
+	if !srv {
+		return nil, errors.New("mock a error")
+	}
+	w := httptest.NewRecorder()
+	t.handler.ServeHTTP(w, req)
+	return w.Result(), nil
+}
 
 // Function to initialize a test api (with test files of depending microservice)
 func Init(t *testing.T) (assertion *assert.Assertions, router *goji.Mux) {
@@ -28,28 +42,23 @@ func Init(t *testing.T) (assertion *assert.Assertions, router *goji.Mux) {
 	})
 	router = goji.NewMux()
 
-	apirouter := http.FileServer(http.Dir("../webroot"))
-	srv = &http.Server{
-		Addr:    ":8080",
-		Handler: apirouter,
-	}
-	go func() {
-		if err := srv.ListenAndServe(); err != nil {
-			panic(err)
-		}
-	}()
+	srv = true
+	mockBackend := http.FileServer(http.Dir("../webroot"))
+
+	http.DefaultClient.Transport = &mockTransport{handler: mockBackend}
+
 	return
 }
 
 // Function to close the static webserver
 func CloseServer() {
-	srv.Close()
+	srv = false
 }
 
 // Function to close and stop the whole microservice
 func Close() {
 	database.Close()
-	srv.Close()
+	srv = false
 }
 
 // Handle a test session with cookies

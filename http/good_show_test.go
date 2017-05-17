@@ -98,3 +98,58 @@ func TestGetGoodAvailable(t *testing.T) {
 	test.Close()
 
 }
+
+// Function to getGoodFreshness()
+func TestGetGoodFreshness(t *testing.T) {
+	now := time.Now().Add(36 * time.Hour)
+	assertion, router := test.Init(t)
+
+	runtime.ProductURL = "http://localhost:8080/api-test/product/%d/"
+
+	BindAPI(router)
+	session := test.NewSession(router)
+
+	result, w := session.JSONRequest("GET", "/api/good/freshness/a", nil)
+	assertion.Equal(http.StatusNotAcceptable, w.StatusCode)
+
+	database.Write.Create(&models.Good{
+		ID:        3,
+		ProductID: -2,
+	})
+
+	result, w = session.JSONRequest("GET", "/api/good/freshness/3", nil)
+	assertion.Equal(http.StatusOK, w.StatusCode)
+	assertion.Equal(false, result)
+
+	database.Write.Save(&models.Good{
+		ID:        3,
+		ProductID: -2,
+		FouledAt:  &now,
+	})
+
+	result, w = session.JSONRequest("GET", "/api/good/freshness/3", nil)
+	assertion.Equal(http.StatusOK, w.StatusCode)
+	assertion.Equal(true, result)
+
+	fouled := now.Add(-72 * time.Hour)
+	database.Write.Save(&models.Good{
+		ID:        3,
+		ProductID: -2,
+		FouledAt:  &fouled,
+	})
+	result, w = session.JSONRequest("GET", "/api/good/freshness/3", nil)
+	assertion.Equal(http.StatusOK, w.StatusCode)
+	assertion.Equal(false, result)
+
+	req, _ := http.NewRequest("GET", "/api/good/freshness/3", nil)
+	req.Header.Set("Content-Type", "image/svg+xml")
+	rec := httptest.NewRecorder()
+	router.ServeHTTP(rec, req)
+	assertion.Equal(http.StatusOK, w.StatusCode)
+
+	result, w = session.JSONRequest("GET", "/api/good/freshness/7", nil)
+	assertion.Equal(http.StatusNotFound, w.StatusCode)
+
+	test.Close()
+
+}
