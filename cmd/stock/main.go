@@ -7,11 +7,13 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 
 	"github.com/NYTimes/gziphandler"
 	goji "goji.io"
 	"goji.io/pat"
 
+	"github.com/genofire/golang-lib/worker"
 	web "github.com/genofire/hs_master-kss-monolith/http"
 	"github.com/genofire/hs_master-kss-monolith/lib/database"
 	"github.com/genofire/hs_master-kss-monolith/lib/log"
@@ -48,8 +50,12 @@ func main() {
 	}
 	grw := runtime.NewGoodReleaseWorker(config.GoodRelease)
 	cw := runtime.NewCacheWorker()
+	fw := worker.NewWorker(config.FouledDeleter.Duration, func() { runtime.GoodFouled() })
 	go grw.Start()
 	go cw.Start()
+	if config.FouledDeleter.Duration != time.Duration(0) {
+		go fw.Start()
+	}
 	// Startwebsrver
 	router := goji.NewMux()
 	web.BindAPI(router)
@@ -77,6 +83,7 @@ func main() {
 	srv.Close()
 	grw.Close()
 	cw.Close()
+	fw.Close()
 	database.Close()
 
 	log.Log.Info("received", sig)

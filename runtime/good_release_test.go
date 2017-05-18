@@ -25,13 +25,13 @@ func TestGoodRelease(t *testing.T) {
 		LockedSecret: "never used",
 	}
 	database.Write.Create(&good)
-	count := goodRelease(time.Duration(3) * time.Second)
+	count := GoodRelease(time.Duration(3) * time.Second)
 	assert.Equal(int64(0), count, "no locked in timeout")
 
 	older := now.Add(-time.Duration(10) * time.Minute)
 	good.LockedAt = &older
 	database.Write.Save(&good)
-	count = goodRelease(time.Duration(3) * time.Second)
+	count = GoodRelease(time.Duration(3) * time.Second)
 	assert.Equal(int64(1), count, "unlock after timeout")
 
 	grw := NewGoodReleaseWorker(models.GoodReleaseConfig{
@@ -41,4 +41,6 @@ func TestGoodRelease(t *testing.T) {
 	go grw.Start()
 	time.Sleep(time.Duration(15) * time.Millisecond)
 	grw.Close()
+
+	database.Close()
 }

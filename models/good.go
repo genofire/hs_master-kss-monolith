@@ -23,8 +23,9 @@ type Good struct {
 	LockedAt     *time.Time `json:"-"`
 	LockedSecret string     `json:"-"`
 	// Make it unusable
-	DeletedAt *time.Time `json:"-"`
-	Sended    bool       `json:"-"`
+	DeletedAt      *time.Time `json:"-"`
+	ManuelleDelete bool       `json:"-"`
+	FouledDelete   bool       `json:"-"`
 }
 
 // Function to generate a database and select locked goods with a filter

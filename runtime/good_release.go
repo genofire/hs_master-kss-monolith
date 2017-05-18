@@ -12,12 +12,12 @@ import (
 // Function to create a Worker and to unlock goods
 func NewGoodReleaseWorker(grc models.GoodReleaseConfig) *worker.Worker {
 	return worker.NewWorker(grc.Every.Duration, func() {
-		goodRelease(grc.After.Duration)
+		GoodRelease(grc.After.Duration)
 	})
 }
 
 // Function to unlock goods after a specified time
-func goodRelease(unlockAfter time.Duration) int64 {
+func GoodRelease(unlockAfter time.Duration) int64 {
 	res := database.Write.Model(&models.Good{}).Where("locked_secret is not NULL and locked_at < ?", time.Now().Add(-unlockAfter)).Updates(map[string]interface{}{"locked_secret": "", "locked_at": nil})
 	return res.RowsAffected
 }

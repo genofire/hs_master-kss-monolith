@@ -13,19 +13,21 @@ import (
 // Config file for this daemon (more information at the config_example.conf in this git repository)
 type Config struct {
 	// address under which the api and static content of the webserver runs
-	WebserverBind            string `toml:"webserver_bind"`
+	WebserverBind string `toml:"webserver_bind"`
 
 	// path to deliver static content
-	Webroot                  string `toml:"webroot"`
+	Webroot string `toml:"webroot"`
 
-	Database                 database.Config   `toml:"database"`
-	GoodRelease              GoodReleaseConfig `toml:"good_release"`
-	CacheClean               CacheWorkerConfig `toml:"cache_clean"`
+	Database    database.Config   `toml:"database"`
+	GoodRelease GoodReleaseConfig `toml:"good_release"`
+	CacheClean  CacheWorkerConfig `toml:"cache_clean"`
 
 	// path to the svg image templates to show the availablity and freshness
 	// of a given good with a traffic light food labeling system
 	GoodAvailabilityTemplate string `toml:"good_availablity_template"`
 	GoodFreshnessTemplate    string `toml:"good_freshness_template"`
+
+	FouledDeleter Duration `toml:"fouled_deleted"`
 
 	// URLs to other microservices that this services uses
 	MicroserviceDependencies struct {

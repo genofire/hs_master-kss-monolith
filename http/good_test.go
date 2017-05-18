@@ -72,3 +72,45 @@ func TestAddGood(t *testing.T) {
 
 	test.Close()
 }
+
+// Function to test delGood()
+func TestDelGood(t *testing.T) {
+	assertion, router := test.Init(t)
+
+	BindAPI(router)
+	runtime.PermissionURL = "http://localhost:8080/api-test/session/%s/%d/"
+	session := test.NewSession(router)
+
+	good := models.Good{
+		ID:      3,
+		Comment: "blub",
+	}
+
+	database.Write.Create(&good)
+
+	_, w := session.JSONRequest("DELETE", "/api/good/1", nil)
+	assertion.Equal(http.StatusNonAuthoritativeInfo, w.StatusCode)
+
+	session.Login()
+
+	_, w = session.JSONRequest("DELETE", "/api/good/a", nil)
+	assertion.Equal(http.StatusNotAcceptable, w.StatusCode)
+
+	_, w = session.JSONRequest("DELETE", "/api/good/3", nil)
+	assertion.Equal(http.StatusOK, w.StatusCode)
+
+	_, w = session.JSONRequest("DELETE", "/api/good/3", nil)
+	assertion.Equal(http.StatusNotFound, w.StatusCode)
+
+	database.Close()
+
+	_, w = session.JSONRequest("DELETE", "/api/good/1", nil)
+	assertion.Equal(http.StatusInternalServerError, w.StatusCode)
+
+	session.Logout()
+
+	_, w = session.JSONRequest("DELETE", "/api/good/1", nil)
+	assertion.Equal(http.StatusForbidden, w.StatusCode)
+
+	test.Close()
+}
