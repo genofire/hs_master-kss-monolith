@@ -88,17 +88,20 @@ func delGood(w http.ResponseWriter, r *http.Request) {
 	now := time.Now()
 	var good models.Good
 	good.ID = id
+	db := good.FilterAvailable(database.Read).First(&good)
+	if db.RecordNotFound() {
+		log.Warnf("good could not found: %s", db.Error)
+		http.Error(w, "the good could not found", http.StatusNotFound)
+		return
+	}
 	good.ManuelleDelete = true
 	good.DeletedAt = &now
-	db := database.Write.Save(&good)
+
+	db = database.Write.Save(&good)
 	if db.Error != nil {
 		log.Warnf("good could not delete: %s", db.Error)
 		http.Error(w, "the good could not delete", http.StatusInternalServerError)
 		return
 	}
-	if db.RowsAffected != 1 {
-		log.Warnf("good could not found: %s", db.Error)
-		http.Error(w, "the good could not found", http.StatusNotFound)
-		return
-	}
+	log.Info("done")
 }

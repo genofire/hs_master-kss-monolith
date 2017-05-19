@@ -115,6 +115,7 @@ func TestDelGood(t *testing.T) {
 	_, w = session.JSONRequest("DELETE", fmt.Sprintf("/api/good/%d", good.ID), nil)
 	assertion.Equal(http.StatusNotFound, w.StatusCode)
 
+	time.Sleep(time.Millisecond)
 	database.Close()
 
 	_, w = session.JSONRequest("DELETE", "/api/good/1", nil)
