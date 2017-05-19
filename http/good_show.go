@@ -60,7 +60,8 @@ func getGoodAvailablityCount(w http.ResponseWriter, r *http.Request) (int, *logr
 		return -1, log
 	}
 	var count float64
-	(&models.Good{}).FilterAvailable(database.Read.Where("product_id = ?", id)).Count(&count)
+	var g models.Good
+	g.FilterAvailable(database.Read).Where("product_id = ?", id).Count(&count)
 	return int(count), log
 }
 
@@ -70,7 +71,7 @@ func getGoodAvailability(w http.ResponseWriter, r *http.Request) {
 	if count < 0 {
 		return
 	}
-	log = log.WithField("type", r.Header.Get("Content-Type"))
+	log = log.WithField("c", count).WithField("type", r.Header.Get("Content-Type"))
 	switch r.Header.Get("Content-Type") {
 	case "application/json":
 		lib.Write(w, count)

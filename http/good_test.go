@@ -2,6 +2,7 @@
 package http
 
 import (
+	"fmt"
 	"net/http"
 	"testing"
 	"time"
@@ -86,7 +87,6 @@ func TestAddGood(t *testing.T) {
 	test.Close()
 }
 
-/*
 // Function to test delGood()
 func TestDelGood(t *testing.T) {
 	assertion, router := test.Init(t)
@@ -127,4 +127,3 @@ func TestDelGood(t *testing.T) {
 
 	test.Close()
 }
-*/
