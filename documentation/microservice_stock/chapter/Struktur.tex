@@ -117,21 +117,30 @@ Die Packages des Application Layers umfassen die Logik des Microservice Warenwir
 
 
 \subsection{Persistant Layer}
-Der Persitant Layer umfasst eine SQL-Lite-Datenbank, die im Cache gehalten wird. Die nachfolgende Abbildung \ref{pic:Datenbankmodell des Microservice} zeigt den grundsätzlichen Aufbau der Datenbank. Sie speichert den Warenbestand (stock) in Produkten (product). Jedes Produkt wird mit seiner ID und seinem Namen gehalten, die aus dem Produktkatalog bezogen und in einem Cache zwischengespeichert werden. Zu jedem Produkt gehören wiederum mehrere Waren (good), die eine ID, ein Ablaufdatum und eine Lagerposition besitzen. Dabei kann eine Ware nur zu einem Produkt gehören.
+Der Persitant Layer umfasst eine SQL-Lite-Datenbank, die im Cache gehalten wird. Die nachfolgende Abbildung \ref{pic:Datenbankmodell des Microservice} zeigt den grundsätzlichen Aufbau der Datenbank. Sie speichert den Warenbestand (stock) in Produkten (product). Jedes Produkt wird mit seiner ID und seinem Namen gehalten, die aus dem Produktkatalog bezogen und in einem Cache zwischengespeichert werden. Zu jedem Produkt gehören wiederum mehrere Waren (good), die eine ID, ein Ablaufdatum und eine Lagerposition besitzen. Dabei kann eine Ware nur zu einem Produkt gehören. Die Datenbank kann über die Konfigurationsdatei \texttt{config\_example.conf}, deren relevanter Ausschnitt nachfolgend dargestellt wird, flexibel angepasst werden.
+
+
+\begin{lstlisting}[caption=Datenbankeinstellungen in der Konfigurationsdatei]
+[database]
+type = "sqlite3"
+# logging = true
+connection = "file::memory:?mode=memory&cache=shared"
+# For Master-Slave cluster
+# read_connection = ""
+\end{lstlisting}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.65 \textwidth]{./pics/db.pdf}
+	\includegraphics[width=0.45 \textwidth]{./pics/db.pdf}
 	\caption{Datenbankmodell des Microservice}
 	\label{pic:Datenbankmodell des Microservice}
 \end{figure}
 
-
+\newpage
 \subsection{Integrierte Tests}
 \label{subsec: Integrierte Test}
 Neben bisherigen Packages, die bereits Whitebox-Tests umfassen, ist in dem Package \textbf{\texttt{test}} ein weiteres Go-File (\texttt{testRest.go}) enthalten. Dieses setzt einen Test des Webservers um, bei dem auf Testdaten eines Produktkataloges zurückgegriffen wird. Mit Hilfe der integrierten Tests kann in der hier beschriebenen Version eine Code-Coverage von 100\% erreicht werden, das heißt jedes Stück Code wird mindestens einmal zur Ausführung gebracht.
 
-\newpage
 \subsection{Anpassung des Monolithen}
 \label{subsec: Anpassung des Monolithen}
 Damit der Microservice Warenwirtschaft durch den bestehenden Monolithen des Webshops Mosh genutzt werden kann, wurden hier dir nachfolgend aufgeführten Änderungen vorgenommen. Zunächst wurde für den Aufruf des Admin-Frontends über die URL des Monolithen \texttt{/stockadmin} das nachfolgende Mapping in der Java-Datei \texttt{HomepageController.java} ergänzt.
