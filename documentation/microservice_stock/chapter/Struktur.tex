@@ -150,15 +150,22 @@ private final String STOCKADMINFRONTENDTEMPLATE = "https://stock.pub.warehost.de
 
 @RequestMapping(value = "/stockadmin", method = RequestMethod.GET)
 	public String redirect(Model model) {return "redirect:"+ this.STOCKADMINFRONTENDTEMPLATE;
-}
+	}
 }
 \end{lstlisting}
 
 Weiter wurde die Ampeldarstellung der Verfügbarkeit unter \texttt{products.html} eingefügt. Hierfür wurde das \texttt{ProductDTO.java} um die Rückgabe der Produkt-ID erweitert.
 
 \begin{lstlisting}[caption=Anpassung products.html, language=HTML]
-
-
+<div class="col-md-8">
+	<h2 th:text="${product.name}">Product Name</h2>
+	
+	<img class="icon" th:src="${'https://stock.pub.warehost.de/api/good/availablity/'+product.id}"/>
+	
+	<p class="text-info text-uppercase" th:text="${product.price}">0,00 Euro</p>
+	<p class="lead" th:text="${product.description}">Description.</p>
+	<div th:replace="fragments/reviews :: reviews"></div>
+</div>
 \end{lstlisting}
 
 
