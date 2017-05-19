@@ -12,20 +12,11 @@ angular.module('microStock')
     });
 
     $scope.submit = function(){
-      var count = 0;
-      function request(){
-        count++;
-        return $http.post(config.store.goods.productById.replace("%d",$stateParams.productid),$scope.obj);
-      }
-      var last = request();
-      for(var i=1;i < $scope.count;i++){
-        last.then(request);
-      }
-      last.then(function(){
+      $http.post(config.store.goods.productById.replace("%d",$stateParams.productid)+'?count='+$scope.count,$scope.obj).then(function(){
         $scope.obj = {};
         $scope.msg = {type:'success',text:'Saved '+count+' good(s) from product '+$scope.product.title+'.'};
-      },function(){
+      }, function(){
         $scope.msg = {type:'error',text:'Error: Saved '+count+' good(s) from product '+$scope.product.title+'.'};
-      })
+      });
     };
   }]);

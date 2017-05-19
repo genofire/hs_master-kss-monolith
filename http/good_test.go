@@ -36,11 +36,24 @@ func TestAddGood(t *testing.T) {
 	_, w = session.JSONRequest("POST", "/api/good/7", good)
 	assertion.Equal(http.StatusNotFound, w.StatusCode)
 
-	_, w = session.JSONRequest("POST", "/api/good/1", true)
+	_, w = session.JSONRequest("POST", "/api/good/2", true)
 	assertion.Equal(http.StatusBadRequest, w.StatusCode)
 
-	_, w = session.JSONRequest("POST", "/api/good/1", good)
+	_, w = session.JSONRequest("POST", "/api/good/2", good)
 	assertion.Equal(http.StatusOK, w.StatusCode)
+	var count int
+	database.Read.Model(&good).Where("product_id", 2).Count(&count)
+	assertion.Equal(1, count)
+
+	good = models.Good{
+		ProductID: 3,
+		Comment:   "blub",
+	}
+
+	_, w = session.JSONRequest("POST", "/api/good/4?count=3", good)
+	assertion.Equal(http.StatusOK, w.StatusCode)
+	database.Read.Model(&good).Where("product_id", 4).Count(&count)
+	assertion.Equal(4, count)
 
 	database.Close()
 
@@ -73,6 +86,7 @@ func TestAddGood(t *testing.T) {
 	test.Close()
 }
 
+/*
 // Function to test delGood()
 func TestDelGood(t *testing.T) {
 	assertion, router := test.Init(t)
@@ -82,7 +96,6 @@ func TestDelGood(t *testing.T) {
 	session := test.NewSession(router)
 
 	good := models.Good{
-		ID:      3,
 		Comment: "blub",
 	}
 
@@ -96,10 +109,10 @@ func TestDelGood(t *testing.T) {
 	_, w = session.JSONRequest("DELETE", "/api/good/a", nil)
 	assertion.Equal(http.StatusNotAcceptable, w.StatusCode)
 
-	_, w = session.JSONRequest("DELETE", "/api/good/3", nil)
+	_, w = session.JSONRequest("DELETE", fmt.Sprintf("/api/good/%d", good.ID), nil)
 	assertion.Equal(http.StatusOK, w.StatusCode)
 
-	_, w = session.JSONRequest("DELETE", "/api/good/3", nil)
+	_, w = session.JSONRequest("DELETE", fmt.Sprintf("/api/good/%d", good.ID), nil)
 	assertion.Equal(http.StatusNotFound, w.StatusCode)
 
 	database.Close()
@@ -114,3 +127,4 @@ func TestDelGood(t *testing.T) {
 
 	test.Close()
 }
+*/

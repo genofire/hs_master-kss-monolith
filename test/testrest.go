@@ -6,6 +6,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -39,13 +40,18 @@ func (t *MockTransport) Close() {
 	t.running = false
 }
 
+var lastTestDB int
+
 // Function to initialize a test api (with test files of depending microservice)
 func Init(t *testing.T) (assertion *assert.Assertions, router *goji.Mux) {
 	assertion = assert.New(t)
+
+	lastTestDB++
+	//database.Close()
 	database.Open(database.Config{
 		Type:       "sqlite3",
 		Logging:    true,
-		Connection: ":memory:",
+		Connection: fmt.Sprintf("file:database%s?mode=memory", lastTestDB),
 	})
 	router = goji.NewMux()
 
