@@ -15,8 +15,12 @@ angular.module('microStock')
       $http.post(config.store.goods.productById.replace("%d",$stateParams.productid)+'?count='+$scope.count,$scope.obj).then(function(){
         $scope.obj = {};
         $scope.msg = {type:'success',text:'Saved '+$scope.count+' good(s) from product '+$scope.product.title+'.'};
-      }, function(){
-        $scope.msg = {type:'error',text:'An error occurred while saving good(s) from product '+$scope.product.title+'.'};
+      }, function(e){
+        if(e.status == 403){
+          $scope.msg = {type:'error',text:'You are not allowed to add goods, maybe you should login!'};
+        }else{
+          $scope.msg = {type:'error',text:'An error occurred while saving good(s): '+e.data};
+        }
       });
     };
   }]);

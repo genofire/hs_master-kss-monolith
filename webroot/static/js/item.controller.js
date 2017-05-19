@@ -17,6 +17,12 @@ angular.module('microStock')
     }
     load();
     $scope.delete = function(id){
-      $http.delete(config.store.goods.productById.replace("%d",id)).then(load);
+      $http.delete(config.store.goods.productById.replace("%d",id)).then(load,function(e){
+        if(e.status == 403) {
+          alert("You are not allowed to delete manuelle goods, maybe you should login!");
+        }else{
+          alert("A error occurred during deleting this good: "+e.data);
+        }
+      });
     }
   }]);
