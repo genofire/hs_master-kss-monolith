@@ -24,7 +24,7 @@ func tempProcessRadius(value, max, radius int) float64 {
 	return (1 - float64(value)/float64(max)) * float64(radius) * 2 * 3.14
 }
 
-// Function to get the SVG, that shows the availybility with a traffic light food labeling system for a given good
+// Function to get the SVG, that shows the availability with a traffic light food labeling system for a given good
 func getGoodAvailablitySVG(w http.ResponseWriter, count int) {
 
 	t := template.New("some")
