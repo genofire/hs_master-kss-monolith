@@ -28,7 +28,7 @@ func listGoods(w http.ResponseWriter, r *http.Request) {
 	}
 	log = log.WithField("productid", id)
 	var list []*models.Good
-	result := database.Read.Where("product_id = ?", id).Find(&list)
+	result := &models.Good.FilterAvailable(database.Read).Where("product_id = ?", id).Find(&list)
 	if result.RowsAffected == 0 {
 		log.Warn("no goods found")
 		http.Error(w, "no goods found for this product", http.StatusNotFound)
@@ -60,8 +60,7 @@ func getGoodAvailablityCount(w http.ResponseWriter, r *http.Request) (int, *logr
 		return -1, log
 	}
 	var count float64
-	var g models.Good
-	g.FilterAvailable(database.Read).Where("product_id = ?", id).Count(&count)
+	&models.Good.FilterAvailable(database.Read).Where("product_id = ?", id).Count(&count)
 	return int(count), log
 }
 

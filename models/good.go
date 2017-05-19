@@ -30,7 +30,7 @@ type Good struct {
 
 // Function to generate a database and select locked goods with a filter
 func (g *Good) FilterAvailable(db *gorm.DB) *gorm.DB {
-	return db.Model(g).Where("locked_secret == '' OR locked_secret is NULL")
+	return db.Model(g).Where("locked_secret = '' OR locked_secret is NULL")
 }
 
 // Function to lock a good, so that it cannot be locked (bought) by other users

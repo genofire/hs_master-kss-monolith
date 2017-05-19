@@ -13,10 +13,10 @@ import (
 // Function to get the status of the microservice, the database and the goods
 func status(w http.ResponseWriter, r *http.Request) {
 	log := logger.HTTP(r)
-	var goods []*models.Good
+	var good models.Good
 	var count int64
 	var avg float64
-	database.Read.Find(&goods).Count(&count)
+	&models.Good.FilterAvailable(database.Read).Count(&count)
 	database.Read.Raw("SELECT avg(g.gcount) as avg FROM (select count(*) as gcount FROM good g WHERE deleted_at is NULL GROUP BY g.product_id) g").Row().Scan(&avg)
 	lib.Write(w, map[string]interface{}{
 		"status": "running",
