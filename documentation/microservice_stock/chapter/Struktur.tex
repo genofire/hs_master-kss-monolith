@@ -145,19 +145,27 @@ Neben bisherigen Packages, die bereits Whitebox-Tests umfassen, ist in dem Packa
 \label{subsec: Anpassung des Monolithen}
 Damit der Microservice Warenwirtschaft durch den bestehenden Monolithen des Webshops Mosh genutzt werden kann, wurden hier dir nachfolgend aufgeführten Änderungen vorgenommen. Zunächst wurde für den Aufruf des Admin-Frontends über die URL des Monolithen \texttt{/stockadmin} das nachfolgende Mapping in der Java-Datei \texttt{HomepageController.java} ergänzt.
 
-\begin{lstlisting}[caption=Datenabfrage von der Bestellung (Waren wurden bestellt), language=Java]
+\begin{lstlisting}[caption=Anpassung in HomepageController.java, language=Java]
+private final String STOCKADMINFRONTENDTEMPLATE = "https://stock.pub.warehost.de/index.html";
+
 @RequestMapping(value = "/stockadmin", method = RequestMethod.GET)
-public String redirect(Model model) {
-	return this.STOCKADMINFRONTENDTEMPLATE;
+	public String redirect(Model model) {return "redirect:"+ this.STOCKADMINFRONTENDTEMPLATE;
+}
 }
 \end{lstlisting}
 
-Weiter wurde eine HTML-Datei \texttt{stockadmin.html} zu den statischen Webseiteninhalten des Monolithen hinzugefügt. Diese leitet, wie nachfolgend dargestellt, durch einen Meta-Eintrag direkt auf die Webseite des Microservice Warenwirtschaft weiter. Für den Fall, dass die Umleitung durch den verwendeten Browser nicht unterstützt wird, wurde zudem ein Link auf die Webseite des Microservice integriert.
+Weiter wurde die Ampeldarstellung der Verfügbarkeit unter \texttt{products.html} eingefügt. Hierfür wurde das \texttt{ProductDTO.java} um die Rückgabe der Produkt-ID erweitert.
 
-\begin{lstlisting}[caption=Datenabfrage von der Bestellung (Waren wurden bestellt), language=HTML]
-<head th:replace="fragments/skeleton :: head">
-	<meta charset="utf-8" />
-    <meta http-equiv="refresh" content="5; URL=http://localhost:65000/"/>
-    [...]
-</head>
+\begin{lstlisting}[caption=Anpassung products.html, language=HTML]
+
+
 \end{lstlisting}
+
+
+
+\begin{lstlisting}[caption=Anpassung ProductDTO.java, language=Java]
+ 
+ 
+\end{lstlisting}
+
+

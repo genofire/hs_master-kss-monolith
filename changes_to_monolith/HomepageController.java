@@ -17,20 +17,18 @@ public class HomepageController {
 
     @Autowired
     private ShopService shopService;
-    private final String STOCKADMINFRONTENDTEMPLATE = "admin";
-
-
+    private final String STOCKADMINFRONTENDTEMPLATE = "https://stock.pub.warehost.de/index.html";
 
     /**
      * Redirect
      *
      * @param model  Template model
-     * @return The constant template name fpr the stock admin frontend.
+     * @return The constant template name for the stock admin frontend.
      */
     @RequestMapping(value = "/stockadmin", method = RequestMethod.GET)
-    public String redirect(Model model) {
-        return this.STOCKADMINFRONTENDTEMPLATE;
+    public String redirect(Model model) {return "redirect:"+ this.STOCKADMINFRONTENDTEMPLATE;
     }
+
     /**
      * Homepage
      *

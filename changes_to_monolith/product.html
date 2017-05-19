@@ -31,7 +31,7 @@
       </div>
       <div class="col-md-8">
         <h2 th:text="${product.name}">Product Name</h2>
-        <img class="icon" ng-src="{'localhost:65000/api/good/availablity/'+products.id| reloadSrc}}"/>
+        <img class="icon" th:src="${'https://stock.pub.warehost.de/api/good/availablity/'+product.itemNumber}"/>
         <p class="text-info text-uppercase" th:text="${product.price}">0,00 Euro</p>
         <p class="lead" th:text="${product.description}">Description.</p>
         <div th:replace="fragments/reviews :: reviews"></div>
