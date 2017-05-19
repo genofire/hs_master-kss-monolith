@@ -13,11 +13,19 @@ import (
 	logger "github.com/genofire/hs_master-kss-monolith/lib/log"
 	"github.com/genofire/hs_master-kss-monolith/models"
 	"github.com/genofire/hs_master-kss-monolith/runtime"
+	"github.com/jinzhu/gorm"
 )
 
 // Function to add goods to the stock
 func addGood(w http.ResponseWriter, r *http.Request) {
 	log := logger.HTTP(r)
+
+	countStr := r.URL.Query().Get("count")
+	count, err := strconv.Atoi(countStr)
+	if err != nil {
+		count = 0
+	}
+
 	id, err := strconv.ParseInt(pat.Param(r, "productid"), 10, 64)
 	if err != nil {
 		log.Warn("false productid format")
@@ -47,7 +55,16 @@ func addGood(w http.ResponseWriter, r *http.Request) {
 
 	obj.ProductID = id
 
-	db := database.Write.Create(&obj)
+	var db *gorm.DB
+	if count > 0 {
+		for i := 0; i < count; i++ {
+			db = database.Write.Create(&obj)
+			obj.ID = 0
+		}
+	} else {
+		db = database.Write.Create(&obj)
+	}
+
 	if db.Error != nil {
 		log.Error("database not able to write", db.Error)
 		http.Error(w, "the product could not be written into the database", http.StatusInternalServerError)

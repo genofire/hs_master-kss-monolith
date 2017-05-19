@@ -31,7 +31,7 @@
       <td><img class="icon" ng-src="{{'/api/good/freshness/'+item.id| reloadSrc}}"/></td>
       <td>{{item.position}}</td>
       <td>{{item.comment}}</td>
-      <td><i class="trash icon" ng-click="delete(item.id)"></i></td>
+      <td><a class="ui icon button mini" ng-click="delete(item.id)"><i class="trash icon"></i></a></td>
     </tr>
   </tbody>
 </table>
