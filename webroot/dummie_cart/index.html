@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="/node_modules/semantic-ui-css/semantic.min.css" rel="stylesheet" />
+  <link href="/static/css/main.css" rel="stylesheet" />
+  <title>microStock Dummy Cart</title>
+</head>
+<body ng-app="microStockDummieCare">
+  <nav class="ui stackable inverted menu">
+    <div class="ui container">
+      <div class="header item">Dummy Cart</div>
+    </div>
+  </nav>
+
+  <div class="ui container" ng-controller="MainCtrl">
+		<form class="ui form" ng-submit="add()">
+			<div class="three fields">
+				<div class="field">
+					<div class="ui fluid search selection dropdown">
+						<input name="country" type="hidden">
+						<i class="dropdown icon"></i>
+						<div class="default text">Select Product</div>
+						<div class="menu">
+							<div class="item" ng-repeat="item in products" data-value="{{item.id}}"><img class="icon" ng-src="{{'/api/good/availablity/'+item.id| reloadSrc}}"/>{{item.title}}</div>
+						</div>
+					</div>
+				</div>
+				<div class="field">
+					<input placeholder="Count" type="number" min="1" max="50"  ng-model="goods.count">
+				</div>
+				<div class="field">
+				 	<button type="submit" class="ui button" tabindex="0">Add</button>
+				</div>
+			</div>
+		</form>
+		<table class="ui table">
+			<thead>
+				<tr>
+					<th>Count</th>
+					<th>Product</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in cart">
+					<td>{{item.count}}</td>
+					<td>{{getProduct(item.product_id).title}}</td>
+					<td>
+						<div class="ui button icon" ng-click="del(item)"><i class="icon trash"></i></div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+  <footer class="ui vertical footer segment">
+    <div class="ui center aligned container">
+      <p>&copy; 2017 MM / Go - Team</p>
+    </div>
+  </footer>
+	<script src="/node_modules/jquery/dist/jquery.min.js"></script>
+	<script src="/node_modules/semantic-ui-css/semantic.min.js"></script>
+  <script src="/node_modules/angular/angular.min.js"></script>
+  <script src="/node_modules/angular-animate/angular-animate.min.js"></script>
+  <script src="/node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script src="/node_modules/angular-loading-bar/build/loading-bar.min.js"></script>
+	<script>
+	var config = {
+	  'microservice_dependencies': {
+	    'products': 'http://localhost:8080/api-test/product/',
+	    'productById': 'http://localhost:8080/api-test/product/%d/',
+			'lockGoods': '/api/goods/lock/%s',
+			'unlockGoods': '/api/goods/unlock/%s'
+	  }
+	};
+
+	let selectedProduct = null;
+	$(".dropdown").dropdown().dropdown('setting', {
+		onChange: function (value) {
+			selectedProduct = parseInt(value, 10);
+			console.log('changed product', selectedProduct);
+		}
+	});
+
+	function createUUID () {
+		let digit = new Date().getTime();
+
+		// Use high-precision timer if available
+		/* eslint-disable */
+		if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
+			digit += performance.now();
+		}
+
+		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (char) => {
+			const result = (digit + Math.random() * 16) % 16 | 0;
+
+			digit = Math.floor(digit / 16);
+
+			return (char === 'x'
+			? result
+			: result & 0x3 | 0x8).toString(16);
+		});
+		/* eslint-enable*/
+	}
+
+
+	angular.module('microStockDummieCare', [
+	    'angular-loading-bar',
+	    'ngAnimate'
+	  ])
+		.filter('reloadSrc', function () {
+	    return function (input) {
+	      if (input)
+	          return input + '?v=' + new Date().getTime();
+	      }
+	  })
+		.controller('MainCtrl',['$scope', '$http',function($scope, $http) {
+			$scope.products = [];
+			$scope.goods = {count:1};
+			$scope.cart = [];
+
+			$http.get(config.microservice_dependencies.products).then(function(res) {
+				$scope.products = res.data;
+			});
+
+			function load() {
+				const tmp = JSON.parse(localStorage.getItem("cart"));
+				if(tmp) {
+					$scope.cart = tmp.map((item) => {
+						delete item.$$hashKey
+						return item;
+					});
+				}
+			}
+			function save(){
+				localStorage.setItem("cart",JSON.stringify($scope.cart));
+			}
+			load();
+
+			$scope.getProduct = function getProduct(id){
+				if(id) {
+					return $scope.products.filter((item) => item.id === id)[0];
+				}
+			};
+
+			$scope.add = function add() {
+				$scope.goods.product_id = selectedProduct;
+				$scope.goods.secret = createUUID();
+				$http.post(config.microservice_dependencies.lockGoods.replace('%s', $scope.goods.secret), [$scope.goods]).then(function(res) {
+					console.log('add', $scope.goods);
+					$scope.cart.push($scope.goods);
+					save();
+					$scope.goods = {count:1};
+				});
+			};
+
+			$scope.del = function del(entry) {
+				$http.delete(config.microservice_dependencies.unlockGoods.replace('%s', entry.secret)).then(function(res) {
+					console.log('del', entry);
+					$scope.cart = $scope.cart.filter((item) => item !== entry);
+					save();
+				});
+			};
+
+		}]);
+	</script>
+</body>
+</html>

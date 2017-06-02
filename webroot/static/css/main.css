@@ -1,6 +1,9 @@
 .text-emphasized {
   font-style: italic;
 }
-img.icon{
+img.icon {
   width: 24px;
+}
+.dropdown > .text > img.icon {
+  width: 18px;
 }
