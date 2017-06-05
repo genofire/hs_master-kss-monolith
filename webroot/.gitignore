@@ -4,6 +4,7 @@ node_modules/*
 !node_modules/semantic-ui-css/
 node_modules/semantic-ui-css/*
 !node_modules/semantic-ui-css/semantic.min.css
+!node_modules/semantic-ui-css/semantic.min.js
 !node_modules/semantic-ui-css/themes/
 node_modules/semantic-ui-css/themes/*
 !node_modules/semantic-ui-css/themes/default/
@@ -31,3 +32,9 @@ node_modules/angular-loading-bar/*
 !node_modules/angular-loading-bar/build/
 node_modules/angular-loading-bar/build/*
 !node_modules/angular-loading-bar/build/loading-bar.min.js
+
+!node_modules/jquery/
+node_modules/jquery/*
+!node_modules/jquery/dist/
+node_modules/jquery/dist/*
+!node_modules/jquery/dist/jquery.min.js
