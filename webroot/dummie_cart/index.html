@@ -72,8 +72,8 @@
 	  'microservice_dependencies': {
 	    'products': 'http://localhost:8080/api-test/product/',
 	    'productById': 'http://localhost:8080/api-test/product/%d/',
-			'lockGoods': '/api/goods/lock/%s',
-			'unlockGoods': '/api/goods/unlock/%s'
+			'lockGoods': '/api/goods/locking',
+			'unlockGoods': '/api/goods/locking'
 	  }
 	};
 
@@ -148,9 +148,17 @@
 
 			$scope.add = function add() {
 				$scope.goods.product_id = selectedProduct;
-				$scope.goods.secret = createUUID();
-				$http.post(config.microservice_dependencies.lockGoods.replace('%s', $scope.goods.secret), [$scope.goods]).then(function(res) {
+				const secret = createUUID();
+				$http({
+					method: 'POST',
+					headers: {
+						'secret': secret
+					},
+					url: config.microservice_dependencies.lockGoods,
+					data: [$scope.goods]
+				}).then(function(res) {
 					console.log('add', $scope.goods);
+					$scope.goods.secret = secret;
 					$scope.cart.push($scope.goods);
 					save();
 					$scope.goods = {count:1};
@@ -158,7 +166,13 @@
 			};
 
 			$scope.del = function del(entry) {
-				$http.delete(config.microservice_dependencies.unlockGoods.replace('%s', entry.secret)).then(function(res) {
+				$http({
+					method: 'DELETE',
+					headers: {
+						'secret': entry.secret
+					},
+					url: config.microservice_dependencies.unlockGoods
+				}).then(function(res) {
 					console.log('del', entry);
 					$scope.cart = $scope.cart.filter((item) => item !== entry);
 					save();

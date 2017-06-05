@@ -78,11 +78,12 @@ type Request struct {
 	req     *http.Request
 	cookies []*http.Cookie
 	router  *goji.Mux
+	Header  map[string]string
 }
 
 // Function to create a NewSession with the easy manager
 func NewSession(router *goji.Mux) *Request {
-	return &Request{router: router}
+	return &Request{router: router, Header: make(map[string]string)}
 }
 
 // Function to send a request to the router and receive the api's answer
@@ -90,6 +91,11 @@ func (r *Request) JSONRequest(method string, url string, body interface{}) (json
 	jsonObj, _ := json.Marshal(body)
 	req, _ := http.NewRequest(method, url, bytes.NewReader(jsonObj))
 	req.Header.Set("Content-Type", "application/json")
+	if len(r.Header) > 0 {
+		for k, h := range r.Header {
+			req.Header.Set(k, h)
+		}
+	}
 	for _, c := range r.cookies {
 		req.AddCookie(c)
 	}
