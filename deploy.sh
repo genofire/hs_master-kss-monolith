@@ -8,8 +8,8 @@ RETVAL=$?
 [ $RETVAL -ne 0 ] && exit 1
 scp -q -P $port ~/.go_workspace/bin/stock $remote:~/bin/stock;
 RETVAL=$?
-sed -ie 's/http:\/\/localhost:8080/https:\/\/stock.pub.warehost.de/g' webroot/static/js/main.js
-[ $RETVAL -eq 0 ] && RETVAL=$?
+# sed -ie 's/http:\/\/localhost:8080/https:\/\/stock.pub.warehost.de/g' webroot/static/js/main.js
+# [ $RETVAL -eq 0 ] && RETVAL=$?
 rsync -e "ssh -p $port" -a webroot/ $remote:~/lib/stock/www;
 [ $RETVAL -eq 0 ] && RETVAL=$?
 rsync -e "ssh -p $port" -a contrib/ $remote:~/lib/stock/contrib;
