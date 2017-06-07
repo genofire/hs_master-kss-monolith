@@ -9,17 +9,14 @@ This is a microservice cutted out of a [Monolith](https://gitlab.com/matthiassto
 * [Easy dummy Shop-Cart in browser-cache](https://stock.pub.warehost.de/dummy_cart/)
 
 ## Features of this stock mircoservice
-* The main functionality of the microservice is to store the goods with their storage location and a time stamp, when they where stored.
+* The main functionality of the microservice is to store the goods with their storage location and the date, when they are too old to be sell.
 * Functionality of the admin frontend
   * Add new goods to the stock
   * Manually remove a single goods from the stock, for example when they are rancid
   * Remove single goods from the stock, when they are send to a costumer
-  * Block goods from the stock, when a costumer added them to hie cart
+  * Block goods from the stock, when a costumer adds them to his cart
 * Functionality of the costumer frontend
   * Show the store with a traffic light food labelling
-  * A stock of more then seven goods corresponds to the colour green (sufficient amount of goods)
-  * A stock between four and seven goods corresponds to the colour orange (moderate amount of goods)
-  * A stock between zero and three goods corresponds to the colour red (slim amount of goods)
 * Optional Features
-  * Admin frontend: display of a statistic on how many goods where convexed and manually removed from the stock during the last month
-  * Traffic light food labelling for each good, which indicates whether the good is too old
+  * Admin frontend: display of a statistic on the amount and average of goods in the stock
+  * Admin frontend: display a traffic light food labelling for each good, which indicates whether the good is too old
