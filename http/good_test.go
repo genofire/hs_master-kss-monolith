@@ -27,7 +27,7 @@ func TestAddGood(t *testing.T) {
 	}
 
 	_, w := session.JSONRequest("POST", "/api/good/1", good)
-	assertion.Equal(http.StatusNonAuthoritativeInfo, w.StatusCode)
+	assertion.Equal(http.StatusForbidden, w.StatusCode)
 
 	session.Login()
 
@@ -102,7 +102,7 @@ func TestDelGood(t *testing.T) {
 	database.Write.Create(&good)
 
 	_, w := session.JSONRequest("DELETE", "/api/good/1", nil)
-	assertion.Equal(http.StatusNonAuthoritativeInfo, w.StatusCode)
+	assertion.Equal(http.StatusForbidden, w.StatusCode)
 
 	session.Login()
 

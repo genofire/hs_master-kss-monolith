@@ -9,12 +9,8 @@ type HasPermission func(string, int) (bool, error)
 // Function to evaluate the permission and implement an error handling
 func PermissionHandler(h func(w http.ResponseWriter, r *http.Request), perm HasPermission, permission int) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-		session, err := r.Cookie("session")
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusNonAuthoritativeInfo)
-			return
-		}
-		ok, err := perm(session.Value, permission)
+		session := r.Header.Get("session")
+		ok, err := perm(session, permission)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusGatewayTimeout)
 			return

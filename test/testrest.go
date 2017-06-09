@@ -113,14 +113,12 @@ func (r *Request) JSONRequest(method string, url string, body interface{}) (json
 
 // Function to log the current session
 func (r *Request) Login() {
-	r.cookies = nil
-	r.cookies = append(r.cookies, &http.Cookie{Name: "session", Value: "testsessionkey"})
+	r.Header["session"] = "testsessionkey"
 }
 
 // Function to logout/quit the current session
 func (r *Request) Logout() {
-	r.cookies = nil
-	r.cookies = append(r.cookies, &http.Cookie{Name: "session", Value: "trashkey"})
+	r.Header["session"] = "trashkey"
 }
 
 // Function to clean the current session

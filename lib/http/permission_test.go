@@ -17,19 +17,8 @@ func TestPermission(t *testing.T) {
 	w := httptest.NewRecorder()
 	r, _ := http.NewRequest("GET", "/", nil)
 
-	// Request without session cookie
-	reached := false
-	PermissionHandler(func(w http.ResponseWriter, r *http.Request) {
-		reached = true
-	}, func(s string, i int) (bool, error) {
-		return true, nil
-	}, 1)(w, r)
-	assert.False(reached)
-
-	r.AddCookie(&http.Cookie{Name: "session"})
-
 	// HasPermission responds true
-	reached = false
+	reached := false
 	PermissionHandler(func(w http.ResponseWriter, r *http.Request) {
 		reached = true
 	}, func(s string, i int) (bool, error) {

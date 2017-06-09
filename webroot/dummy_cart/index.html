@@ -1,21 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="/node_modules/semantic-ui-css/semantic.min.css" rel="stylesheet" />
-  <link href="/static/css/main.css" rel="stylesheet" />
-  <title>microStock Dummy Cart</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link href="/node_modules/semantic-ui-css/semantic.min.css" rel="stylesheet" />
+	<link href="/static/css/main.css" rel="stylesheet" />
+	<title>microStock Dummy Cart</title>
 </head>
-<body ng-app="microStockDummieCare">
-  <nav class="ui stackable inverted menu">
-    <div class="ui container">
-      <div class="header item">Dummy Cart</div>
-    </div>
-  </nav>
+<body ng-app="microStockDummieCare" ng-controller="MainCtrl">
+	<nav class="ui stackable inverted menu">
+		<div class="ui container">
+			<div class="header item">Dummy Cart</div>
+			<div class="right menu">
+				<a class="ui item" ng-click="reset()">
+					<i class="undo icon"></i>
+					Reset
+				</a>
+			</div>
+		</div>
+	</nav>
 
-  <div class="ui container" ng-controller="MainCtrl">
+  <div class="ui container">
 		<form class="ui form" ng-submit="add()">
 			<div class="three fields">
 				<div class="field">
@@ -177,6 +183,12 @@
 					$scope.cart = $scope.cart.filter((item) => item !== entry);
 					save();
 				});
+			};
+
+			$scope.reset = function reset() {
+				console.log("reset");
+				localStorage.setItem("cart","[]");
+				load();
 			};
 
 		}]);
