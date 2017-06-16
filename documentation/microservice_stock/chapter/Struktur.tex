@@ -126,7 +126,14 @@ Neben den bisherigen Packages, die bereits Whitebox-Tests umfassen, ist in dem P
 
 \subsection{Anpassung des Monolithen}
 \label{subsec: Anpassung des Monolithen}
-Damit der Microservice Warenwirtschaft durch den bestehenden Monolithen des Webshops Mosh genutzt werden kann, wurden hier die nachfolgend aufgeführten Änderungen vorgenommen. Zunächst wurde für den Aufruf des Admin-Frontends über die URL des Monolithen \texttt{/stockadmin} das nachfolgende Mapping in der Java-Datei \texttt{HomepageController.java} ergänzt.
+Damit der Microservice Warenwirtschaft durch den bestehenden Monolithen des Webshops Mosh genutzt werden kann, wurden hier die nachfolgend aufgeführten Änderungen vorgenommen. 
+\begin{itemize}
+	\item Anpassung der \texttt{HomepageController.java}, sodass der Microservice Warenwirtschaft über die URL des Monolithen mit der Erweiterung \texttt{/stockadmin} aufgerufen werden kann
+	\item  Einfügen der  Ampeldarstellung für die Verfügbarkeit auf den Produktseiten unter \texttt{products.html}
+	\item Anpassung der \texttt{ProductDTO.java} um die Rückgabe der Produkt-ID, sodass diese für die Ampeldarstellung abgerufen werden kann
+	\item Anpassung der \texttt{DataTransferObjectFactory.java} um die Rückgabe der Produkt-ID, sodass diese für die Ampeldarstellung abgerufen werden kann
+	\item Anpassung der \texttt{ProductController.java} um eine JSON-Schnittstelle
+\end{itemize}
 
 \begin{lstlisting}[caption=Anpassung in HomepageController.java, language=Java]
 private final String STOCKADMINFRONTENDTEMPLATE = "https://stock.pub.warehost.de/index.html";
@@ -137,7 +144,7 @@ private final String STOCKADMINFRONTENDTEMPLATE = "https://stock.pub.warehost.de
 }
 \end{lstlisting}
 
-Weiter wurde die Ampeldarstellung der Verfügbarkeit unter \texttt{products.html} eingefügt. Hierfür wurde das \texttt{ProductDTO.java} um die Rückgabe der Produkt-ID erweitert.
+\texttt{ProductDTO.java} um die Rückgabe der Produkt-ID erweitert.
 
 \begin{lstlisting}[caption=Anpassung products.html, language=HTML]
 <div class="col-md-8">
@@ -152,10 +159,33 @@ Weiter wurde die Ampeldarstellung der Verfügbarkeit unter \texttt{products.html
 \end{lstlisting}
 
 
-
 \begin{lstlisting}[caption=Anpassung ProductDTO.java, language=Java]
- 
- 
+public class ProductDTO {
+  private int id;
+  [...]  
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  } 
 \end{lstlisting}
 
+\begin{lstlisting}[caption=Anpassung DataTransferObjectFactory.java, language=Java]
+
+private ProductDTO createProductWithoutReviewsDTO(Product product, Locale locale,
+    [...]
+    productDTO.setId(product.getId());
+	[...]  
+}\end{lstlisting}
+
+
+\begin{lstlisting}[caption=Anpassung ProductControlle.java, language=Java]
+@RequestMapping(value = "/products/{prettyUrlFragment:[\\w-]+}.json", method = RequestMethod.GET)
+@ResponseBody
+public ProductDTO productJson(@PathVariable String prettyUrlFragment, Locale locale) {
+return shopService.getProduct(locale, prettyUrlFragment);
+}
+}\end{lstlisting}
 
