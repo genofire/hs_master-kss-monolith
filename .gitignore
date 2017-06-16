@@ -129,6 +129,3 @@ __pycache__
 profile.cov
 config.conf
 cmd/stock/config.conf
-
-# monolith
-monolith/
