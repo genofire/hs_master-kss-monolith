@@ -5,7 +5,7 @@
 	\begin{center}
 	\includegraphics[width=0.95 \textwidth]{./pics/struktur.png}
 	\end{center}
-	\caption{Microservice Warenwirtschaft}
+	\caption{Paketdiagramm Microservice Warenwirtschaft}
 	\label{pic: Microservice Warenwirtschaft}
 \end{figure}
 
@@ -16,6 +16,6 @@
 	\item In dem Kunden-Frontend wird der Warenbestand durch ein Ampelsystem dargestellt
 	\item Der Microservice wurde in Go entwickelt, die Abbildung \ref{pic: Microservice Warenwirtschaft} gibt einen Überblick der Package-Struktur
 	\item Der statische Inhalt der Webseite ist in dem Package \texttt{webroot} verordnet
-	\item Die Hauptfunktionalitäten, die zentralen Structs sowie die notwendigen Hilfsfunktionen sind in den Packages \texttt{http} und \texttt{models} verordnet
+	\item Die Hauptfunktionalitäten, die zentralen Structs sowie die notwendigen Hilfsfunktionen sind in den Packages \texttt{http} und \texttt{models} zu finden
 	\item Eine SQL-Lite-Datenbank stellt den Persitant Layer
 \end{itemize}

@@ -1,7 +1,7 @@
 \section{Definition der Anforderungen}
 \label{sec: Definition der Anforderungen}
 
-Der Microservice Warenwirtschaft dient der Verwaltung der Warenbestände für den Webshop Mosh. Er ermöglicht es zum Beispiel, neue Waren zu erfassen und verhindert den Verkauf von Waren, die sich nicht mehr im Warenbestand befinden. Die nachfolgende Tabelle \ref{tabl:Begriffe} definiert die hier verwendeten Begriffe, so wie sie in dem Code und innerhalb dieser Dokumentation genutzt werden.
+Der Microservice Warenwirtschaft dient der Verwaltung der Warenbestände für den Webshop Mosh. Die nachfolgende Tabelle \ref{tabl:Begriffe} definiert die hier verwendeten Begriffe, so wie sie in dem Code und innerhalb dieser Dokumentation genutzt werden.
 \begin{table}[H]
 \begin{small}
 	\begin{center}
@@ -23,7 +23,7 @@ Der Microservice Warenwirtschaft dient der Verwaltung der Warenbestände für de
 \end{small}
 \end{table}
 
-Die übergeordnete Aufgabe dieses Microservice ist die Speicherung der Waren mit ihrem Lagerort sowie einem Ablaufdatum, da es sich bei Obst und Gemüse um verderbliche Waren handelt. Nachfolgend sind die weiteren, detaillierten Anforderungen an diesen Microservice zusammengefasst. 
+Die übergeordnete Aufgabe dieses Microservice ist die Speicherung und Verwaltung der Waren mit ihrem Lagerort sowie einem Ablaufdatum, da es sich bei Obst und Gemüse um verderbliche Waren handelt. Nachfolgend sind die weiteren, detaillierten Anforderungen an diesen Microservice zusammengefasst. 
 
 \begin{itemize}
 	\item \textbf{Funktionen des Admin-Frontends}
@@ -31,8 +31,8 @@ Die übergeordnete Aufgabe dieses Microservice ist die Speicherung der Waren mit
 		\item Hinzufügen neuer Waren zum Warenbestand
 		\item Manuelles Entfernen von Waren aus dem Warenbestand, zum Beispiel wenn diese verdorben sind
 		\item Entfernen von einzelnen Waren aus dem Warenbestand, wenn diese an einen Kunden versendet werden
-		\item Blockieren von Waren in dem Warenbestand, wenn ein Kunde sie in seinen Warenkorb gelegt hat
-		\item Automatische Freigaben von blockierten Waren, wenn diese nicht an den Versand überstellt wurden
+		\item Blockieren von Waren in dem Warenbestand, wenn ein Kunde diese in seinen Warenkorb gelegt hat
+		\item Automatische Freigabe von blockierten Waren, wenn diese nicht innerhalb einer Frist an den Versand überstellt werden
 	\end{itemize}
 	\item \textbf{Funktionen des Kunden-Frontends}
 	\begin{itemize}
@@ -41,10 +41,10 @@ Die übergeordnete Aufgabe dieses Microservice ist die Speicherung der Waren mit
 	\item \textbf{Optionale Zusatzfunktionen}
 	\begin{itemize}
 		\item Admin-Frontend: Ausgabe einer Statistik, wie viele Waren sich gesamt und durchschnittlich im Warenbestand befinden 
-		\item Admin:Frontend: Ampeldarstellung pro Ware, die Anzeigt ob diese bereits ihr angegebenes Ablaufdatum erreicht hat
+		\item Admin-Frontend: Ampeldarstellung pro Ware, die Anzeigt ob diese bereits ihr angegebenes Ablaufdatum erreicht oder überschritten hat
 	\end{itemize}
 \end{itemize}
-
-Die Angabe der Anzahl ist bei dem Hinzufügen neuer Waren zum Warenbestand verpflichtend, da ohne sie die Verwaltung neu eingetroffener Waren nicht möglich ist. Gleiches gilt für die Angabe des Ablaufdatums, diese ist speziell bei der Verwaltung von Lebensmitteln notwendig, um die Kunden vor abgelaufenen Waren und das vertreibende Unternehmen so vor Haftungen, Anzeigen bei der Gesundheitsbehörde oder Image-Schäden zu schützen. Die Datumsangabe erfolgt dabei im amerikanischen Format \textit{Jahr-Monat-Tag}. \par 
+\newpage
+Die Angabe der Anzahl ist bei dem Hinzufügen neuer Waren zum Warenbestand verpflichtend, da ohne sie die Verwaltung neu eingetroffener Waren nicht möglich ist. Gleiches gilt für die Angabe des Ablaufdatums, diese ist speziell bei der Verwaltung von Lebensmitteln notwendig, um den Verkauf von verdorbenen Waren zu vermeiden. Die Datumsangabe erfolgt dabei im amerikanischen Format \textit{Jahr-Monat-Tag}. \par 
 Im Gegensatz dazu sind die Angabe von Lagerplatz und Kommentar bei dem Hinzufügen neuer Waren optional, da diese Informationen für die Verwaltung des reinen Warenbestandes nicht essentiell notwendig sind. Diese beiden Angaben sind als Freitextfelder umzusetzen, um speziell bei dem Lagerort flexibel die Nutzung verschiedener Benennungschema für Regale oder Lagerräume zu ermöglichen und den Benutzer hier nicht einzuschränken. \par 
 Der Microservice ist in den bestehenden Monolithen Mosh zu integrieren, eine Kommunikation mit anderen Microservices wird jedoch nicht hergestellt.
