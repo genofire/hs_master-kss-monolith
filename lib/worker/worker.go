@@ -1,4 +1,4 @@
-// Package with a lib for cronjobs to run in background
+// Package with a lib for cronjobs to run in the background
 package worker
 
 import "time"

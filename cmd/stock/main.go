@@ -1,4 +1,4 @@
-// Package that containts the cmd binary of the microservice to run it
+// Package that contains the cmd binary of the microservice to run it
 package main
 
 import (
@@ -50,13 +50,15 @@ func main() {
 	}
 	grw := runtime.NewGoodReleaseWorker(config.GoodRelease)
 	cw := runtime.NewCacheWorker()
-	fw := worker.NewWorker(config.FouledDeleter.Duration, func() { runtime.GoodFouled() })
+	fw := worker.NewWorker(config.FouledDeleter.Duration, func() {
+		runtime.GoodFouled()
+	})
 	go grw.Start()
 	go cw.Start()
 	if config.FouledDeleter.Duration != time.Duration(0) {
 		go fw.Start()
 	}
-	// Startwebsrver
+	// Start webserver
 	router := goji.NewMux()
 	web.BindAPI(router)
 

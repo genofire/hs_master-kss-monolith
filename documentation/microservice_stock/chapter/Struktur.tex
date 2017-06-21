@@ -58,8 +58,9 @@ Die Packages und Go-Files des Application Layers umfassen die Logik des Microser
 \paragraph{http:} Go-Files, die die Anwendungslogik (Funktionen) und die API-Routen beinhalten
 	\begin{itemize}
 	\item \texttt{bindapi.go}: Funktionen, die für das Binden der URL-Pfade notwendig sind
-	\item \texttt{good.go}: Funktionen für die Verwaltung der Waren im Warenbestand
-	\item \texttt{good\_show.go}: Funktionen für die Auflistung und Zählung der vorhandenen Waren sowie die Feststellung ihrer Verfügbarkeit
+	\item \texttt{good.go}: Funktionen für das Hinzufügen von Waren zum Warenbestand und die Anzeige, ob eine Ware abgelaufen ist
+	\item \texttt{good\_lock.go}: Funktionen für das Blockieren von Waren, die sich im Warenkorb befinden
+		\item \texttt{good\_show.go}: Funktionen für die Auflistung und Zählung der vorhandenen Waren sowie die Feststellung ihrer Verfügbarkeit
 	\item \texttt{good\_temp.go}: Hilfsfunktionen, die für die Darstellung des Warenbestandes als Ampel im Kunden-Frontend benötigt werden
 	\item \texttt{status.go}: Funktion, die den Status des Microservice abfragt 
 	\end{itemize}
@@ -77,9 +78,9 @@ Die Packages und Go-Files des Application Layers umfassen die Logik des Microser
 	\begin{itemize}	
 	\item \texttt{auth.go}: Hilfsfunktionen zur Prüfung, ob eine Berechtigung für den Zugriff vorliegt
 	\item \texttt{cache\_worker.go}: Hilfsfunktionen für das Löschen und Anlegen von Cache-Workers
+	\item \texttt{good\_fouled.go}: Hilfsfunktion, um abgelaufene Waren automatisch aus dem Warenbestand zu entfernen
 	\item \texttt{good\_release.go}: Hilfsfunktionen zum Blockieren und Entsperren von Waren
 	\item \texttt{productcache.go}: Hilfsfunktionen zum Anlegen eines Caches für Produkte
-	\item \texttt{runtime.go}: Übergreifende Hintergrundfunktionalitäten	
 	\end{itemize}
 	
 
@@ -122,7 +123,7 @@ connection = "file::memory:?mode=memory&cache=shared"
 \newpage
 \subsection{Integrierte Tests}
 \label{subsec: Integrierte Test}
-Neben den bisherigen Packages, die bereits Whitebox-Tests umfassen, ist in dem Package \textbf{\texttt{test}} ein weiteres Go-File (\texttt{testRest.go}) enthalten. Dieses setzt einen Test des Webservers um, bei dem auf Testdaten eines Produktkataloges zurückgegriffen wird. Mit Hilfe der integrierten Tests wird in der hier beschriebenen Version eine Code-Coverage von 100\% erreicht, das heißt jedes Stück Code wird mindestens einmal zur Ausführung gebracht.
+Neben den bisherigen Packages, die bereits Whitebox-Tests umfassen, ist in dem Package \textbf{\texttt{test}} ein weiteres Go-File (\texttt{testrest.go}) enthalten. Dieses setzt einen Test des Webservers um, bei dem auf Testdaten eines Produktkataloges zurückgegriffen wird. Mit Hilfe der integrierten Tests wird in der hier beschriebenen Version eine Code-Coverage von 100\% erreicht, das heißt jedes Stück Code wird mindestens einmal zur Ausführung gebracht.
 
 \subsection{Anpassung des Monolithen}
 \label{subsec: Anpassung des Monolithen}

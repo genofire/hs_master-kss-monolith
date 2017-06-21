@@ -73,14 +73,14 @@ func TestAddGood(t *testing.T) {
 	runtime.HasPermission("testsessionkey", runtime.PermissionCreateGood)
 	runtime.CleanCache()
 
-	// Test gatewaytimeout on product exists
+	// Test the gatewaytimeout on product exists
 	_, w = session.JSONRequest("POST", "/api/good/1", good)
 	assertion.Equal(http.StatusGatewayTimeout, w.StatusCode)
 
 	time.Sleep(time.Duration(10) * time.Millisecond)
 	runtime.CleanCache()
 
-	// Test gatewaytimeout on permission exists
+	// Test the gatewaytimeout on permission exists
 	_, w = session.JSONRequest("POST", "/api/good/1", good)
 	assertion.Equal(http.StatusGatewayTimeout, w.StatusCode)
 

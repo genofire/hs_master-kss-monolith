@@ -8,7 +8,7 @@ import (
 	"github.com/genofire/hs_master-kss-monolith/models"
 )
 
-// Function to remove automaticle goods after the are fouled
+// Function to automatically remove goods, if they are fouled
 func GoodFouled() int {
 	var goods []*models.Good
 	var g models.Good

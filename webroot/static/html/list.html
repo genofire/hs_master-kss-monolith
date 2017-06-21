@@ -1,23 +1,23 @@
 <h1>List of Products</h1>
 <table class="ui very compact table">
-  <thead>
+    <thead>
     <tr>
-      <th class="two wide">#</th>
-      <th class="twelve wide">Productname</th>
-      <th class="one wide">Amount</th>
-      <th class="one wide"></th>
+        <th class="two wide">#</th>
+        <th class="twelve wide">Productname</th>
+        <th class="one wide">Amount</th>
+        <th class="one wide"></th>
     </tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <tr ng-repeat="item in list">
-      <td>{{item.id}}</td>
-      <td><a ui-sref="item({productid: item.id})">{{item.title}}</a></td>
-      <td>
-          <img class="icon" ng-src="{{'/api/good/availablity/'+item.id| reloadSrc}}"/>
-      </td>
-      <td>
-        <a class="ui icon button" ui-sref="item-add({productid: item.id})"><i class="icon plus"></i></a>
-      </td>
+        <td>{{item.id}}</td>
+        <td><a ui-sref="item({productid: item.id})">{{item.title}}</a></td>
+        <td>
+            <img class="icon" ng-src="{{'/api/good/availablity/'+item.id| reloadSrc}}"/>
+        </td>
+        <td>
+            <a class="ui icon button" ui-sref="item-add({productid: item.id})"><i class="icon plus"></i></a>
+        </td>
     </tr>
-  </tbody>
+    </tbody>
 </table>

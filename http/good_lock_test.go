@@ -11,6 +11,7 @@ import (
 	"github.com/genofire/hs_master-kss-monolith/test"
 )
 
+// Function to test lockGoods()
 func TestLockGoods(t *testing.T) {
 	assertion, router := test.Init(t)
 	good := &models.Good{
@@ -58,6 +59,7 @@ func TestLockGoods(t *testing.T) {
 	test.Close()
 }
 
+// Function to test releaseGoods()
 func TestReleaseGoods(t *testing.T) {
 	now := time.Now()
 	assertion, router := test.Init(t)

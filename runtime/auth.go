@@ -10,20 +10,20 @@ import (
 	"sync"
 )
 
-// URL to the microservice which manages permissions
+// URL to the microservice, which manages permissions
 var PermissionURL string
 
 // Type of permission
 type Permission int
 
-// Some permissions (the real permissions need to come from the permission microservice)
+// Some permissions (the real permissions need to come from a permission microservice)
 const (
 	// permission to add goods to the stock
-	// e.g. if a good is received and now available to sell
+	// e.g. if a good is received and now available for selling
 	PermissionCreateGood = 1
 
 	// permission to delete goods from the stock
-	// e.g. if a good becomes fouled and has to be removed
+	// e.g. if a good becomes fouled and has to be removed manually
 	PermissionDeleteGood = 2
 )
 

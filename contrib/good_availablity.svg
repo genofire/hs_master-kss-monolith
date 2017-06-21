@@ -1,8 +1,7 @@
 <!-- SVG to show the current stock with a traffic light food labeling system -->
 <!-- Used functions -->
-<!--   process_radius ANZAHL MAXANZAHL RADIUS -->
-<!--   procent ANZAHL MAXANZAHL -->
-<!--    ex. {procent .Count 10}%-->
+<!--  process_radius ANZAHL MAXANZAHL RADIUS -->
+<!--  procent ANZAHL MAXANZAHL ex. {procent .Count 10}%-->
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
     <g class="arcs">
         {{if eq .Count 0}}

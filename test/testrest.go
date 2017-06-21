@@ -25,6 +25,7 @@ type MockTransport struct {
 	running bool
 }
 
+// Function to use the http handler
 func (t *MockTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 	if !t.running {
 		return nil, errors.New("mock a error")
@@ -33,9 +34,13 @@ func (t *MockTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 	t.Handler.ServeHTTP(w, req)
 	return w.Result(), nil
 }
+
+// Function to start the http handler
 func (t *MockTransport) Start() {
 	t.running = true
 }
+
+// Function to close/stop the http handler
 func (t *MockTransport) Close() {
 	t.running = false
 }
@@ -73,7 +78,7 @@ func Close() {
 	mock.Close()
 }
 
-// Handle a test session with cookies
+// Struct to dandle a test session with cookies
 type Request struct {
 	req     *http.Request
 	cookies []*http.Cookie

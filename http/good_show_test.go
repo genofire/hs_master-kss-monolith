@@ -38,7 +38,7 @@ func TestListGood(t *testing.T) {
 	test.Close()
 }
 
-// Function to getGoodAvailability() and getGoodAvailabilityCount()
+// Function to test getGoodAvailability() and getGoodAvailabilityCount()
 func TestGetGoodAvailable(t *testing.T) {
 	now := time.Now()
 	assertion, router := test.Init(t)
@@ -99,7 +99,7 @@ func TestGetGoodAvailable(t *testing.T) {
 
 }
 
-// Function to getGoodFreshness()
+// Function to test getGoodFreshness()
 func TestGetGoodFreshness(t *testing.T) {
 	now := time.Now().Add(36 * time.Hour)
 	assertion, router := test.Init(t)

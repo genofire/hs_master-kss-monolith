@@ -22,7 +22,7 @@ func Read(r *http.Request, to interface{}) (err error) {
 func Write(w http.ResponseWriter, data interface{}) {
 	js, err := json.Marshal(data)
 	if err != nil {
-		http.Error(w, "failed to encode response: "+err.Error(), http.StatusInternalServerError)
+		http.Error(w, "failed to encode response: " + err.Error(), http.StatusInternalServerError)
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")

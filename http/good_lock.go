@@ -1,3 +1,4 @@
+// Package that contains all api routes of this microservice
 package http
 
 import (
@@ -14,6 +15,7 @@ type LockGood struct {
 	Count     int   `json:"count"`
 }
 
+// Function to lock goods
 func lockGoods(w http.ResponseWriter, r *http.Request) {
 	log := logger.HTTP(r)
 	secret := r.Header.Get("secret")
@@ -37,8 +39,8 @@ func lockGoods(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if len(goods) <= 0 {
-		log.Warn("try to log nothing")
-		http.Error(w, "try to log nothing", http.StatusBadRequest)
+		log.Warn("tried to log nothing")
+		http.Error(w, "tried to log nothing", http.StatusBadRequest)
 		return
 	}
 
@@ -47,9 +49,9 @@ func lockGoods(w http.ResponseWriter, r *http.Request) {
 
 	for _, good := range goods {
 		if good.ProductID <= 0 {
-			log.Warn("try to log nothing")
+			log.Warn("tried to log nothing")
 			tx.Rollback()
-			http.Error(w, "try to log nothing", http.StatusBadRequest)
+			http.Error(w, "tried to log nothing", http.StatusBadRequest)
 			return
 		}
 		for i := 0; i < good.Count; i++ {
@@ -68,7 +70,7 @@ func lockGoods(w http.ResponseWriter, r *http.Request) {
 			if db.Error != nil || db.RowsAffected != 1 {
 				http.Error(w, "the good was not found in database", http.StatusInternalServerError)
 				tx.Rollback()
-				log.Panic("more then one good locked: ", db.Error)
+				log.Panic("there is more than one good locked: ", db.Error)
 				return
 			}
 			count += 1
@@ -81,6 +83,7 @@ func lockGoods(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// Function to release locked goods
 func releaseGoods(w http.ResponseWriter, r *http.Request) {
 	log := logger.HTTP(r)
 	secret := r.Header.Get("secret")
@@ -91,14 +94,14 @@ func releaseGoods(w http.ResponseWriter, r *http.Request) {
 	result := db.RowsAffected
 
 	if err != nil {
-		log.Warn("database error during release goods: ", err)
-		http.Error(w, "secret could not validate", http.StatusInternalServerError)
+		log.Warn("database error during the release of goods: ", err)
+		http.Error(w, "the secret could not be validated", http.StatusInternalServerError)
 		return
 	}
 
 	if result <= 0 {
 		log.Warn("no goods found")
-		http.Error(w, "no goods found to release", http.StatusNotFound)
+		http.Error(w, "there are no goods to release", http.StatusNotFound)
 		return
 	}
 

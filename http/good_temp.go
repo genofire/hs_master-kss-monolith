@@ -9,19 +9,19 @@ import (
 	"text/template"
 )
 
-// Path to the svg image template, that shows the availablity or freshness of a given good
+// Path to the svg image template, that shows the availability or freshness of a given good
 // with a traffic light food labeling system
 var GoodAvailabilityTemplate string
 var GoodFreshnessTemplate string
 
-// Function to calculate a percent value from a given value and an maximum value
+// Function to calculate a percent value from a given value and a maximum value
 func tempPercent(value, max int) int {
 	return value * 100 / max
 }
 
 // Function to calculate a partial radius, depending on a percentage value
 func tempProcessRadius(value, max, radius int) float64 {
-	return (1 - float64(value)/float64(max)) * float64(radius) * 2 * 3.14
+	return (1 - float64(value) / float64(max)) * float64(radius) * 2 * 3.14
 }
 
 // Function to get the SVG, that shows the availability with a traffic light food labeling system for a given good

@@ -23,14 +23,14 @@ var (
 
 // Configuration of the database connection
 type Config struct {
-	// type of the database, currently supports sqlite and postgres
-	Type string
-	// connection configuration
-	Connection string
-	// create another connection for reading only
+	// Type of the database (currently supports sqlite and postgres)
+	Type           string
+	// Connection configuration
+	Connection     string
+	// Create another connection for reading only
 	ReadConnection string
-	// enable logging of the generated sql string
-	Logging bool
+	// Enable logging of the generated sql string
+	Logging        bool
 }
 
 // Function to open a database and set the given configuration

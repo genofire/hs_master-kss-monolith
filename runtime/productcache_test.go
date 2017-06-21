@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-// Function to test, if and which products exist (get information from the products catalogue)
+// Function to test, if and which products exist (get information from the product catalogue)
 func TestProductExists(t *testing.T) {
 	assert := assert.New(t)
 

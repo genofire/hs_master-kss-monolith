@@ -28,8 +28,8 @@ func addGood(w http.ResponseWriter, r *http.Request) {
 
 	id, err := strconv.ParseInt(pat.Param(r, "productid"), 10, 64)
 	if err != nil {
-		log.Warn("false productid format")
-		http.Error(w, "the product id is false", http.StatusNotAcceptable)
+		log.Warn("false product id format")
+		http.Error(w, "the product id has a false format", http.StatusNotAcceptable)
 		return
 	}
 	log = log.WithField("productid", id)
@@ -40,7 +40,7 @@ func addGood(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if !ok {
-		log.Warn("false product, product not found")
+		log.Warn("product not found")
 		http.Error(w, "the product was not found", http.StatusNotFound)
 		return
 	}
@@ -66,7 +66,7 @@ func addGood(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if db.Error != nil {
-		log.Error("database not able to write", db.Error)
+		log.Error("database unable to write", db.Error)
 		http.Error(w, "the product could not be written into the database", http.StatusInternalServerError)
 	}
 	lib.Write(w, &obj)
@@ -79,7 +79,7 @@ func delGood(w http.ResponseWriter, r *http.Request) {
 	log := logger.HTTP(r)
 	id, err := strconv.ParseInt(pat.Param(r, "goodid"), 10, 64)
 	if err != nil {
-		log.Warn("wrong goodid format")
+		log.Warn("wrong good id format")
 		http.Error(w, "the good id has a false format", http.StatusNotAcceptable)
 		return
 	}
@@ -90,8 +90,8 @@ func delGood(w http.ResponseWriter, r *http.Request) {
 	good.ID = id
 	db := good.FilterAvailable(database.Read).First(&good)
 	if db.RecordNotFound() {
-		log.Warnf("good could not found: %s", db.Error)
-		http.Error(w, "the good could not found", http.StatusNotFound)
+		log.Warnf("could not find good: %s", db.Error)
+		http.Error(w, "the good was not found", http.StatusNotFound)
 		return
 	}
 	good.ManuelleDelete = true
@@ -99,8 +99,8 @@ func delGood(w http.ResponseWriter, r *http.Request) {
 
 	db = database.Write.Save(&good)
 	if db.Error != nil {
-		log.Warnf("good could not delete: %s", db.Error)
-		http.Error(w, "the good could not delete", http.StatusInternalServerError)
+		log.Warnf("could not delete good: %s", db.Error)
+		http.Error(w, "the good could not be deleted", http.StatusInternalServerError)
 		return
 	}
 	log.Info("done")

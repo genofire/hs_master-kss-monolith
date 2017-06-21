@@ -15,6 +15,7 @@ public class ProductDTO {
   private String description;
   private List<ReviewDTO> reviews;
 
+  // Addition: int id, getId() and setID()
   public int getId() {
     return id;
   }

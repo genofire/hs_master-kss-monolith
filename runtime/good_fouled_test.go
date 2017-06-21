@@ -11,7 +11,7 @@ import (
 	"github.com/genofire/hs_master-kss-monolith/models"
 )
 
-// Function to test the unlocking of goods
+// Function to test fouledDelete()
 func TestFouledDelete(t *testing.T) {
 	assert := assert.New(t)
 	database.Open(database.Config{
