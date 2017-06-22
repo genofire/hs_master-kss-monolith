@@ -6,6 +6,7 @@ import de.mstock.monolith.domain.ProductWeightUnit;
 
 public class ProductDTO {
 
+  private int id;
   private String itemNumber;
   private ProductWeightUnit unit;
   private String name;
@@ -13,6 +14,15 @@ public class ProductDTO {
   private String price;
   private String description;
   private List<ReviewDTO> reviews;
+
+  // Addition: int id, getId() and setID()
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
 
   public String getItemNumber() {
     return itemNumber;

@@ -1,6 +1,7 @@
 package de.mstock.monolith.web;
 
 import java.util.Locale;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -11,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import de.mstock.monolith.service.ReviewService;
 import de.mstock.monolith.service.ShopService;
@@ -66,4 +68,17 @@ public class ProductController {
     model.addAttribute("product", shopService.getProduct(locale, prettyUrlFragment));
     return TEMPLATE;
   }
+
+  @RequestMapping(value = "/products/{prettyUrlFragment:[\\w-]+}.json", method = RequestMethod.GET)
+  @ResponseBody
+  public ProductDTO productJson(@PathVariable String prettyUrlFragment, Locale locale) {
+    return shopService.getProduct(locale, prettyUrlFragment);
+  }
+
+  @RequestMapping(value = "/products.json", method = RequestMethod.GET)
+  @ResponseBody
+  public List<ProductDTO> allProductJson(Locale locale) {
+    return shopService.getAllProducts(locale);
+  }
+
 }

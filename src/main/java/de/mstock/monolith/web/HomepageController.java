@@ -17,11 +17,24 @@ public class HomepageController {
 
   @Autowired
   private ShopService shopService;
+  // Addition: contant with the address of the stock microservice adminfrontend
+  private final String STOCKADMINFRONTENDTEMPLATE = "https://stock.pub.warehost.de/index.html";
+
+  /**
+   * Redirect to stock admin frontend
+   *
+   * @param model Template model
+   * @return The constant template name for the stock admin frontend.
+   */
+  @RequestMapping(value = "/stockadmin", method = RequestMethod.GET)
+  public String redirect(Model model) {
+    return "redirect:" + this.STOCKADMINFRONTENDTEMPLATE;
+  }
 
   /**
    * Homepage
-   * 
-   * @param model Template model
+   *
+   * @param model  Template model
    * @param locale Current locale
    * @return The template's name.
    */

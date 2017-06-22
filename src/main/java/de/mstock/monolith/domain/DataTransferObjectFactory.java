@@ -86,6 +86,8 @@ public class DataTransferObjectFactory {
     ProductI18n i18n = product.getI18n().get(locale.getLanguage());
     String price = numberFormat.format(i18n.getPrice());
     ProductDTO productDTO = new ProductDTO();
+    // Addition: productDTO.setID()
+    productDTO.setId(product.getId());
     productDTO.setItemNumber(product.getItemNumber());
     productDTO.setUnit(product.getUnit());
     productDTO.setName(i18n.getName());

@@ -59,6 +59,19 @@ public class ShopService {
   }
 
   /**
+   * Gets all products in the current language.
+   *
+   * @return A simplified Data Transfer Object.
+   */
+  public List<ProductDTO> getAllProducts(Locale locale) {
+    String language = locale.getLanguage();
+    List<Product> products = productRepository.findAll();
+    List<ProductDTO> productsDTO =
+            dtoFactory.createProductWithoutReviewsDTOs(products, locale);
+    return Collections.unmodifiableList(productsDTO);
+  }
+
+  /**
    * Gets a product in the current language.
    * 
    * @return A simplified Data Transfer Object.
