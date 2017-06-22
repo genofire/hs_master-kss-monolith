@@ -13,27 +13,27 @@ import (
 // Config file for this daemon (more information at the config_example.conf in this git repository)
 type Config struct {
 	// address under which the api and static content of the webserver runs
-	WebserverBind            string `toml:"webserver_bind"`
+	WebserverBind string `toml:"webserver_bind"`
 
 	// path to deliver static content
-	Webroot                  string `toml:"webroot"`
+	Webroot string `toml:"webroot"`
 
-	Database                 database.Config   `toml:"database"`
-	GoodRelease              GoodReleaseConfig `toml:"good_release"`
-	CacheClean               CacheWorkerConfig `toml:"cache_clean"`
+	Database    database.Config   `toml:"database"`
+	GoodRelease GoodReleaseConfig `toml:"good_release"`
+	CacheClean  CacheWorkerConfig `toml:"cache_clean"`
 
 	// path to the SVG image templates to show the availability and freshness
 	// of a given good with a traffic light food labeling system
 	GoodAvailabilityTemplate string `toml:"good_availablity_template"`
 	GoodFreshnessTemplate    string `toml:"good_freshness_template"`
 
-	FouledDeleter            Duration `toml:"fouled_deleted"`
+	FouledDeleter Duration `toml:"fouled_deleted"`
 
 	// URLs to other microservices, which this service uses
 	MicroserviceDependencies struct {
-					 Product    string `toml:"product"`
-					 Permission string `toml:"permission"`
-				 } `toml:"microservice_dependencies"`
+		Product    string `toml:"product"`
+		Permission string `toml:"permission"`
+	} `toml:"microservice_dependencies"`
 }
 
 // Configuration of the Worker to clean the cache from values of other microservice

@@ -28,8 +28,8 @@ func (d *Duration) UnmarshalTOML(dataInterface interface{}) error {
 		return fmt.Errorf("invalid duration: \"%s\"", data)
 	}
 
-	unit := data[len(data) - 1]
-	value, err := strconv.Atoi(string(data[:len(data) - 1]))
+	unit := data[len(data)-1]
+	value, err := strconv.Atoi(string(data[:len(data)-1]))
 	if err != nil {
 		return fmt.Errorf("unable to parse duration %s: %s", data, err)
 	}

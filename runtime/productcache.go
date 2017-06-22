@@ -6,8 +6,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/genofire/hs_master-kss-monolith/lib/log"
 	"sync"
+
+	"github.com/genofire/hs_master-kss-monolith/lib/log"
 )
 
 // URL to the microservice which manages the products (product catalogue)

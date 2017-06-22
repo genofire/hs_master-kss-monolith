@@ -14,7 +14,7 @@ func TestWorker(t *testing.T) {
 
 	runtime := 0
 
-	w := NewWorker(time.Duration(5) * time.Millisecond, func() {
+	w := NewWorker(time.Duration(5)*time.Millisecond, func() {
 		runtime = runtime + 1
 	})
 	go w.Start()

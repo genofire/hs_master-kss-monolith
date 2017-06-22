@@ -12,16 +12,16 @@ import (
 
 // Type of goods managed in this stock microservice
 type Good struct {
-	ID             int64      `json:"id"`
-	ProductID      int64      `json:"product_id"`
-	Position       string     `json:"position"`
-	Comment        string     `json:"comment"`
-	FouledAt       *time.Time `json:"fouled_at"`
+	ID        int64      `json:"id"`
+	ProductID int64      `json:"product_id"`
+	Position  string     `json:"position"`
+	Comment   string     `json:"comment"`
+	FouledAt  *time.Time `json:"fouled_at"`
 
-	RecievedAt     *time.Time `sql:"default:current_timestamp" json:"recieved_at"`
+	RecievedAt *time.Time `sql:"default:current_timestamp" json:"recieved_at"`
 	// Make it temporary unusable
-	LockedAt       *time.Time `json:"-"`
-	LockedSecret   string     `json:"-"`
+	LockedAt     *time.Time `json:"-"`
+	LockedSecret string     `json:"-"`
 	// Make it unusable
 	DeletedAt      *time.Time `json:"-"`
 	ManuelleDelete bool       `json:"-"`

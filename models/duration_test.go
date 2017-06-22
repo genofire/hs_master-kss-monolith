@@ -8,7 +8,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-
 // Function to test UnmarshalTOML()
 func TestDuration(t *testing.T) {
 	assert := assert.New(t)
