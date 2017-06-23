@@ -11,7 +11,7 @@
     <tbody>
     <tr ng-repeat="item in list">
         <td>{{item.id}}</td>
-        <td><a ui-sref="item({productid: item.id})">{{item.title}}</a></td>
+        <td><a ui-sref="item({productid: item.id})">{{item.name}}</a></td>
         <td>
             <img class="icon" ng-src="{{'/api/good/availablity/'+item.id| reloadSrc}}"/>
         </td>
