@@ -6,9 +6,9 @@
 \usepackage[utf8]{inputenc}					% Eingabe encoding
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage{xcolor}							% Farben
-\usepackage{framed, color}					% Hintergrundfarben für Boxen
+\usepackage{framed}					% Hintergrundfarben für Boxen
 \usepackage{textcomp}						% Sonderzeichen
-\usepackage{amsmath}     
+\usepackage{amsmath}
 \usepackage[automark,headsepline]{scrpage2} % Kopf- und Fußzeilen
 \usepackage{amsmath,amsfonts,amssymb}		% Mathematik
 \usepackage{graphicx}						% Bilder einfügen
@@ -40,8 +40,8 @@
 % ---- Geometrie und Schrift --------------------------------------------------------------------------------
 \geometry{verbose,a4paper,tmargin=2.5cm,bmargin=2cm,lmargin=2.5cm,rmargin=2.5cm,headsep=1.5cm}
 
-\renewcommand*\familydefault{ppl} 
-\linespread{1.2} 
+\renewcommand*\familydefault{ppl}
+\linespread{1.2}
 
 
 \titleformat*{\section}{\LARGE}
@@ -78,17 +78,17 @@
 
 \setcounter{secnumdepth}{4}
 \setcounter{tocdepth}{4}
- 
+
 
 % ---- Listings ----------------------------------------------------------------------------------------------
 \lstset{
 basicstyle=\ttfamily\color{black}\small,
 backgroundcolor=\color{listings},
-keywordstyle=\color{black}, 
-identifierstyle=\color{black}, 
-commentstyle=\color{black}, 
+keywordstyle=\color{black},
+identifierstyle=\color{black},
+commentstyle=\color{black},
 showspaces=false,
-showtabs=false, 
+showtabs=false,
 breaklines=true,
 xleftmargin=0pt,
 xrightmargin=0pt,
@@ -100,13 +100,26 @@ xrightmargin=0pt,
 \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}    % Blocksatz zentriert
 \newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}   % Blocksatz rechtsbündig
 
-  
+
 \setlist[itemize]{leftmargin=*}
 \renewcommand*\labelitemi{$-$}
 \setlist[1]{itemsep=-0.5pt}
- 
+
  % \hyphenation{}	Eigene Worttrennung
 
+% Patch
+\definecolor{diffstart}{named}{gray}
+\definecolor{diffincl}{HTML}{00A64F}
+\definecolor{diffrem}{named}{red}
+
+\lstdefinelanguage{diff}{
+  basicstyle=\ttfamily\small,
+  morecomment=[f][\color{diffstart}]{diff},
+  morecomment=[f][\color{diffstart}]{index},
+  morecomment=[f][\color{diffstart}]{@@},
+  morecomment=[f][\color{diffincl}]{+},
+  morecomment=[f][\color{diffrem}]{-},
+}
 
 %------------------------------------------------------------------------------------------------------------
 % ---- Definitionen -----------------------------------------------------------------------------------------
