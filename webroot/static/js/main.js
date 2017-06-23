@@ -46,7 +46,7 @@ var config = {
     },
   },
   'microservice_dependencies': {
-    'products': '/api-test/product/',
-    'productById': '/api-test/product/%d/'
+    'products': 'http://localhost:8080/products.json',
+    'productById': 'http://localhost:8080/products/%d.json'
   }
 };
