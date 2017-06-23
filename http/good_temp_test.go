@@ -16,4 +16,7 @@ func TestTempFuncs(t *testing.T) {
 	// TODO is there a other way to calc this?
 	resultFloat := tempProcessRadius(3, 9, 0)
 	assert.Equal(float64(0), resultFloat)
+
+	resultFloat = tempProcessRadius(12, 9, 10)
+	assert.Equal(float64(0), resultFloat)
 }

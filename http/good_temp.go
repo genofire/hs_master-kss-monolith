@@ -21,6 +21,9 @@ func tempPercent(value, max int) int {
 
 // Function to calculate a partial radius, depending on a percentage value
 func tempProcessRadius(value, max, radius int) float64 {
+	if value >= max {
+		return 0
+	}
 	return (1 - float64(value)/float64(max)) * float64(radius) * 2 * 3.14
 }
 
