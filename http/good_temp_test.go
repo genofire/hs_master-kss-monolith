@@ -13,6 +13,9 @@ func TestTempFuncs(t *testing.T) {
 	resultInt := tempPercent(3, 9)
 	assert.Equal(33, resultInt)
 
+	resultInt = tempPercent(13, 9)
+	assert.Equal(100, resultInt)
+
 	// TODO is there a other way to calc this?
 	resultFloat := tempProcessRadius(3, 9, 0)
 	assert.Equal(float64(0), resultFloat)

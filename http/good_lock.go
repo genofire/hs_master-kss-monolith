@@ -3,6 +3,7 @@ package http
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/genofire/hs_master-kss-monolith/lib/database"
 	lib "github.com/genofire/hs_master-kss-monolith/lib/http"
@@ -45,12 +46,12 @@ func lockGoods(w http.ResponseWriter, r *http.Request) {
 	}
 
 	tx := database.Write.Begin()
+	defer tx.Rollback()
 	count := int64(0)
 
 	for _, good := range goods {
 		if good.ProductID <= 0 {
 			log.Warn("tried to log nothing")
-			tx.Rollback()
 			http.Error(w, "tried to log nothing", http.StatusBadRequest)
 			return
 		}
@@ -59,7 +60,6 @@ func lockGoods(w http.ResponseWriter, r *http.Request) {
 			db := g.FilterAvailable(tx).First(g)
 			if db.RecordNotFound() {
 				log.Warn("good not found")
-				tx.Rollback()
 				http.Error(w, "the good was not found in database", http.StatusNotFound)
 				return
 			}
@@ -69,7 +69,6 @@ func lockGoods(w http.ResponseWriter, r *http.Request) {
 
 			if db.Error != nil || db.RowsAffected != 1 {
 				http.Error(w, "the good was not found in database", http.StatusInternalServerError)
-				tx.Rollback()
 				log.Panic("there is more than one good locked: ", db.Error)
 				return
 			}
@@ -87,9 +86,69 @@ func lockGoods(w http.ResponseWriter, r *http.Request) {
 func releaseGoods(w http.ResponseWriter, r *http.Request) {
 	log := logger.HTTP(r)
 	secret := r.Header.Get("secret")
+	if secret == "" {
+		log.Warn("no secred for locking given")
+		http.Error(w, "no secred for locking given", http.StatusBadRequest)
+		return
+	}
+
+	log = log.WithField("lSecret", secret)
+	var goods []*LockGood
+
+	err := lib.Read(r, &goods)
+
+	if err != nil {
+		log.Warn(err.Error())
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	if len(goods) <= 0 {
+		log.Warn("tried to log nothing")
+		http.Error(w, "tried to log nothing", http.StatusBadRequest)
+		return
+	}
+
+	tx := database.Write.Begin()
+	defer tx.Rollback()
+	for _, good := range goods {
+		if good.ProductID <= 0 {
+			log.Warn("tried to log nothing")
+			http.Error(w, "tried to release nothing", http.StatusBadRequest)
+			return
+		}
+		for i := 0; i < good.Count; i++ {
+			g := &models.Good{}
+			db := tx.Where(map[string]interface{}{"product_id": good.ProductID, "locked_secret": secret}).First(g)
+			if db.RecordNotFound() {
+				log.Warn("good not found")
+				http.Error(w, "the good was not found in database", http.StatusNotFound)
+				return
+			}
+
+			g.Unlock(secret)
+			db = tx.Save(g)
+
+			if db.Error != nil || db.RowsAffected != 1 {
+				http.Error(w, "the good was not found in database", http.StatusInternalServerError)
+				log.Panic("there is more than one good released: ", db.Error)
+				return
+			}
+		}
+	}
+
+	lib.Write(w, true)
+	tx.Commit()
+	log.Info("done")
+}
+
+// Function to del locked goods
+func delLockedGoods(w http.ResponseWriter, r *http.Request) {
+	log := logger.HTTP(r)
+	secret := r.Header.Get("secret")
 	log = log.WithField("lSecret", secret)
 
-	db := database.Write.Model(&models.Good{}).Where(&models.Good{LockedSecret: secret}).Updates(map[string]interface{}{"locked_secret": nil, "locked_at": nil})
+	db := database.Write.Model(&models.Good{}).Where(&models.Good{LockedSecret: secret}).Updates(map[string]interface{}{"deleted_at": time.Now(), "locked_secret": ""})
 	err := db.Error
 	result := db.RowsAffected
 
@@ -101,7 +160,7 @@ func releaseGoods(w http.ResponseWriter, r *http.Request) {
 
 	if result <= 0 {
 		log.Warn("no goods found")
-		http.Error(w, "there are no goods to release", http.StatusNotFound)
+		http.Error(w, "there are no goods to buy", http.StatusNotFound)
 		return
 	}
 

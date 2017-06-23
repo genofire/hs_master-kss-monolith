@@ -16,6 +16,9 @@ var GoodFreshnessTemplate string
 
 // Function to calculate a percent value from a given value and a maximum value
 func tempPercent(value, max int) int {
+	if value >= max {
+		return 100
+	}
 	return value * 100 / max
 }
 

@@ -31,7 +31,7 @@
                     <div class="default text">Select Product</div>
                     <div class="menu">
                         <div class="item" ng-repeat="item in products" data-value="{{item.id}}"><img class="icon"
-                                                                                                     ng-src="{{'/api/good/availablity/'+item.id| reloadSrc}}"/>{{item.title}}
+                                                                                                     ng-src="{{'/api/good/availablity/'+item.id| reloadSrc}}"/>{{item.name}}
                         </div>
                     </div>
                 </div>
@@ -55,13 +55,14 @@
         <tbody>
         <tr ng-repeat="item in cart">
             <td>{{item.count}}</td>
-            <td>{{getProduct(item.product_id).title}}</td>
+            <td>{{getProduct(item.product_id).name}}</td>
             <td>
                 <div class="ui button icon" ng-click="del(item)"><i class="icon trash"></i></div>
             </td>
         </tr>
         </tbody>
     </table>
+    <button class="ui icon button" tabindex="0" ng-click="buy()"><i class="icon shop"></i>Buy</button>
 </div>
 
 <footer class="ui vertical footer segment">
@@ -81,7 +82,8 @@
 			'products': '/api-test/product/',
 			'productById': '/api-test/product/%d/',
 			'lockGoods': '/api/goods/locking',
-			'unlockGoods': '/api/goods/locking'
+			'unlockGoods': '/api/goods/locking',
+			'buyGoods': '/api/goods/locking',
 	  }
 	};
 
@@ -127,8 +129,9 @@
 	  })
 		.controller('MainCtrl',['$scope', '$http',function($scope, $http) {
 			$scope.products = [];
-			$scope.goods = {count:1};
+			$scope.goods = {count: 1};
 			$scope.cart = [];
+			let secret = createUUID();
 
 			$http.get(config.microservice_dependencies.products).then(function(res) {
 				$scope.products = res.data;
@@ -136,19 +139,24 @@
 
 			function load() {
 				const tmp = JSON.parse(localStorage.getItem("cart"));
+				const secretTmp = JSON.parse(localStorage.getItem("cart"));
 				if(tmp) {
 					$scope.cart = tmp.map((item) => {
 						delete item.$$hashKey
 						return item;
 					});
 				}
+				if(secretTmp && secretTmp === "") {
+					secret = secretTmp;
+				}
 			}
-			function save(){
-				localStorage.setItem("cart",JSON.stringify($scope.cart));
+			function save() {
+				localStorage.setItem("cart", JSON.stringify($scope.cart));
+				localStorage.setItem("secret", secret);
 			}
 			load();
 
-			$scope.getProduct = function getProduct(id){
+			$scope.getProduct = function getProduct(id) {
 				if(id) {
 					return $scope.products.filter((item) => item.id === id)[0];
 				}
@@ -156,7 +164,6 @@
 
 			$scope.add = function add() {
 				$scope.goods.product_id = selectedProduct;
-				const secret = createUUID();
 				$http({
 					method: 'POST',
 					headers: {
@@ -166,10 +173,9 @@
 					data: [$scope.goods]
 				}).then(function(res) {
 					console.log('add', $scope.goods);
-					$scope.goods.secret = secret;
 					$scope.cart.push($scope.goods);
 					save();
-					$scope.goods = {count:1};
+					$scope.goods = {count: 1};
 				});
 			};
 
@@ -177,9 +183,11 @@
 				$http({
 					method: 'DELETE',
 					headers: {
-						'secret': entry.secret
+						'secret': secret,
+						'Content-Type': 'application/json',
 					},
-					url: config.microservice_dependencies.unlockGoods
+					url: config.microservice_dependencies.unlockGoods,
+					data: [entry]
 				}).then(function(res) {
 					console.log('del', entry);
 					$scope.cart = $scope.cart.filter((item) => item !== entry);
@@ -187,9 +195,25 @@
 				});
 			};
 
+			$scope.buy = function buy() {
+				$http({
+					method: 'PUT',
+					headers: {
+						'secret': secret
+					},
+					url: config.microservice_dependencies.buyGoods,
+				}).then(function(res) {
+					console.log('buy');
+					$scope.reset();
+				},function(err) {
+					console.warn('buy', err);
+				});
+			};
+
 			$scope.reset = function reset() {
 				console.log("reset");
-				localStorage.setItem("cart","[]");
+				localStorage.setItem("cart", "[]");
+				localStorage.setItem("secret", createUUID());
 				load();
 			};
 

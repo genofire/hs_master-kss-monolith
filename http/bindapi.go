@@ -20,4 +20,5 @@ func BindAPI(router *goji.Mux) {
 
 	router.HandleFunc(pat.Post("/api/goods/locking"), lockGoods)
 	router.HandleFunc(pat.Delete("/api/goods/locking"), releaseGoods)
+	router.HandleFunc(pat.Put("/api/goods/locking"), delLockedGoods)
 }
