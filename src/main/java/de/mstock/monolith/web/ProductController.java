@@ -31,7 +31,7 @@ public class ProductController {
 
   /**
    * Product page
-   * 
+   *
    * @param prettyUrlFragment Pretty URL fragment
    * @param model Template model
    * @param locale Current locale
@@ -46,7 +46,7 @@ public class ProductController {
 
   /**
    * Post a review
-   * 
+   *
    * @param reviewForm Form data
    * @param bindingResult Form binding result after validation
    * @param prettyUrlFragment Product context
@@ -69,10 +69,10 @@ public class ProductController {
     return TEMPLATE;
   }
 
-  @RequestMapping(value = "/products/{prettyUrlFragment:[\\w-]+}.json", method = RequestMethod.GET)
+  @RequestMapping(value = "/products/{id}.json", method = RequestMethod.GET)
   @ResponseBody
-  public ProductDTO productJson(@PathVariable String prettyUrlFragment, Locale locale) {
-    return shopService.getProduct(locale, prettyUrlFragment);
+  public ProductDTO productJson(@PathVariable Integer id, Locale locale) {
+    return shopService.getProduct(locale, id);
   }
 
   @RequestMapping(value = "/products.json", method = RequestMethod.GET)

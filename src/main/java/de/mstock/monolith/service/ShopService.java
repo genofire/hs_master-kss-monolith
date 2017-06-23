@@ -30,7 +30,7 @@ public class ShopService {
 
   /**
    * Gets all categories of the current language.
-   * 
+   *
    * @return A simplified Data Transfer Object.
    */
   public List<CategoryDTO> getCategories(Locale locale) {
@@ -44,7 +44,7 @@ public class ShopService {
 
   /**
    * Gets all products for a category in the current language.
-   * 
+   *
    * @return A simplified Data Transfer Object.
    */
   public List<ProductDTO> getProductsForCategory(Locale locale, String prettyUrlFragment) {
@@ -73,7 +73,20 @@ public class ShopService {
 
   /**
    * Gets a product in the current language.
-   * 
+   *
+   * @return A simplified Data Transfer Object.
+   */
+  public ProductDTO getProduct(Locale locale, Integer id) {
+    Product product = productRepository.findByID(locale.getLanguage(), id);
+    if (product == null) {
+      throw new NotFoundException();
+    }
+    return dtoFactory.createProductDTO(product, locale);
+  }
+
+  /**
+   * Gets a product in the current language.
+   *
    * @return A simplified Data Transfer Object.
    */
   public ProductDTO getProduct(Locale locale, String prettyUrlFragment) {

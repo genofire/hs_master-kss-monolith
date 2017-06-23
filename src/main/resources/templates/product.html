@@ -33,7 +33,7 @@
         <h2 th:text="${product.name}">Product Name</h2>
 
         <!-- Addition: traffic light food labeling system of the stock microservice -->
-        <img width="10%" class="icon" th:src="${'https://stock.pub.warehost.de/api/good/availablity/'+product.id}"/>
+        <img width="10%" class="icon" th:src="${'http://localhost:8081/api/good/availablity/'+product.id}"/>
 
         <p class="text-info text-uppercase" th:text="${product.price}">0,00 Euro</p>
         <p class="lead" th:text="${product.description}">Description.</p>
